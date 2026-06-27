@@ -10,6 +10,23 @@ it can and can't do.
 > orchestration layer above Apple, Google, Norton, McAfee and the enterprise
 > labs.
 
+## Two apps, one brain
+
+| | Where | Run it |
+| --- | --- | --- |
+| **📱 Native iPhone app** (`mobile/`) | Expo SDK 54 · React Native · runs in **Expo Go** on your iPhone | [`mobile/HOW-TO-RUN-IPHONE.md`](mobile/HOW-TO-RUN-IPHONE.md) |
+| **🖥️ Web app / PWA** (repo root) | Next.js · also installable to a phone home screen | [`HOW-TO-RUN.md`](HOW-TO-RUN.md) |
+
+Both share the same pure-TypeScript **Trust Engine** (`src/lib/trust-engine`,
+copied into `mobile/lib/trust-engine`) — five signal families, the Canadian
+scam-script corpus, twelve languages, the transparent combiner. In the native
+app it runs **fully on-device**.
+
+The native app is the flagship: a professional dark design system (vector icons,
+restrained palette, real typography), a bottom **tab bar** (Dashboard · Protect ·
+Map · Family · Features), a **main Dashboard** that summarises everything, and a
+native **Apple-Maps** threat map. Verified to bundle cleanly for iOS.
+
 This repository is a **working reference build** of that thesis: a real,
 runnable Trust Engine (the licensable "brain") wired into the consumer surfaces
 that make up the MVP wedge.

@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "KinShield",
+    "slug": "kinshield",
+    "scheme": "kinshield",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0B0F1A",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0B0F1A",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kinshield.app",
+      "config": { "usesNonExemptEncryption": false }
+    },
+    "android": {
+      "package": "com.kinshield.app",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": false }
+  }
+}
