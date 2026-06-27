@@ -134,6 +134,46 @@ describe("Trust Engine — calibrated honesty", () => {
   });
 });
 
+describe("Trust Engine — expanded corpus", () => {
+  it("flags a utility-disconnection threat", () => {
+    const r = scoreTrust({ text: "BC Hydro: your power will be disconnected in 30 minutes for an overdue bill. Pay the reconnection fee now or a technician is on the way.", channel: "call_transcript" });
+    expect(r.detectedScript?.id).toBe("utility_disconnect");
+    expect(r.trustScore).toBeLessThan(45);
+  });
+
+  it("flags an unpaid-toll smish", () => {
+    const r = scoreTrust({ text: "Final notice: you have an unpaid toll charge of $4.80. Pay your toll now to avoid penalties: http://407-toll-pay.top/pay", channel: "sms" });
+    expect(r.detectedScript?.id).toBe("toll_unpaid");
+    expect(r.trustScore).toBeLessThan(45);
+  });
+
+  it("flags an 'is this you' account-takeover OTP scam", () => {
+    const r = scoreTrust({ text: "Amazon security: did you try to log in? We sent you a code — reply YES to verify and read us the one-time code to confirm it's you.", channel: "sms" });
+    expect(r.detectedScript?.id).toBe("account_takeover_otp");
+    expect(r.trustScore).toBeLessThan(45);
+  });
+
+  it("flags a sight-unseen rental deposit scam", () => {
+    const r = scoreTrust({ text: "I'm currently abroad and can't show it in person, but if you e-transfer the deposit to hold it, the keys will be couriered to you.", channel: "unknown" });
+    expect(r.detectedScript?.id).toBe("rental_deposit");
+  });
+});
+
+describe("Trust Engine — twelve-language labels", () => {
+  it("renders verdict + action labels in Spanish, Korean, Arabic", () => {
+    for (const language of ["es", "ko", "ar"] as const) {
+      const e = explain(scoreTrust({ text: "hello", language }));
+      expect(e.verdictLabel.length).toBeGreaterThan(0);
+      expect(e.actionLabel.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("auto-detects Korean and Arabic scripts", () => {
+    expect(scoreTrust({ text: "국세청입니다. 즉시 비트코인으로 지불하지 않으면 체포됩니다." }).language).toBe("ko");
+    expect(scoreTrust({ text: "هذه وكالة الإيرادات. ادفع فورًا أو سيتم اعتقالك." }).language).toBe("ar");
+  });
+});
+
 describe("Trust Engine — localization", () => {
   it("renders reasons in French when asked", () => {
     const r = scoreTrust({

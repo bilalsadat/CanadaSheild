@@ -11,8 +11,24 @@
  * cross-examined. Honesty is an engineering property here, not a slogan.
  */
 
-/** The twelve target languages ship in stages; these four are P0 (MVP). */
-export type Language = "en" | "fr" | "pa" | "zh";
+/**
+ * The twelve target languages, chosen by where Canadian losses concentrate.
+ * (Mandarin & Cantonese share the "zh" written form.) EN/FR/PA/ZH are the
+ * validated P0 set; the rest are seed quality — see the calibration page, which
+ * states honestly which languages are certified vs seeded.
+ */
+export type Language =
+  | "en" // English
+  | "fr" // Quebec French
+  | "pa" // Punjabi
+  | "zh" // Mandarin / Cantonese
+  | "es" // Spanish
+  | "tl" // Tagalog
+  | "ar" // Arabic
+  | "vi" // Vietnamese
+  | "ko" // Korean
+  | "pt" // Portuguese
+  | "hi"; // Hindi
 
 /** Which surface produced the input — tunes weighting and explanations. */
 export type Channel =

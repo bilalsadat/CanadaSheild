@@ -25,8 +25,13 @@ When `npm run dev` starts, it prints two URLs, e.g.:
 1. Make sure your **phone and computer are on the same Wi-Fi**.
 2. On your phone's browser, type the **Network** URL exactly (e.g. `http://10.0.0.125:3000`).
    (Your number will differ — use the one your terminal shows.)
-3. KinShield loads. Add it to your home screen for an app-like feel
-   (Safari: Share → Add to Home Screen).
+3. KinShield loads. **Install it as an app** — it's a real PWA:
+   - **iPhone (Safari):** Share → *Add to Home Screen*.
+   - **Android (Chrome):** menu (⋮) → *Install app* / *Add to Home Screen*.
+   It then opens full-screen with its own icon, like a native app, and the
+   on-device checks even work offline.
+4. First launch walks you through a 60-second setup (`/welcome`) and drops you on
+   your personalized **Dashboard**.
 
 If the phone can't connect, your computer's firewall may be blocking it:
 - **Windows:** allow Node.js through the firewall when prompted (or temporarily

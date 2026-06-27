@@ -16,14 +16,23 @@ export function normalize(text: string): string {
  * right multilingual trigger set when the caller didn't specify one.
  */
 export function detectLanguage(text: string): Language {
-  if (/[一-鿿]/.test(text)) return "zh"; // CJK Han
+  // Script-based detection first (unambiguous).
+  if (/[가-힣]/.test(text)) return "ko"; // Hangul
+  if (/[؀-ۿ]/.test(text)) return "ar"; // Arabic
+  if (/[ऀ-ॿ]/.test(text)) return "hi"; // Devanagari
   if (/[਀-੿]/.test(text)) return "pa"; // Gurmukhi
-  // French heuristic: accents + common function words.
-  const fr = /\b(vous|votre|compte|veuillez|merci|cliquez|virement|argent|s'il)\b/i;
-  if (fr.test(text) || /[àâçéèêëîïôûù]/i.test(text)) {
-    // Only call it French if there's an actual French function word, not just an accent.
-    if (fr.test(text)) return "fr";
-  }
+  if (/[一-鿿]/.test(text)) return "zh"; // CJK Han
+  if (/[À-ỹ]/.test(text) && /\b(không|bạn|của|tài khoản|ngân hàng|chuyển)\b/i.test(text)) return "vi";
+
+  // Latin-script languages by function words.
+  const fr = /\b(vous|votre|compte|veuillez|merci|cliquez|virement|argent|s'il|impôt)\b/i;
+  const es = /\b(usted|su cuenta|por favor|haga clic|dinero|banco|gracias|tarjeta)\b/i;
+  const pt = /\b(você|sua conta|por favor|clique|dinheiro|banco|obrigado|cartão)\b/i;
+  const tl = /\b(ang|mga|iyong|account|pakiusap|salamat|pera|bangko|padala)\b/i;
+  if (fr.test(text)) return "fr";
+  if (es.test(text)) return "es";
+  if (pt.test(text)) return "pt";
+  if (tl.test(text)) return "tl";
   return "en";
 }
 

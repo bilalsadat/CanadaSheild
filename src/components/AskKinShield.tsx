@@ -5,6 +5,7 @@ import { checkTrust, reportArtifact, type CheckResponse } from "@/lib/client";
 import { extractUrls } from "@/lib/trust-engine/util";
 import type { Channel, Language } from "@/lib/trust-engine";
 import { VerdictCard } from "./VerdictCard";
+import { useKinShield } from "@/lib/store";
 
 const EXAMPLES: { label: string; text: string; channel: Channel }[] = [
   {
@@ -39,6 +40,13 @@ const LANGS: { code: Language; label: string }[] = [
   { code: "fr", label: "Français" },
   { code: "pa", label: "ਪੰਜਾਬੀ" },
   { code: "zh", label: "中文" },
+  { code: "es", label: "Español" },
+  { code: "tl", label: "Tagalog" },
+  { code: "ar", label: "العربية" },
+  { code: "vi", label: "Tiếng Việt" },
+  { code: "ko", label: "한국어" },
+  { code: "pt", label: "Português" },
+  { code: "hi", label: "हिन्दी" },
 ];
 
 export function AskKinShield({ senior = false }: { senior?: boolean }) {
@@ -49,6 +57,7 @@ export function AskKinShield({ senior = false }: { senior?: boolean }) {
   const [data, setData] = useState<CheckResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [reported, setReported] = useState(false);
+  const { addScan } = useKinShield();
 
   async function run(t = text, ch = channel) {
     if (!t.trim()) return;
@@ -62,6 +71,13 @@ export function AskKinShield({ senior = false }: { senior?: boolean }) {
         language: language || undefined,
       });
       setData(res);
+      addScan({
+        channel: ch,
+        score: res.result.trustScore,
+        verdict: res.result.verdict,
+        snippet: t.slice(0, 80),
+        scriptLabel: res.result.detectedScript?.label,
+      });
       if (senior && typeof window !== "undefined" && "speechSynthesis" in window) {
         speak(res);
       }
@@ -184,7 +200,10 @@ function speak(res: CheckResponse) {
   try {
     const synth = window.speechSynthesis;
     synth.cancel();
-    const localeMap: Record<string, string> = { en: "en-CA", fr: "fr-CA", pa: "pa-IN", zh: "zh-CN" };
+    const localeMap: Record<string, string> = {
+      en: "en-CA", fr: "fr-CA", pa: "pa-IN", zh: "zh-CN", es: "es-ES", tl: "fil-PH",
+      ar: "ar-SA", vi: "vi-VN", ko: "ko-KR", pt: "pt-BR", hi: "hi-IN",
+    };
     const u = new SpeechSynthesisUtterance(
       `${res.rendered.verdictLabel}. Trust score ${res.result.trustScore} out of 100. ${res.rendered.actionLabel}. ${res.rendered.reasons[0] ?? ""}`,
     );

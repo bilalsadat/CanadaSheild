@@ -33,6 +33,10 @@ export const LABELED_SET: LabeledCase[] = [
   { id: "sext-1", fraud: true, channel: "sms", text: "I recorded you through your camera. Pay 0.05 bitcoin within 24 hours or I send the video to all your contacts." },
   { id: "zh-1", fraud: true, language: "zh", text: "税务局通知：您的社会保险号已冻结，请立即用比特币付款，否则将被逮捕。" },
   { id: "fr-1", fraud: true, language: "fr", text: "Agence du revenu: votre numéro d'assurance sociale est suspendu. Mandat d'arrêt. Payez immédiatement avec une carte cadeau." },
+  { id: "util-1", fraud: true, channel: "call_transcript", text: "BC Hydro final notice: your power will be disconnected in 30 minutes. Pay the reconnection fee immediately with a prepaid card." },
+  { id: "toll-1", fraud: true, channel: "sms", text: "Final notice: you have an unpaid toll of $4.80. Pay now to avoid penalties: http://407-toll-pay.top/pay" },
+  { id: "ato-1", fraud: true, channel: "sms", text: "Amazon: did you try to log in? Reply YES to verify and read us the one-time code to confirm it's you." },
+  { id: "rental-1", fraud: true, text: "I'm currently abroad and can't show the apartment in person. E-transfer the deposit to hold it and the keys will be couriered." },
 
   // ---- Legitimate cases (should score high) ----
   { id: "legit-1", fraud: false, channel: "sms", text: "Hey, are we still on for dinner at 7 tonight? Let me know!" },

@@ -45,6 +45,7 @@ export default function MapPage() {
   const [stats, setStats] = useState({ artifacts: 0, totalReports: 0 });
   const [ready, setReady] = useState(false);
   const [err, setErr] = useState(false);
+  const [cat, setCat] = useState<string>("All");
 
   // Load data.
   useEffect(() => {
@@ -76,14 +77,19 @@ export default function MapPage() {
     };
   }, []);
 
-  // Draw markers when both map + data are ready.
+  // Category list for the filter.
+  const categories = ["All", ...Array.from(new Set(points.map((p) => p.topCategory)))];
+  const shown = cat === "All" ? points : points.filter((p) => p.topCategory === cat);
+
+  // Draw markers when map + data + filter change.
   useEffect(() => {
     const L = (window as any).L;
-    if (!ready || !L || !layerRef.current || points.length === 0) return;
+    if (!ready || !L || !layerRef.current) return;
     layerRef.current.clearLayers();
-    const max = Math.max(...points.map((p) => p.reports), 1);
+    if (shown.length === 0) return;
+    const max = Math.max(...shown.map((p) => p.reports), 1);
 
-    for (const p of points) {
+    for (const p of shown) {
       const intensity = p.reports / max;
       const radius = 14 + intensity * 30;
       // soft heat halo
@@ -114,9 +120,9 @@ export default function MapPage() {
         )
         .addTo(layerRef.current);
     }
-  }, [ready, points]);
+  }, [ready, points, cat]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const briefs = buildBriefs(points);
+  const briefs = buildBriefs(shown);
 
   return (
     <div className="space-y-6 py-4">
@@ -133,6 +139,23 @@ export default function MapPage() {
         <Stat big={points.length.toString()} small="cities with active threat clusters" />
         <Stat big={stats.totalReports.toLocaleString()} small="community reports mapped" />
         <Stat big={stats.artifacts.toLocaleString()} small="distinct attacker artifacts" />
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {categories.map((c) => (
+          <button
+            key={c}
+            onClick={() => setCat(c)}
+            className="rounded-full border px-3 py-1.5 text-xs transition"
+            style={{
+              borderColor: cat === c ? "#2bd9a6" : "rgba(141,163,207,0.22)",
+              background: cat === c ? "rgba(43,217,166,0.12)" : "transparent",
+              color: cat === c ? "#2bd9a6" : "#8da3cf",
+            }}
+          >
+            {c}
+          </button>
+        ))}
       </div>
 
       <div className="card overflow-hidden p-1.5">

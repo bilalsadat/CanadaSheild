@@ -252,6 +252,79 @@ export const SCAM_SCRIPTS: ScamScript[] = [
     extraction: "crypto payment under threat of releasing images (usually a bluff)",
     severity: 0.85,
   },
+  {
+    id: "utility_disconnect",
+    label: "Utility disconnection threat (hydro/gas)",
+    impersonates: ["BC Hydro", "Hydro One", "Hydro-Québec", "Enbridge", "ATCO", "Toronto Hydro"],
+    triggers: {
+      en: ["hydro", "your power will be", "disconnect", "disconnection", "overdue bill", "service will be cut", "reconnection fee", "pay within 30 minutes", "technician is on the way"],
+      fr: ["hydro-québec", "votre électricité", "débranché", "coupure", "facture en souffrance", "frais de reconnexion"],
+      zh: ["电力公司", "断电", "逾期账单", "立即付款"],
+      pa: ["ਬਿਜਲੀ", "ਕੱਟ", "ਬਿੱਲ"],
+    },
+    extraction: "urgent payment (often prepaid card) to avoid a fake same-day disconnection",
+    severity: 0.82,
+  },
+  {
+    id: "toll_unpaid",
+    label: "Unpaid toll / 407 ETR smish",
+    impersonates: ["407 ETR", "highway toll", "DriveON", "provincial tolls"],
+    triggers: {
+      en: ["unpaid toll", "outstanding toll", "407", "toll charge", "final notice before", "pay your toll", "license plate has an outstanding", "small toll balance"],
+      fr: ["péage", "péage impayé", "solde de péage", "dernier avis"],
+      zh: ["过路费", "未付通行费", "罚款"],
+    },
+    extraction: "card details for a tiny fake toll on a lookalike payment page",
+    severity: 0.68,
+  },
+  {
+    id: "rental_deposit",
+    label: "Rental deposit (sight-unseen) scam",
+    impersonates: ["landlord", "property manager", "rental listing"],
+    triggers: {
+      en: ["deposit to hold", "first and last", "i'm out of the country", "can't show it in person", "send the deposit before", "e-transfer the deposit", "keys will be couriered", "missionary", "currently abroad"],
+      fr: ["dépôt pour réserver", "je suis à l'étranger", "envoyez le dépôt", "premier et dernier mois"],
+      pa: ["ਡਿਪਾਜ਼ਿਟ", "ਕਿਰਾਇਆ"],
+    },
+    extraction: "a deposit by e-transfer for a property the 'landlord' doesn't control",
+    severity: 0.8,
+  },
+  {
+    id: "marketplace_overpay",
+    label: "Marketplace overpayment / item scam",
+    impersonates: ["buyer", "seller", "Facebook Marketplace", "Kijiji", "puppy/ticket seller"],
+    triggers: {
+      en: ["i'll send a cheque for more", "shipping company", "send back the difference", "zelle", "still available", "pay by e-transfer to hold", "my agent will pick up", "send the puppy", "extra for shipping"],
+      fr: ["je paierai plus", "renvoyez la différence", "encore disponible", "transporteur"],
+      zh: ["还在卖吗", "多付", "退还差价"],
+    },
+    extraction: "an overpayment refund, or a deposit for an item that never ships",
+    severity: 0.72,
+  },
+  {
+    id: "account_takeover_otp",
+    label: "“Is this you?” account-takeover / OTP theft",
+    impersonates: ["Amazon", "Apple", "your bank", "Microsoft", "a delivery app"],
+    triggers: {
+      en: ["did you try to log in", "is this you", "we sent you a code", "confirm it's you", "reply yes to verify", "we'll call to confirm the code", "approve the sign-in", "your one-time code is"],
+      fr: ["est-ce vous", "avez-vous essayé de vous connecter", "confirmez que c'est vous", "approuvez la connexion"],
+      zh: ["是你吗", "确认是你", "验证码", "批准登录"],
+      pa: ["ਕੀ ਇਹ ਤੁਸੀਂ ਹੋ", "ਕੋਡ"],
+    },
+    extraction: "the login-approval or OTP that hands over your account",
+    severity: 0.86,
+  },
+  {
+    id: "charity_disaster",
+    label: "Disaster / charity donation fraud",
+    impersonates: ["a charity", "disaster relief", "a GoFundMe"],
+    triggers: {
+      en: ["donate now", "disaster relief", "every dollar helps", "urgent appeal", "send crypto to help", "tax receipt", "victims need your", "donate by gift card"],
+      fr: ["faites un don", "secours aux sinistrés", "appel urgent", "reçu fiscal"],
+    },
+    extraction: "a 'donation' (often crypto or gift card) to a fake relief fund",
+    severity: 0.6,
+  },
 ];
 
 /** Universal pressure markers — the grammar of fraud, across every script. */

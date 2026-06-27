@@ -30,9 +30,13 @@ that make up the MVP wedge.
 | **Calibration** (`/transparency`) | Precision/recall/F1 **computed live in your browser** over an open labeled set, misses included. The honesty moat, made real. | ✅ |
 | **SDK** (`/sdk`) | The Bill C-15 institutional product: API contract, control kit, compliance artifacts. | ✅ (docs surface) |
 | **Feature catalogue** (`/features`) | All **30** features from the master doc — engine-backed where possible, faithful interactive demos otherwise. Each is reachable and labelled live/demo. | ✅ |
-| **Live Threat Map** (`/map`) | A Google-Maps-style heat map of Canada (Leaflet + CARTO), fed by the consented network plane, with the weekly Briefing. | ✅ |
+| **Live Threat Map** (`/map`) | A Google-Maps-style heat map of Canada (Leaflet + CARTO), fed by the consented network plane, with category filters and the weekly Briefing. | ✅ |
+| **Onboarding + Dashboard** (`/welcome`, `/dashboard`) | A real account/household setup wizard and a personalized protection center: posture score, 7-day activity, recent checks, alerts — all persisted on-device. | ✅ |
+| **Settings & Privacy** (`/settings`) | The split-plane privacy dashboard, language/Senior-Mode toggles, plan, and one-tap data export/delete. | ✅ |
+| **Installable PWA** | manifest + service worker + offline page — add KinShield to your phone's home screen and it runs like a native app. | ✅ |
+| **12 languages** | Detection + verdict/action labels across English, Quebec French, Punjabi, Mandarin/Cantonese, Spanish, Tagalog, Arabic, Vietnamese, Korean, Portuguese, Hindi (EN/FR/PA/ZH validated; rest seed — see `/transparency`). | ✅ |
 
-> **Just want to run it (incl. on your phone)?** See [`HOW-TO-RUN.md`](HOW-TO-RUN.md).
+> **Just want to run it (incl. installing on your phone)?** See [`HOW-TO-RUN.md`](HOW-TO-RUN.md).
 
 ---
 

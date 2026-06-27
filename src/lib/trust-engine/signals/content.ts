@@ -20,8 +20,9 @@ export function analyzeContent(input: CheckInput, lang: Language): SignalResult 
   let best: { script: (typeof SCAM_SCRIPTS)[number]; score: number; hits: string[] } | null = null;
   for (const script of SCAM_SCRIPTS) {
     let hits: string[] = [];
-    for (const langKey of Object.keys(script.triggers) as Language[]) {
-      const res = countHits(hay, script.triggers[langKey] ?? []);
+    const triggerSets = script.triggers as Record<string, string[]>;
+    for (const langKey of Object.keys(triggerSets)) {
+      const res = countHits(hay, triggerSets[langKey] ?? []);
       hits = hits.concat(res.hits);
     }
     if (hits.length === 0) continue;

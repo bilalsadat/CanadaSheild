@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { scoreTrust, explain } from "@/lib/trust-engine";
 import { FeatureShell } from "@/components/FeatureShell";
+import { useKinShield } from "@/lib/store";
 
 const DRILLS: { text: string; from: string; isScam: boolean }[] = [
   { from: "INTERAC", text: "Your transfer is pending. Accept within 24h: http://interac-secure-deposit.xyz/login", isScam: true },
@@ -18,6 +19,9 @@ export default function ScamDrillPage() {
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<boolean | null>(null);
   const [done, setDone] = useState(false);
+  const { setDrillBest } = useKinShield();
+
+  useEffect(() => { if (done) setDrillBest(score); }, [done, score, setDrillBest]);
 
   const d = DRILLS[i];
   const engine = scoreTrust({ text: d.text, channel: "sms" });

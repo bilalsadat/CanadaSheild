@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useKinShield } from "@/lib/store";
 
 interface Member {
   name: string;
@@ -11,7 +12,7 @@ interface Member {
   guardian?: boolean;
 }
 
-const MEMBERS: Member[] = [
+const DEMO_MEMBERS: Member[] = [
   { name: "Priya", role: "Guardian", device: "iPhone", lang: "EN/PA", guardian: true },
   { name: "Arjun", role: "Member", device: "Pixel", lang: "EN" },
   { name: "Dadi (Grandma)", role: "Protected", device: "Galaxy", lang: "ਪੰਜਾਬੀ", senior: true },
@@ -33,6 +34,20 @@ export default function FamilyPage() {
     incidentBroadcast: true,
   });
 
+  const ks = useKinShield();
+  const MEMBERS: Member[] =
+    ks.onboarded && ks.household.members.length > 0
+      ? ks.household.members.map((m) => ({
+          name: m.name,
+          role: m.role === "guardian" ? "Guardian" : m.role === "senior" ? "Protected" : "Member",
+          device: m.device,
+          lang: m.language.toUpperCase(),
+          senior: m.role === "senior",
+          guardian: m.role === "guardian",
+        }))
+      : DEMO_MEMBERS;
+  const householdName = ks.onboarded && ks.household.name ? ks.household.name : "Your household";
+
   return (
     <div className="space-y-10 py-4">
       <header className="max-w-2xl">
@@ -47,7 +62,7 @@ export default function FamilyPage() {
 
       <section className="grid gap-6 lg:grid-cols-[1fr_360px]">
         <div className="card p-6">
-          <span className="pill text-ice-dim">Your household — 5 members, 3 platforms</span>
+          <span className="pill text-ice-dim">{householdName} — {MEMBERS.length} members</span>
           <Constellation members={MEMBERS} />
           <p className="mt-2 text-center text-xs text-ice-dim">
             The only layer covering the iPhone parent, the Android senior and the desktop owner —

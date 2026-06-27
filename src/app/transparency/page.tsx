@@ -9,7 +9,13 @@ const LANG_COVERAGE = [
   { lang: "Quebec French", code: "fr", status: "validated" },
   { lang: "Punjabi", code: "pa", status: "seed" },
   { lang: "Mandarin / Cantonese", code: "zh", status: "seed" },
-  { lang: "Tagalog · Arabic · Spanish · Vietnamese · Korean · Portuguese · Hindi", code: "+8", status: "roadmap" },
+  { lang: "Spanish", code: "es", status: "seed" },
+  { lang: "Tagalog", code: "tl", status: "seed" },
+  { lang: "Arabic", code: "ar", status: "seed" },
+  { lang: "Vietnamese", code: "vi", status: "seed" },
+  { lang: "Korean", code: "ko", status: "seed" },
+  { lang: "Portuguese", code: "pt", status: "seed" },
+  { lang: "Hindi", code: "hi", status: "seed" },
 ];
 
 const NEVER_SAY = [

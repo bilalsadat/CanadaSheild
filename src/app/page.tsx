@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AskKinShield } from "@/components/AskKinShield";
+import { HomeBanner } from "@/components/HomeBanner";
 
 const STATS = [
   { big: "$638M+", small: "reported to the CAFC in 2024 — and only 5–10% is ever reported" },
@@ -38,8 +39,9 @@ export default function Home() {
   return (
     <div className="space-y-20">
       {/* HERO */}
-      <section className="pt-8">
-        <span className="pill rounded-full border border-[rgba(232,184,58,0.4)] bg-[rgba(232,184,58,0.08)] px-3 py-1.5 text-gold">
+      <section className="pt-6">
+        <HomeBanner />
+        <span className="pill mt-6 inline-block rounded-full border border-[rgba(232,184,58,0.4)] bg-[rgba(232,184,58,0.08)] px-3 py-1.5 text-gold">
           Bill C-15 · the window is measured in quarters, not years
         </span>
         <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-ice sm:text-6xl">

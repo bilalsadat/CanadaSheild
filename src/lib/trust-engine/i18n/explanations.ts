@@ -143,18 +143,18 @@ export function renderReason(reason: ReasonCode, lang: Language): string {
 }
 
 const VERDICT_LABELS: Record<Verdict, Record<Language, string>> = {
-  safe: { en: "Looks safe", fr: "Semble sûr", pa: "ਸੁਰੱਖਿਅਤ ਲੱਗਦਾ ਹੈ", zh: "看起来安全" },
-  caution: { en: "Be careful", fr: "Soyez prudent", pa: "ਸਾਵਧਾਨ ਰਹੋ", zh: "请小心" },
-  likely_scam: { en: "Likely a scam", fr: "Probablement une arnaque", pa: "ਸ਼ਾਇਦ ਧੋਖਾ", zh: "可能是诈骗" },
-  dangerous: { en: "Dangerous — do not engage", fr: "Dangereux — n'y répondez pas", pa: "ਖ਼ਤਰਨਾਕ — ਜਵਾਬ ਨਾ ਦਿਓ", zh: "危险——请勿回应" },
+  safe: { en: "Looks safe", fr: "Semble sûr", pa: "ਸੁਰੱਖਿਅਤ ਲੱਗਦਾ ਹੈ", zh: "看起来安全", es: "Parece seguro", tl: "Mukhang ligtas", ar: "يبدو آمنًا", vi: "Có vẻ an toàn", ko: "안전해 보임", pt: "Parece seguro", hi: "सुरक्षित लगता है" },
+  caution: { en: "Be careful", fr: "Soyez prudent", pa: "ਸਾਵਧਾਨ ਰਹੋ", zh: "请小心", es: "Tenga cuidado", tl: "Mag-ingat", ar: "كن حذرًا", vi: "Hãy cẩn thận", ko: "주의하세요", pt: "Tenha cuidado", hi: "सावधान रहें" },
+  likely_scam: { en: "Likely a scam", fr: "Probablement une arnaque", pa: "ਸ਼ਾਇਦ ਧੋਖਾ", zh: "可能是诈骗", es: "Probablemente una estafa", tl: "Malamang na scam", ar: "على الأرجح احتيال", vi: "Có thể là lừa đảo", ko: "사기일 가능성 높음", pt: "Provavelmente golpe", hi: "शायद धोखा" },
+  dangerous: { en: "Dangerous — do not engage", fr: "Dangereux — n'y répondez pas", pa: "ਖ਼ਤਰਨਾਕ — ਜਵਾਬ ਨਾ ਦਿਓ", zh: "危险——请勿回应", es: "Peligroso — no responda", tl: "Mapanganib — huwag tumugon", ar: "خطير — لا تتفاعل", vi: "Nguy hiểm — đừng trả lời", ko: "위험 — 응답하지 마세요", pt: "Perigoso — não responda", hi: "खतरनाक — जवाब न दें" },
 };
 
 const ACTION_LABELS: Record<RecommendedAction, Record<Language, string>> = {
-  allow: { en: "Safe to proceed", fr: "Vous pouvez continuer", pa: "ਅੱਗੇ ਵਧ ਸਕਦੇ ਹੋ", zh: "可以继续" },
-  verify: { en: "Verify before acting", fr: "Vérifiez avant d'agir", pa: "ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ", zh: "行动前请核实" },
-  do_not_engage: { en: "Do not reply or click", fr: "Ne répondez pas, ne cliquez pas", pa: "ਜਵਾਬ ਨਾ ਦਿਓ", zh: "不要回复或点击" },
-  block_and_report: { en: "Block and report", fr: "Bloquez et signalez", pa: "ਬਲਾਕ ਕਰੋ ਤੇ ਰਿਪੋਰਟ ਕਰੋ", zh: "拉黑并举报" },
-  incident_mode: { en: "Open Incident Mode now", fr: "Ouvrez le mode incident", pa: "ਇੰਸੀਡੈਂਟ ਮੋਡ ਖੋਲ੍ਹੋ", zh: "立即打开事件模式" },
+  allow: { en: "Safe to proceed", fr: "Vous pouvez continuer", pa: "ਅੱਗੇ ਵਧ ਸਕਦੇ ਹੋ", zh: "可以继续", es: "Puede continuar", tl: "Ligtas magpatuloy", ar: "يمكنك المتابعة", vi: "Có thể tiếp tục", ko: "진행해도 안전", pt: "Pode prosseguir", hi: "आगे बढ़ सकते हैं" },
+  verify: { en: "Verify before acting", fr: "Vérifiez avant d'agir", pa: "ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ", zh: "行动前请核实", es: "Verifique antes de actuar", tl: "Beripikahin muna", ar: "تحقق قبل التصرف", vi: "Xác minh trước khi hành động", ko: "행동 전 확인", pt: "Verifique antes de agir", hi: "कार्रवाई से पहले जाँचें" },
+  do_not_engage: { en: "Do not reply or click", fr: "Ne répondez pas, ne cliquez pas", pa: "ਜਵਾਬ ਨਾ ਦਿਓ", zh: "不要回复或点击", es: "No responda ni haga clic", tl: "Huwag tumugon o mag-click", ar: "لا ترد ولا تنقر", vi: "Đừng trả lời hay nhấp", ko: "응답·클릭 금지", pt: "Não responda nem clique", hi: "जवाब या क्लिक न करें" },
+  block_and_report: { en: "Block and report", fr: "Bloquez et signalez", pa: "ਬਲਾਕ ਕਰੋ ਤੇ ਰਿਪੋਰਟ ਕਰੋ", zh: "拉黑并举报", es: "Bloquee y reporte", tl: "I-block at i-report", ar: "احظر وأبلغ", vi: "Chặn và báo cáo", ko: "차단 후 신고", pt: "Bloqueie e denuncie", hi: "ब्लॉक करें और रिपोर्ट करें" },
+  incident_mode: { en: "Open Incident Mode now", fr: "Ouvrez le mode incident", pa: "ਇੰਸੀਡੈਂਟ ਮੋਡ ਖੋਲ੍ਹੋ", zh: "立即打开事件模式", es: "Abra el Modo Incidente", tl: "Buksan ang Incident Mode", ar: "افتح وضع الحادث", vi: "Mở Chế độ Sự cố", ko: "사고 모드 열기", pt: "Abra o Modo Incidente", hi: "इंसिडेंट मोड खोलें" },
 };
 
 export const verdictLabel = (v: Verdict, lang: Language): string =>
