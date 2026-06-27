@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { View, Text, TextInput, ScrollView } from "react-native";
-import { useLocalSearchParams, Stack } from "expo-router";
+import { useLocalSearchParams, Stack, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Card, H3, Body, Small, Kicker, Pill, Row, Button, IconBadge } from "../../components/ui";
 import { VerdictView } from "../../components/VerdictView";
@@ -47,7 +47,8 @@ export default function FeatureDetail() {
         {(f.slug === "ask-kinshield" || f.slug === "link-qr-checker" || f.slug === "check-before-you-send") && <InlineAsk slug={f.slug} />}
         {f.slug === "sms-shield" && <SmsDemo />}
         {f.slug === "long-con-radar" && <LongConDemo />}
-        {!["ask-kinshield", "link-qr-checker", "check-before-you-send", "sms-shield", "long-con-radar"].includes(f.slug) && f.demoLines && <Preview lines={f.demoLines} live={f.status === "live"} />}
+        {f.slug === "caller-intelligence" && <CallerCheck />}
+        {!["ask-kinshield", "link-qr-checker", "check-before-you-send", "sms-shield", "long-con-radar", "caller-intelligence"].includes(f.slug) && f.demoLines && <Preview lines={f.demoLines} live={f.status === "live"} />}
       </View>
 
       <Card style={{ marginBottom: space.md }}>
@@ -90,6 +91,7 @@ function Preview({ lines, live }: { lines: string[]; live: boolean }) {
 
 function InlineAsk({ slug }: { slug: string }) {
   const ks = useKinShield();
+  const router = useRouter();
   const placeholder = slug === "link-qr-checker" ? "Paste a link, e.g. http://interac-secure-deposit.xyz/login" : slug === "check-before-you-send" ? "Who/what are you about to pay? Add the story…" : "Paste anything suspicious…";
   const channel = slug === "link-qr-checker" ? "link" : slug === "check-before-you-send" ? "recipient" : "unknown";
   const [text, setText] = useState("");
@@ -105,9 +107,39 @@ function InlineAsk({ slug }: { slug: string }) {
 
   return (
     <View style={{ gap: space.md }}>
+      {slug === "link-qr-checker" && (
+        <Button label="Scan a real QR code" icon="qr-code" onPress={() => router.push("/scan")} />
+      )}
       <Card>
         <TextInput value={text} onChangeText={setText} placeholder={placeholder} placeholderTextColor={colors.textMute} multiline style={{ color: colors.text, fontSize: font.body, minHeight: 70, textAlignVertical: "top" }} />
         <Button label="Check it" icon="shield-checkmark" onPress={run} style={{ marginTop: 10 }} />
+      </Card>
+      {res && rend && <VerdictView result={res} rendered={rend} />}
+    </View>
+  );
+}
+
+function CallerCheck() {
+  const ks = useKinShield();
+  const [num, setNum] = useState("");
+  const [res, setRes] = useState<ReturnType<typeof scoreTrust> | null>(null);
+  const [rend, setRend] = useState<ReturnType<typeof explain> | null>(null);
+
+  function run() {
+    const digits = num.replace(/\D/g, "");
+    if (!digits) return;
+    const r = scoreTrust({ text: num, recipient: digits, channel: "call_transcript", network: networkLookup });
+    setRes(r); setRend(explain(r));
+    ks.addScan({ channel: "call_transcript", score: r.trustScore, verdict: r.verdict, snippet: `Caller ${num}`, scriptLabel: r.detectedScript?.label });
+  }
+
+  return (
+    <View style={{ gap: space.md }}>
+      <Card>
+        <Small>Check a phone number against the community network before you answer or call back.</Small>
+        <TextInput value={num} onChangeText={setNum} placeholder="e.g. 604-555-0147" placeholderTextColor={colors.textMute} keyboardType="phone-pad" style={{ color: colors.text, fontSize: font.body, marginTop: 10, backgroundColor: colors.bgElevated, borderRadius: 10, borderWidth: 1, borderColor: colors.border, paddingHorizontal: 12, paddingVertical: 10 }} />
+        <Button label="Check this number" icon="search" onPress={run} style={{ marginTop: 10 }} />
+        <Small style={{ marginTop: 8 }}>Try 604-555-0147 (flagged) or any other number.</Small>
       </Card>
       {res && rend && <VerdictView result={res} rendered={rend} />}
     </View>

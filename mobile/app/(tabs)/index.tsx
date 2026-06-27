@@ -131,7 +131,7 @@ export default function Dashboard() {
 
       {/* Quick actions */}
       <Section title="Quick actions" />
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: space.sm }}>
+      <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", rowGap: space.sm }}>
         <ActionTile icon="card" label="Before you send" onPress={() => router.push("/feature/check-before-you-send")} />
         <ActionTile icon="alert-circle" label="Incident Mode" tint={colors.danger} onPress={() => router.push("/incident")} />
         <ActionTile icon="chatbox-ellipses" label="SMS Shield" onPress={() => router.push("/feature/sms-shield")} />
@@ -167,7 +167,7 @@ function StatTile({ icon, value, label, tint, onPress }: { icon: any; value: str
 
 function ActionTile({ icon, label, onPress, tint = colors.primary }: { icon: any; label: string; onPress: () => void; tint?: string }) {
   return (
-    <Card onPress={onPress} style={{ width: "48.5%", paddingVertical: space.lg }}>
+    <Card onPress={onPress} style={{ width: "48%", paddingVertical: space.lg }}>
       <View style={{ width: 38, height: 38, borderRadius: radius.md, backgroundColor: tint + "1A", alignItems: "center", justifyContent: "center" }}>
         <Ionicons name={icon} size={20} color={tint} />
       </View>

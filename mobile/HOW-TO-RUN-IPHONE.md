@@ -52,6 +52,9 @@ A real native iOS app with a bottom tab bar:
   recent checks, quick actions. The one screen that summarises everything.
 - **Protect** — Ask KinShield. The Trust Engine runs **on-device**; paste a
   scam and get a scored verdict with the full reasoning ledger, spoken aloud.
+  Includes **Paste & check** (reads your clipboard) and **Scan a QR** — a real
+  camera QR scanner that decodes the code and checks the link before you open
+  it. (Grant the camera prompt the first time.)
 - **Map** — a native **Apple Maps** threat map of Canada with live markers,
   heat circles, category filters, and the weekly briefing.
 - **Family** — your Family Circle graph, members and shared policies.

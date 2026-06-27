@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, ScrollView, Pressable, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import * as Speech from "expo-speech";
 import * as Haptics from "expo-haptics";
+import * as Clipboard from "expo-clipboard";
 import { Card, Title, Small, Kicker, Button, Chip, Row, H3 } from "../../components/ui";
 import { VerdictView } from "../../components/VerdictView";
 import { scoreTrust, explain } from "../../lib/trust-engine";
 import { networkLookup } from "../../lib/data";
 import { useKinShield } from "../../lib/store";
-import { colors, space, font } from "../../lib/theme";
+import { colors, space, font, radius } from "../../lib/theme";
 
 const EXAMPLES: { label: string; text: string; channel: any }[] = [
   { label: "CRA arrest call", channel: "call_transcript", text: "This is the CRA. Your social insurance number has been suspended for tax fraud and an arrest warrant has been issued. Do not hang up. Pay immediately with gift cards or press 1." },
@@ -18,11 +20,39 @@ const EXAMPLES: { label: string; text: string; channel: any }[] = [
   { label: "Normal text", channel: "sms", text: "Hey! Are we still on for dinner at 7 tonight? Let me know." },
 ];
 
+const captureStyle = {
+  flex: 1,
+  flexDirection: "row" as const,
+  alignItems: "center" as const,
+  justifyContent: "center" as const,
+  gap: 8,
+  backgroundColor: colors.surface,
+  borderWidth: 1,
+  borderColor: colors.border,
+  borderRadius: radius.md,
+  paddingVertical: 14,
+};
+
 export default function Protect() {
   const ks = useKinShield();
+  const router = useRouter();
   const [text, setText] = useState("");
   const [result, setResult] = useState<ReturnType<typeof scoreTrust> | null>(null);
   const [rendered, setRendered] = useState<ReturnType<typeof explain> | null>(null);
+
+  async function pasteAndCheck() {
+    try {
+      const clip = await Clipboard.getStringAsync();
+      if (clip && clip.trim()) {
+        setText(clip);
+        run(clip, "unknown");
+      } else {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+      }
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
 
   function run(t = text, channel: any = "unknown") {
     if (!t.trim()) return;
@@ -65,6 +95,18 @@ export default function Protect() {
             )}
           </Row>
         </Card>
+
+        {/* Real on-device capture actions */}
+        <Row style={{ gap: space.md, marginBottom: space.lg }}>
+          <Pressable onPress={pasteAndCheck} style={captureStyle}>
+            <Ionicons name="clipboard-outline" size={20} color={colors.primary} />
+            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>Paste & check</Text>
+          </Pressable>
+          <Pressable onPress={() => router.push("/scan")} style={captureStyle}>
+            <Ionicons name="qr-code-outline" size={20} color={colors.primary} />
+            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>Scan a QR</Text>
+          </Pressable>
+        </Row>
 
         <Kicker color={colors.textDim} >Try a real example</Kicker>
         <Row style={{ flexWrap: "wrap", gap: 8, marginTop: 10, marginBottom: space.lg }}>

@@ -30,6 +30,7 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="welcome" options={{ headerShown: false, presentation: "modal" }} />
             <Stack.Screen name="feature/[slug]" options={{ title: "" }} />
+            <Stack.Screen name="scan" options={{ title: "Scan QR" }} />
             <Stack.Screen name="incident" options={{ title: "Incident Mode" }} />
             <Stack.Screen name="scam-drill" options={{ title: "Scam Drill" }} />
             <Stack.Screen name="settings" options={{ title: "Settings & Privacy" }} />
