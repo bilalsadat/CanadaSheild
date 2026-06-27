@@ -8,14 +8,14 @@ const STATS = [
 ];
 
 const PILLARS = [
-  { icon: "💬", title: "Ask KinShield", body: "Paste, forward or photograph anything and get a Trust Score, the top reasons, and a recommended action — in your language, in seconds.", phase: "P0" },
-  { icon: "📨", title: "SMS / RCS Shield", body: "Scam texts filtered before they reach the inbox, with Canadian patterns the OS filters miss, and one-tap report-to-protect-everyone.", phase: "P0" },
-  { icon: "🔗", title: "Link & QR Checker", body: "Lookalike domains, homoglyphs, risky TLDs and brand-off-domain phishing caught before you tap — tuned for CRA, Interac, Canada Post.", phase: "P0" },
-  { icon: "👪", title: "Family Circle", body: "The household is the unit of protection. Adult children see flagged events, set policies, and get alerts across every platform.", phase: "P0" },
-  { icon: "📞", title: "The KinShield Line", body: "An AI receptionist screens unknown callers at the network layer — judging the conversation, not just the caller ID — on every handset.", phase: "P1" },
-  { icon: "🕰️", title: "Long-Con Radar", body: "Romance fraud and pig-butchering unfold over weeks. KinShield reads the script's progression and intervenes while it still works.", phase: "P1" },
-  { icon: "🆘", title: "Incident Mode", body: "The panic button competitors forgot. Triage, evidence capture, pre-filled CAFC/police reports, scripted bank calls — sequenced.", phase: "P0" },
-  { icon: "🏦", title: "KinShield SDK", body: "The same brain, licensed: a Bill C-15 control kit, Trust Engine API, residency, and an FCAC reporting pipeline for banks and credit unions.", phase: "P1→P2" },
+  { icon: "💬", title: "Ask KinShield", href: "#try", body: "Paste, forward or photograph anything and get a Trust Score, the top reasons, and a recommended action — in your language, in seconds.", phase: "P0" },
+  { icon: "📨", title: "SMS / RCS Shield", href: "/features/sms-shield", body: "Scam texts filtered before they reach the inbox, with Canadian patterns the OS filters miss, and one-tap report-to-protect-everyone.", phase: "P0" },
+  { icon: "🔗", title: "Link & QR Checker", href: "/features/link-qr-checker", body: "Lookalike domains, homoglyphs, risky TLDs and brand-off-domain phishing caught before you tap — tuned for CRA, Interac, Canada Post.", phase: "P0" },
+  { icon: "👪", title: "Family Circle", href: "/family", body: "The household is the unit of protection. Adult children see flagged events, set policies, and get alerts across every platform.", phase: "P0" },
+  { icon: "📞", title: "The KinShield Line", href: "/features/call-line", body: "An AI receptionist screens unknown callers at the network layer — judging the conversation, not just the caller ID — on every handset.", phase: "P1" },
+  { icon: "🕰️", title: "Long-Con Radar", href: "/features/long-con-radar", body: "Romance fraud and pig-butchering unfold over weeks. KinShield reads the script's progression and intervenes while it still works.", phase: "P1" },
+  { icon: "🆘", title: "Incident Mode", href: "/incident", body: "The panic button competitors forgot. Triage, evidence capture, pre-filled CAFC/police reports, scripted bank calls — sequenced.", phase: "P0" },
+  { icon: "🏦", title: "KinShield SDK", href: "/sdk", body: "The same brain, licensed: a Bill C-15 control kit, Trust Engine API, residency, and an FCAC reporting pipeline for banks and credit unions.", phase: "P1→P2" },
 ];
 
 const MOATS = [
@@ -56,8 +56,11 @@ export default function Home() {
           <Link href="#try" className="btn btn-primary px-6 py-3 text-base">
             Try the Trust Engine
           </Link>
-          <Link href="/sdk" className="btn btn-ghost px-6 py-3 text-base">
-            For banks & credit unions →
+          <Link href="/features" className="btn btn-ghost px-6 py-3 text-base">
+            Explore all 30 features →
+          </Link>
+          <Link href="/map" className="btn btn-ghost px-6 py-3 text-base">
+            🗺️ Live threat map
           </Link>
         </div>
 
@@ -92,15 +95,19 @@ export default function Home() {
         />
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map((p) => (
-            <div key={p.title} className="card card-hover p-5">
+            <Link key={p.title} href={p.href} className="card card-hover p-5">
               <div className="flex items-center justify-between">
                 <span className="text-2xl">{p.icon}</span>
                 <span className="pill rounded-full bg-[rgba(141,163,207,0.1)] px-2 py-1 text-ice-dim">{p.phase}</span>
               </div>
               <h3 className="mt-3 font-bold text-ice">{p.title}</h3>
               <p className="mt-1.5 text-sm text-ice-dim">{p.body}</p>
-            </div>
+              <span className="mt-3 inline-block text-xs text-safe">Open →</span>
+            </Link>
           ))}
+        </div>
+        <div className="mt-4">
+          <Link href="/features" className="btn btn-ghost px-5 py-2.5 text-sm">See the full 30-feature catalogue →</Link>
         </div>
       </section>
 

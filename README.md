@@ -29,6 +29,10 @@ that make up the MVP wedge.
 | **Community Threat Network** (`/community`) | Consented, pseudonymized artifact reporting with reputation decay — a live network effect feeding the engine. | ✅ |
 | **Calibration** (`/transparency`) | Precision/recall/F1 **computed live in your browser** over an open labeled set, misses included. The honesty moat, made real. | ✅ |
 | **SDK** (`/sdk`) | The Bill C-15 institutional product: API contract, control kit, compliance artifacts. | ✅ (docs surface) |
+| **Feature catalogue** (`/features`) | All **30** features from the master doc — engine-backed where possible, faithful interactive demos otherwise. Each is reachable and labelled live/demo. | ✅ |
+| **Live Threat Map** (`/map`) | A Google-Maps-style heat map of Canada (Leaflet + CARTO), fed by the consented network plane, with the weekly Briefing. | ✅ |
+
+> **Just want to run it (incl. on your phone)?** See [`HOW-TO-RUN.md`](HOW-TO-RUN.md).
 
 ---
 

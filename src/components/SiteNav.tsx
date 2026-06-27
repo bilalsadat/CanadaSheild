@@ -6,10 +6,12 @@ import { Wordmark } from "./Brand";
 
 const LINKS: { href: string; label: string }[] = [
   { href: "/", label: "Protect" },
-  { href: "/family", label: "Family Circle" },
+  { href: "/features", label: "All 30 features" },
+  { href: "/map", label: "Live Map" },
+  { href: "/family", label: "Family" },
   { href: "/senior", label: "Senior Mode" },
-  { href: "/incident", label: "Incident Mode" },
-  { href: "/community", label: "Threat Network" },
+  { href: "/incident", label: "Incident" },
+  { href: "/community", label: "Network" },
   { href: "/transparency", label: "Calibration" },
   { href: "/sdk", label: "SDK" },
 ];

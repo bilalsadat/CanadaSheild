@@ -9,6 +9,7 @@
  */
 
 import type { NetworkLookup, NetworkReport } from "@/lib/trust-engine";
+import { CITY_COORDS, type HeatPoint } from "@/lib/geo";
 
 export interface CommunityReport extends NetworkReport {
   category: string;
@@ -85,6 +86,28 @@ class NetworkPlane implements NetworkLookup {
     const totalReports = all.reduce((a, b) => a + b.reports, 0);
     return { artifacts: all.length, totalReports };
   }
+
+  /** Geo-bucketed heat points for the threat map (city-level only). */
+  geoBuckets(): HeatPoint[] {
+    const byCity = new Map<string, HeatPoint>();
+    for (const r of this.store.values()) {
+      if (!r.city) continue;
+      const coords = CITY_COORDS[r.city];
+      if (!coords) continue;
+      let pt = byCity.get(r.city);
+      if (!pt) {
+        pt = { city: r.city, lat: coords[0], lng: coords[1], reports: 0, artifacts: 0, topCategory: r.category, categories: {} };
+        byCity.set(r.city, pt);
+      }
+      pt.reports += r.reports;
+      pt.artifacts += 1;
+      pt.categories[r.category] = (pt.categories[r.category] ?? 0) + r.reports;
+    }
+    for (const pt of byCity.values()) {
+      pt.topCategory = Object.entries(pt.categories).sort((a, b) => b[1] - a[1])[0]?.[0] ?? pt.topCategory;
+    }
+    return [...byCity.values()].sort((a, b) => b.reports - a.reports);
+  }
 }
 
 const daysAgo = (d: number) => new Date(Date.now() - d * 86_400_000).toISOString();
@@ -98,6 +121,14 @@ const SEED: Omit<CommunityReport, "confidence">[] = [
   { artifact: "4035550199", reports: 15, category: "Grandparent scam", city: "Calgary, AB", language: "en", firstSeen: daysAgo(3), lastSeen: daysAgo(0) },
   { artifact: "maple-yield-capital.top", reports: 27, category: "Pig-butchering platform", city: "Mississauga, ON", language: "zh", firstSeen: daysAgo(18), lastSeen: daysAgo(2) },
   { artifact: "ircc-status-update.click", reports: 19, category: "IRCC status threat", city: "Montréal, QC", language: "fr", firstSeen: daysAgo(7), lastSeen: daysAgo(1) },
+  { artifact: "rbc-secure-alert.top", reports: 36, category: "Bank impersonation", city: "Toronto, ON", language: "en", firstSeen: daysAgo(5), lastSeen: daysAgo(0) },
+  { artifact: "7805550133", reports: 12, category: "Tech-support scam", city: "Edmonton, AB", language: "en", firstSeen: daysAgo(8), lastSeen: daysAgo(1) },
+  { artifact: "service-canada-benefits.click", reports: 24, category: "Service Canada phish", city: "Ottawa, ON", language: "fr", firstSeen: daysAgo(6), lastSeen: daysAgo(0) },
+  { artifact: "2045550178", reports: 9, category: "Grandparent scam", city: "Winnipeg, MB", language: "en", firstSeen: daysAgo(4), lastSeen: daysAgo(1) },
+  { artifact: "amaz0n-ca-refund.top", reports: 17, category: "Refund / gift-card scam", city: "Burnaby, BC", language: "zh", firstSeen: daysAgo(10), lastSeen: daysAgo(2) },
+  { artifact: "9025550190", reports: 7, category: "Canada Post smish", city: "Halifax, NS", language: "en", firstSeen: daysAgo(3), lastSeen: daysAgo(0) },
+  { artifact: "quebec-impots-remboursement.xyz", reports: 21, category: "Revenu Québec phish", city: "Québec City, QC", language: "fr", firstSeen: daysAgo(9), lastSeen: daysAgo(1) },
+  { artifact: "elite-fx-traders.top", reports: 14, category: "Pig-butchering platform", city: "Saskatoon, SK", language: "en", firstSeen: daysAgo(15), lastSeen: daysAgo(3) },
 ];
 
 // Module-level singleton — persists for the life of the server process.
