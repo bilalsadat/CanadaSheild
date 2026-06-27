@@ -15,11 +15,17 @@ export default function Scan() {
   const ks = useKinShield();
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState<string | null>(null);
+  const [ignored, setIgnored] = useState(false);
   const [res, setRes] = useState<ReturnType<typeof scoreTrust> | null>(null);
   const [rend, setRend] = useState<ReturnType<typeof explain> | null>(null);
 
   function handleScan({ data }: { data: string }) {
-    if (scanned) return;
+    if (scanned || ignored) return;
+    // Ignore developer/app QR codes (e.g. the Expo Go launcher) — not links to check.
+    if (/^exp(s)?:\/\//i.test(data) || /expo\.dev|exp\.host|u\.expo\.dev/i.test(data)) {
+      setIgnored(true);
+      return;
+    }
     setScanned(data);
     const isUrl = /^(https?:\/\/|www\.)|\.[a-z]{2,}(\/|$)/i.test(data);
     const r = scoreTrust({ text: data, url: isUrl ? data : undefined, channel: "qr", network: networkLookup });
@@ -29,7 +35,7 @@ export default function Scan() {
     Haptics.notificationAsync(r.trustScore < 45 ? Haptics.NotificationFeedbackType.Warning : Haptics.NotificationFeedbackType.Success).catch(() => {});
   }
 
-  function reset() { setScanned(null); setRes(null); setRend(null); }
+  function reset() { setScanned(null); setRes(null); setRend(null); setIgnored(false); }
 
   if (!permission) {
     return <View style={{ flex: 1, backgroundColor: colors.bg }} />;
@@ -55,10 +61,20 @@ export default function Scan() {
         onBarcodeScanned={scanned ? undefined : handleScan}
       />
       {/* Reticle overlay */}
-      {!scanned && (
+      {!scanned && !ignored && (
         <View pointerEvents="none" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center" }}>
           <View style={{ width: 230, height: 230, borderRadius: 24, borderWidth: 3, borderColor: colors.primary }} />
           <Text style={{ color: "#fff", marginTop: 18, fontSize: font.body, fontWeight: font.semibold }}>Point at a QR code</Text>
+        </View>
+      )}
+
+      {/* Ignored an app/dev QR */}
+      {ignored && (
+        <View style={{ position: "absolute", left: space.lg, right: space.lg, bottom: 60 }}>
+          <Card>
+            <Body style={{ textAlign: "center" }}>That&apos;s an app QR code, not a link to check. Point at a QR from a poster, invoice, or message.</Body>
+            <Button label="Scan again" icon="scan" onPress={reset} style={{ marginTop: space.md }} />
+          </Card>
         </View>
       )}
 

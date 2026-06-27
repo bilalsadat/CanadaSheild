@@ -11,6 +11,7 @@ import { VerdictView } from "../../components/VerdictView";
 import { scoreTrust, explain } from "../../lib/trust-engine";
 import { networkLookup } from "../../lib/data";
 import { useKinShield } from "../../lib/store";
+import { useT } from "../../lib/i18n";
 import { colors, space, font, radius } from "../../lib/theme";
 
 const EXAMPLES: { label: string; text: string; channel: any }[] = [
@@ -36,6 +37,7 @@ const captureStyle = {
 export default function Protect() {
   const ks = useKinShield();
   const router = useRouter();
+  const t = useT();
   const [text, setText] = useState("");
   const [result, setResult] = useState<ReturnType<typeof scoreTrust> | null>(null);
   const [rendered, setRendered] = useState<ReturnType<typeof explain> | null>(null);
@@ -73,21 +75,21 @@ export default function Protect() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
       <ScrollView contentContainerStyle={{ padding: space.lg, paddingBottom: 130 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        <Kicker>The front door</Kicker>
-        <Title style={{ marginTop: 4 }}>Ask KinShield</Title>
-        <Small style={{ marginTop: 4, marginBottom: space.lg }}>Paste a text, email, ad, job offer, or what a caller said. The Trust Engine runs entirely on your device.</Small>
+        <Kicker>{t("protect.kicker")}</Kicker>
+        <Title style={{ marginTop: 4 }}>{t("protect.title")}</Title>
+        <Small style={{ marginTop: 4, marginBottom: space.lg }}>{t("protect.sub")}</Small>
 
         <Card>
           <TextInput
             value={text}
             onChangeText={setText}
-            placeholder="Paste anything suspicious…"
+            placeholder={t("protect.placeholder")}
             placeholderTextColor={colors.textMute}
             multiline
             style={{ color: colors.text, fontSize: font.body, minHeight: 96, textAlignVertical: "top", lineHeight: 22 }}
           />
           <Row style={{ marginTop: 12, gap: 10 }}>
-            <Button label="Check it" icon="shield-checkmark" onPress={() => run()} style={{ flex: 1 }} />
+            <Button label={t("protect.check")} icon="shield-checkmark" onPress={() => run()} style={{ flex: 1 }} />
             {text.length > 0 && (
               <Pressable onPress={() => { setText(""); setResult(null); }} style={{ padding: 12 }}>
                 <Ionicons name="close-circle" size={22} color={colors.textMute} />
@@ -100,15 +102,15 @@ export default function Protect() {
         <Row style={{ gap: space.md, marginBottom: space.lg }}>
           <Pressable onPress={pasteAndCheck} style={captureStyle}>
             <Ionicons name="clipboard-outline" size={20} color={colors.primary} />
-            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>Paste & check</Text>
+            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>{t("protect.paste")}</Text>
           </Pressable>
           <Pressable onPress={() => router.push("/scan")} style={captureStyle}>
             <Ionicons name="qr-code-outline" size={20} color={colors.primary} />
-            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>Scan a QR</Text>
+            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>{t("protect.scan")}</Text>
           </Pressable>
         </Row>
 
-        <Kicker color={colors.textDim} >Try a real example</Kicker>
+        <Kicker color={colors.textDim} >{t("protect.tryExample")}</Kicker>
         <Row style={{ flexWrap: "wrap", gap: 8, marginTop: 10, marginBottom: space.lg }}>
           {EXAMPLES.map((ex) => (
             <Chip key={ex.label} label={ex.label} onPress={() => { setText(ex.text); run(ex.text, ex.channel); }} />
@@ -119,7 +121,7 @@ export default function Protect() {
           <View style={{ gap: space.md }}>
             <VerdictView result={result} rendered={rendered} />
             {result.trustScore < 45 && (
-              <Button label="Report to Community Network" icon="flag" variant="ghost" onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)} />
+              <Button label={t("protect.report")} icon="flag" variant="ghost" onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)} />
             )}
           </View>
         )}
