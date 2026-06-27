@@ -2,12 +2,14 @@ import type { Language } from "./types";
 
 /** Lowercase + strip diacritics so "arrêté" matches "arrete". Leaves CJK/Gurmukhi intact. */
 export function normalize(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "") // combining marks only — preserves 税务/ਟੈਕਸ
-    .replace(/\s+/g, " ")
-    .trim();
+  let t = text.toLowerCase();
+  // String.normalize can be limited on some JS engines (Hermes); degrade gracefully.
+  try {
+    t = t.normalize("NFD").replace(/[̀-ͯ]/g, ""); // combining marks only — preserves 税务/ਟੈਕਸ
+  } catch {
+    /* keep accented form — base-corpus matching still works */
+  }
+  return t.replace(/\s+/g, " ").trim();
 }
 
 /**
@@ -36,13 +38,20 @@ export function detectLanguage(text: string): Language {
   return "en";
 }
 
-const URL_RE =
-  /\b((?:https?:\/\/)?(?:[a-z0-9¡-￿-]+\.)+[a-z¡-￿]{2,}(?:\/[^\s]*)?)/gi;
-
 /** Pull candidate URLs out of free text (smishing bodies, emails, ad copy). */
 export function extractUrls(text: string): string[] {
-  const matches = text.match(URL_RE) ?? [];
-  return Array.from(new Set(matches.map((m) => m.replace(/[).,]+$/, ""))));
+  const out = new Set<string>();
+  // 1) Anything with an explicit scheme — covers IP-literals, ports, odd TLDs.
+  const scheme = text.match(/https?:\/\/[^\s<>"')\]]+/gi) ?? [];
+  for (const m of scheme) out.add(m.replace(/[).,;]+$/, ""));
+  // 2) Bare host[/path] tokens: label(.label)+ with a 2+ letter TLD.
+  const bare = text.match(/\b(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}(?:\/[^\s<>"')\]]*)?/gi) ?? [];
+  for (const m of bare) {
+    if (!/^https?:/i.test(m) && !/\.(jpg|jpeg|png|gif|pdf|docx?|mp4)$/i.test(m)) {
+      out.add(m.replace(/[).,;]+$/, ""));
+    }
+  }
+  return [...out];
 }
 
 export interface ParsedUrl {
@@ -57,19 +66,10 @@ export interface ParsedUrl {
   subdomainDepth: number;
 }
 
-export function parseUrl(raw: string): ParsedUrl | null {
-  let u = raw.trim();
-  if (!/^https?:\/\//i.test(u)) u = "http://" + u;
-  let url: URL;
-  try {
-    url = new URL(u);
-  } catch {
-    return null;
-  }
-  const host = url.hostname.toLowerCase();
+function buildParsed(raw: string, host: string, path: string, hasCredentials: boolean): ParsedUrl {
+  host = host.toLowerCase();
   const labels = host.split(".");
   const tld = labels[labels.length - 1] ?? "";
-  // Best-effort registrable domain: handle common 2-part ccTLDs (.co.uk, .gc.ca).
   const twoPart = new Set(["co", "com", "gc", "gov", "org", "net", "ac"]);
   let registrable = host;
   if (labels.length >= 3 && twoPart.has(labels[labels.length - 2])) {
@@ -81,12 +81,33 @@ export function parseUrl(raw: string): ParsedUrl | null {
     raw,
     host,
     registrable,
-    path: url.pathname + url.search,
+    path,
     tld,
-    hasCredentials: url.username !== "" || url.password !== "",
+    hasCredentials,
     isIpLiteral: /^\d{1,3}(\.\d{1,3}){3}$/.test(host),
     subdomainDepth: Math.max(0, labels.length - 2),
   };
+}
+
+export function parseUrl(raw: string): ParsedUrl | null {
+  let u = raw.trim();
+  if (!/^https?:\/\//i.test(u)) u = "http://" + u;
+  try {
+    const url = new URL(u);
+    return buildParsed(raw, url.hostname, url.pathname + url.search, url.username !== "" || url.password !== "");
+  } catch {
+    // The URL constructor rejected it (malformed / invalid IDNA) — that is
+    // itself suspicious, so we parse the host manually instead of dropping it.
+    const stripped = u.replace(/^https?:\/\//i, "");
+    const slash = stripped.indexOf("/");
+    let authority = slash === -1 ? stripped : stripped.slice(0, slash);
+    const path = slash === -1 ? "/" : stripped.slice(slash);
+    const hasCredentials = authority.includes("@");
+    if (hasCredentials) authority = authority.split("@").pop() ?? authority;
+    const host = authority.split(":")[0];
+    if (!host || !host.includes(".")) return null;
+    return buildParsed(raw, host, path, hasCredentials);
+  }
 }
 
 /** Detect crypto wallet addresses (BTC / ETH) — strong signal in money contexts. */

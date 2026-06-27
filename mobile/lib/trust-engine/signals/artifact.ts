@@ -122,6 +122,11 @@ export function analyzeArtifact(input: CheckInput): SignalResult {
     }
   }
 
+  // A definitive artifact flag (lookalike, homoglyph, IP, credentials, crypto
+  // recipient) is high-confidence — we are sure about what we SEE, even if we
+  // can't see the prose. This lets a spoofed domain drive the verdict.
+  if (risk >= 0.6) confidence = Math.max(confidence, 0.92);
+
   return { family: "artifact", risk: clamp01(risk), confidence, reasons, evidence };
 }
 

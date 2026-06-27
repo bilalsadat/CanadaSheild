@@ -354,6 +354,28 @@ export const PRESSURE_MARKERS = {
   },
 } as const;
 
+/**
+ * Generic phishing grammar — the account-action lures that appear in almost
+ * every phish regardless of which brand is impersonated. Catches real-world
+ * phishing the named-script corpus would miss.
+ */
+export const GENERIC_PHISH = {
+  en: [
+    "verify your account", "confirm your account", "confirm your identity", "account has been locked",
+    "account is locked", "account suspended", "your account will be", "unusual sign-in", "unusual activity",
+    "suspicious activity", "unauthorized login", "verify your identity", "update your payment", "update your card",
+    "update your billing", "payment failed", "billing problem", "reactivate your account", "secure your account",
+    "click the link", "click here to", "log in to verify", "sign in to confirm", "to avoid suspension",
+    "your password will expire", "validate your account", "re-verify",
+  ],
+  fr: [
+    "vérifiez votre compte", "confirmez votre identité", "compte verrouillé", "activité inhabituelle",
+    "connexion suspecte", "mettre à jour votre paiement", "votre paiement a échoué", "cliquez ici", "réactivez votre compte",
+  ],
+  es: ["verifique su cuenta", "confirme su identidad", "cuenta bloqueada", "actividad inusual", "actualice su pago", "haga clic aquí"],
+  pt: ["verifique sua conta", "confirme sua identidade", "conta bloqueada", "atividade incomum", "atualize seu pagamento", "clique aqui"],
+} as const;
+
 /** Direct extraction asks — the strongest single content signal. */
 export const EXTRACTION_ASKS = {
   en: ["gift card", "bitcoin", "btc", "wire transfer", "e-transfer", "etransfer", "send money", "one-time code", "otp", "verification code", "your password", "your pin", "remote access", "social insurance", "credit card number", "banking login"],

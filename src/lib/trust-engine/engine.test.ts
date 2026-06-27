@@ -59,6 +59,35 @@ describe("Trust Engine — known scams score dangerous/likely", () => {
   });
 });
 
+describe("Trust Engine — real-world phishing (not just the named corpus)", () => {
+  it("flags a brand-lookalike phishing link as dangerous, not merely caution", () => {
+    const r = scoreTrust({ text: "Your PayPal account has been locked. Verify now: http://account-verify-paypal.com/login" });
+    expect(r.trustScore).toBeLessThan(35);
+    expect(["likely_scam", "dangerous"]).toContain(r.verdict);
+  });
+
+  it("does not score an IP-literal phishing URL as safe", () => {
+    const r = scoreTrust({ text: "Account alert, log in here: http://192.168.10.5/secure/bank" });
+    expect(r.trustScore).toBeLessThan(60);
+    expect(r.ledger.find((l) => l.family === "artifact")!.risk).toBeGreaterThan(0.5);
+  });
+
+  it("flags generic phishing grammar even with an unknown brand", () => {
+    const r = scoreTrust({ text: "We noticed unusual sign-in activity. Verify your account immediately at http://secure-login-update.top to avoid suspension." });
+    expect(r.trustScore).toBeLessThan(35);
+  });
+
+  it("flags a homoglyph/punycode domain", () => {
+    const r = scoreTrust({ text: "Update your details: https://xn--paypl-9wa.com/login" });
+    expect(r.trustScore).toBeLessThan(45);
+  });
+
+  it("one strong signal is decisive — a known-bad domain isn't diluted by calm prose", () => {
+    const r = scoreTrust({ text: "Hello, please see the document at http://interac-secure-deposit.xyz/file" });
+    expect(r.trustScore).toBeLessThan(40);
+  });
+});
+
 describe("Trust Engine — legitimate messages are NOT punished", () => {
   it("treats a normal friendly text as safe", () => {
     const r = scoreTrust({

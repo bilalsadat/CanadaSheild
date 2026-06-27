@@ -1,5 +1,5 @@
 import type { CheckInput, Language, ReasonCode, ScriptMatch, SignalResult } from "../types";
-import { SCAM_SCRIPTS, PRESSURE_MARKERS, EXTRACTION_ASKS } from "../corpus/scripts";
+import { SCAM_SCRIPTS, PRESSURE_MARKERS, EXTRACTION_ASKS, GENERIC_PHISH } from "../corpus/scripts";
 import { normalize, countHits, clamp01 } from "../util";
 
 /**
@@ -82,6 +82,18 @@ export function analyzeContent(input: CheckInput, lang: Language): SignalResult 
     });
   }
 
+  // ---- 3b. Generic phishing grammar (brand-agnostic) -------------------
+  const genericPhish = countHits(hay, Object.values(GENERIC_PHISH).flat() as string[]);
+  let genericRisk = 0;
+  if (genericPhish.count > 0) {
+    genericRisk = clamp01(0.42 + 0.12 * (genericPhish.count - 1));
+    reasons.push({
+      code: "content.generic_phish",
+      params: { example: genericPhish.hits[0] },
+      weight: genericRisk,
+    });
+  }
+
   // ---- 4. The classic triad — authority + urgency/threat + extraction ---
   // This combination is what makes a scam a scam; weight it super-additively.
   const triad =
@@ -95,14 +107,14 @@ export function analyzeContent(input: CheckInput, lang: Language): SignalResult 
   }
 
   const risk = clamp01(
-    Math.max(scriptRisk, extractionRisk, pressure.risk) +
+    Math.max(scriptRisk, extractionRisk, pressure.risk, genericRisk) +
       0.35 * Math.min(scriptRisk, pressure.risk) +
       triadBoost,
   );
 
   // Confidence grows with how much textual evidence we actually saw.
   const evidenceUnits =
-    (best ? best.hits.length : 0) + pressure.categories.length + extraction.count;
+    (best ? best.hits.length : 0) + pressure.categories.length + extraction.count + genericPhish.count;
   const confidence = clamp01(0.3 + 0.14 * evidenceUnits + Math.min(0.2, text.length / 1200));
 
   return {

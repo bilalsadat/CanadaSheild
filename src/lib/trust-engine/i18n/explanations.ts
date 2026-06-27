@@ -46,6 +46,13 @@ const T: Record<string, Pack> = {
     fr: (p) => `Demande quelque chose que veulent les fraudeurs (p. ex. « ${p.example} »). Aucune vraie agence ne procède ainsi.`,
     zh: (p) => `索要骗子想要的东西（例如"${p.example}"）。正规机构不会这样收款。`,
   },
+  "content.generic_phish": {
+    en: (p) => `Uses a classic phishing lure (e.g. "${p.example}"). Real institutions don't ask you to verify accounts via links.`,
+    fr: (p) => `Utilise un appât d'hameçonnage classique (p. ex. « ${p.example} »). Les vraies institutions ne demandent pas de vérifier un compte par un lien.`,
+    es: (p) => `Usa un señuelo de phishing clásico (p. ej. "${p.example}"). Las instituciones reales no piden verificar cuentas por enlaces.`,
+    pt: (p) => `Usa uma isca de phishing clássica (ex.: "${p.example}"). Instituições reais não pedem para verificar contas por links.`,
+    zh: (p) => `使用了典型的钓鱼诱饵（例如"${p.example}"）。正规机构不会通过链接要求你验证账户。`,
+  },
   "content.triad": {
     en: () => `Combines authority + urgency + a request for money/codes — the classic three-part scam structure.`,
     fr: () => `Combine autorité + urgence + demande d'argent ou de codes — la structure classique d'une arnaque.`,

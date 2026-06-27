@@ -24,6 +24,20 @@ const FAMILY_WEIGHT: Record<SignalResult["family"], number> = {
   anomaly: 0.55, // a nudge, never a condemnation on its own
 };
 
+/**
+ * Per-family reliability — how much a confident reading from this family is
+ * allowed to drive the verdict on its own. Detection is a union of evidence:
+ * one credible "this is a spoofed bank domain" should condemn even when the
+ * prose looks calm. Authenticity/anomaly are capped so they nudge, not decide.
+ */
+const FAMILY_RELIABILITY: Record<SignalResult["family"], number> = {
+  content: 1.0,
+  artifact: 1.0,
+  network: 1.0,
+  authenticity: 0.75,
+  anomaly: 0.7,
+};
+
 /** Evidence mass at which we consider ourselves "fully informed" (uncertainty→min). */
 const FULL_EVIDENCE = 2.2;
 const MAX_UNCERTAINTY = 28;
@@ -39,26 +53,21 @@ export interface CombinerOutput {
 }
 
 export function combine(signals: SignalResult[]): CombinerOutput {
-  let weightedRiskSum = 0;
   let evidenceMass = 0;
+  let noNeg = 1; // running product of (1 - p_i) for the noisy-OR
   const contributions: { family: SignalResult["family"]; c: number }[] = [];
 
   for (const s of signals) {
-    const w = FAMILY_WEIGHT[s.family];
-    const c = s.risk * s.confidence * w;
-    contributions.push({ family: s.family, c });
-    weightedRiskSum += c;
-    evidenceMass += s.confidence * w;
+    // Per-signal probability that THIS signal alone indicates fraud.
+    const p = clamp01(s.risk * s.confidence * FAMILY_RELIABILITY[s.family]);
+    noNeg *= 1 - p;
+    contributions.push({ family: s.family, c: p });
+    evidenceMass += s.confidence * FAMILY_WEIGHT[s.family];
   }
 
-  // Confidence-weighted mean risk.
-  const baseRisk = evidenceMass > 0 ? weightedRiskSum / evidenceMass : 0;
-
-  // Corroboration boost: independent families agreeing is the whole thesis.
-  const corroborating = signals.filter((s) => s.risk >= 0.5 && s.confidence >= 0.4).length;
-  const corroborationBoost = corroborating >= 2 ? 0.15 * (corroborating - 1) : 0;
-
-  const combinedRisk = clamp01(baseRisk + corroborationBoost);
+  // Noisy-OR: any one credible signal raises risk; neutral signals (risk 0)
+  // contribute a factor of 1 and so cannot dilute a real detection.
+  const combinedRisk = clamp01(1 - noNeg);
   const trustScore = Math.round((1 - combinedRisk) * 99) + 1; // 1..100
 
   // Uncertainty shrinks as evidence accumulates — calibrated honesty in the UI.
