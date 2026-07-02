@@ -134,7 +134,7 @@ export default function Dashboard() {
 
       {/* Recent checks — every row reopens its full verdict */}
       <Enter delay={240}>
-        <Section title={t("dash.recentChecks")} right={t("common.checkNow")} onRight={() => router.push("/protect")} />
+        <Section title={t("dash.recentChecks")} right={ks.history.length > 0 ? t("dash.viewAll") : t("common.checkNow")} onRight={() => router.push(ks.history.length > 0 ? "/history" : "/protect")} />
         {ks.history.length === 0 ? (
           <Card style={{ marginBottom: space.xl, alignItems: "center", paddingVertical: space.xl }}>
             <Ionicons name="scan-outline" size={28} color={colors.textMute} />

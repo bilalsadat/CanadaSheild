@@ -78,6 +78,14 @@ const en: Dict = {
   "drill.title": "Scam Drill",
   // dashboard extras
   "dash.viewAll": "View all", "dash.threatsBlockedNote": "of your checks were threats",
+  // history
+  "history.title": "All checks", "history.all": "All", "history.threats": "Threats", "history.safe": "Safe",
+  "history.empty": "No checks in this view yet.", "history.count": "{n} checks",
+  // channel picker
+  "ch.label": "What are you checking?", "ch.auto": "Auto", "ch.sms": "Text", "ch.email": "Email", "ch.call": "Call", "ch.money": "Money",
+  // share / warn
+  "share.warn": "Warn someone", "share.warned": "Warning shared",
+  "share.body": "Heads up — VraiShield scored this {score}/100 ({verdict}): \"{snippet}\" — {reason} Be careful if you received the same thing.",
 };
 
 const fr: Dict = {
@@ -134,6 +142,11 @@ const fr: Dict = {
   "incident.title": "Mode incident",
   "drill.title": "Exercice anti-arnaque",
   "dash.viewAll": "Tout voir", "dash.threatsBlockedNote": "de vos vérifications étaient des menaces",
+  "history.title": "Toutes les vérifications", "history.all": "Tout", "history.threats": "Menaces", "history.safe": "Sûrs",
+  "history.empty": "Aucune vérification dans cette vue.", "history.count": "{n} vérifications",
+  "ch.label": "Que vérifiez-vous ?", "ch.auto": "Auto", "ch.sms": "Texto", "ch.email": "Courriel", "ch.call": "Appel", "ch.money": "Argent",
+  "share.warn": "Prévenir un proche", "share.warned": "Avertissement partagé",
+  "share.body": "Attention — VraiShield a évalué ceci à {score}/100 ({verdict}) : \"{snippet}\" — {reason} Méfiez-vous si vous avez reçu la même chose.",
 };
 
 const DICTS: Partial<Record<Language, Dict>> = { en, fr };

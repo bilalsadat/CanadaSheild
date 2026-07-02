@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, ScrollView, Pressable, Keyboard } from "react-native";
+import { View, Text, TextInput, ScrollView, Pressable, Keyboard, Share } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -41,6 +41,8 @@ export default function Protect() {
   const t = useT();
   const seniorScale = ks.settings.seniorMode ? 1.25 : 1;
   const [text, setText] = useState("");
+  const [channel, setChannel] = useState<string>("unknown");
+  const [warned, setWarned] = useState(false);
   const [result, setResult] = useState<ReturnType<typeof scoreTrust> | null>(null);
   const [rendered, setRendered] = useState<ReturnType<typeof explain> | null>(null);
 
@@ -58,15 +60,16 @@ export default function Protect() {
     }
   }
 
-  function run(t = text, channel: any = "unknown") {
+  function run(t = text, ch: any = channel) {
     if (!t.trim()) return;
     Keyboard.dismiss();
-    const r = scoreTrust({ text: t, channel, language: ks.settings.language, network: networkLookup });
+    setWarned(false);
+    const r = scoreTrust({ text: t, channel: ch, language: ks.settings.language, network: networkLookup });
     const e = explain(r);
     setResult(r);
     setRendered(e);
     ks.addScan({
-      channel,
+      channel: ch,
       score: r.trustScore,
       verdict: r.verdict,
       snippet: t.slice(0, 80),
@@ -82,6 +85,29 @@ export default function Protect() {
       Speech.speak(`${e.verdictLabel}. Trust score ${r.trustScore}. ${e.actionLabel}.`, { language: locale[r.language] ?? "en-CA", rate: 0.96 });
     }
   }
+
+  async function warnSomeone() {
+    if (!result || !rendered) return;
+    try {
+      await Share.share({
+        message: t("share.body", {
+          score: result.trustScore,
+          verdict: rendered.verdictLabel,
+          snippet: text.slice(0, 120),
+          reason: rendered.reasons[0] ?? "",
+        }),
+      });
+      setWarned(true);
+    } catch { /* user cancelled */ }
+  }
+
+  const CHANNELS: { key: string; label: string; icon: any }[] = [
+    { key: "unknown", label: t("ch.auto"), icon: "sparkles-outline" },
+    { key: "sms", label: t("ch.sms"), icon: "chatbox-outline" },
+    { key: "email", label: t("ch.email"), icon: "mail-outline" },
+    { key: "call_transcript", label: t("ch.call"), icon: "call-outline" },
+    { key: "investment", label: t("ch.money"), icon: "cash-outline" },
+  ];
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
@@ -109,6 +135,17 @@ export default function Protect() {
           </Row>
         </Card>
 
+        {/* Channel picker — tells the engine what it's judging */}
+        <Small style={{ marginBottom: 8 }}>{t("ch.label")}</Small>
+        <Row style={{ gap: 8, marginBottom: space.md, flexWrap: "wrap" }}>
+          {CHANNELS.map((c) => (
+            <Pressable key={c.key} onPress={() => setChannel(c.key)} style={{ flexDirection: "row", alignItems: "center", gap: 5, borderRadius: radius.pill, borderWidth: 1, borderColor: channel === c.key ? colors.primary : colors.border, backgroundColor: channel === c.key ? colors.primaryDim : "transparent", paddingHorizontal: 12, paddingVertical: 7 }}>
+              <Ionicons name={c.icon} size={13} color={channel === c.key ? colors.primary : colors.textMute} />
+              <Text style={{ color: channel === c.key ? colors.primary : colors.textDim, fontSize: font.small, fontWeight: font.medium }}>{c.label}</Text>
+            </Pressable>
+          ))}
+        </Row>
+
         {/* Real on-device capture actions */}
         <Row style={{ gap: space.md, marginBottom: space.lg }}>
           <PressableScale haptic onPress={pasteAndCheck} style={{ flex: 1 }}>
@@ -128,7 +165,7 @@ export default function Protect() {
         <Kicker color={colors.textDim} >{t("protect.tryExample")}</Kicker>
         <Row style={{ flexWrap: "wrap", gap: 8, marginTop: 10, marginBottom: space.lg }}>
           {EXAMPLES.map((ex) => (
-            <Chip key={ex.label} label={ex.label} onPress={() => { setText(ex.text); run(ex.text, ex.channel); }} />
+            <Chip key={ex.label} label={ex.label} onPress={() => { setText(ex.text); setChannel(ex.channel); run(ex.text, ex.channel); }} />
           ))}
         </Row>
 
@@ -137,7 +174,10 @@ export default function Protect() {
             <View style={{ gap: space.md }}>
               <VerdictView result={result} rendered={rendered} />
               {result.trustScore < 45 && (
-                <Button label={t("protect.report")} icon="flag" variant="ghost" onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)} />
+                <Row style={{ gap: 10 }}>
+                  <Button label={warned ? t("share.warned") : t("share.warn")} icon={warned ? "checkmark-circle" : "share-outline"} onPress={warnSomeone} style={{ flex: 1 }} />
+                  <Button label={t("protect.report")} icon="flag" variant="ghost" onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)} style={{ flex: 1 }} />
+                </Row>
               )}
             </View>
           </Enter>

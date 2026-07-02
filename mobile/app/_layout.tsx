@@ -29,6 +29,7 @@ function AppStack() {
       <Stack.Screen name="welcome" options={{ headerShown: false, presentation: "modal" }} />
       <Stack.Screen name="feature/[slug]" options={{ title: "" }} />
       <Stack.Screen name="check/[id]" options={{ title: t("check.title") }} />
+      <Stack.Screen name="history" options={{ title: t("history.title") }} />
       <Stack.Screen name="scan" options={{ title: t("protect.scan") }} />
       <Stack.Screen name="incident" options={{ title: t("incident.title") }} />
       <Stack.Screen name="scam-drill" options={{ title: t("drill.title") }} />

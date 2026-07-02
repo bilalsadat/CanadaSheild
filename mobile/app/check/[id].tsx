@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Share } from "react-native";
 import { useLocalSearchParams, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { Card, Small, Body, Kicker, Row, Pill } from "../../components/ui";
+import { Card, Small, Body, Kicker, Row, Pill, Button } from "../../components/ui";
 import { ScoreRing } from "../../components/ScoreRing";
 import { Enter } from "../../components/Motion";
 import { useVraiShield } from "../../lib/store";
@@ -123,6 +123,21 @@ export default function CheckDetail() {
         <Card style={{ marginTop: space.md }}>
           <Small>{t("check.noDetail")}</Small>
         </Card>
+      )}
+
+      {d && (rec.verdict === "dangerous" || rec.verdict === "likely_scam") && (
+        <Enter delay={220}>
+          <Button
+            label={t("share.warn")}
+            icon="share-outline"
+            onPress={() => {
+              Share.share({
+                message: t("share.body", { score: rec.score, verdict: d.verdictLabel, snippet: (d.fullText ?? rec.snippet).slice(0, 120), reason: d.reasons[0] ?? "" }),
+              }).catch(() => {});
+            }}
+            style={{ marginTop: space.md }}
+          />
+        </Enter>
       )}
     </ScrollView>
   );
