@@ -1,4 +1,4 @@
-# Run KinShield on your iPhone with Expo Go
+# Run VraiShield on your iPhone with Expo Go
 
 This is a **native** app (Expo SDK 54, React Native 0.81) — it runs inside the
 **Expo Go** app on your iPhone, not in a web browser.
@@ -28,7 +28,7 @@ A **QR code** appears in the terminal.
 1. Make sure your **iPhone and computer are on the same Wi-Fi**.
 2. Open the **Camera** app on your iPhone and point it at the QR code in the
    terminal.
-3. Tap the banner — it opens the project inside **Expo Go**. KinShield loads
+3. Tap the banner — it opens the project inside **Expo Go**. VraiShield loads
    natively. 🎉
 
 > Windows PowerShell: if `npx` isn’t found, use `npx.cmd expo start`.
@@ -50,7 +50,7 @@ A real native iOS app with a bottom tab bar:
 
 - **Dashboard** — your protection posture, 7-day activity, threats near you,
   recent checks, quick actions. The one screen that summarises everything.
-- **Protect** — Ask KinShield. The Trust Engine runs **on-device**; paste a
+- **Protect** — Ask VraiShield. The Trust Engine runs **on-device**; paste a
   scam and get a scored verdict with the full reasoning ledger, spoken aloud.
   Includes **Paste & check** (reads your clipboard) and **Scan a QR** — a real
   camera QR scanner that decodes the code and checks the link before you open

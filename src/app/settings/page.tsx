@@ -1,6 +1,6 @@
 "use client";
 
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 import type { Language } from "@/lib/trust-engine";
 
 const LANGS: { code: Language; label: string }[] = [
@@ -11,7 +11,7 @@ const LANGS: { code: Language; label: string }[] = [
 ];
 
 export default function SettingsPage() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
 
   return (
     <div className="space-y-8 py-4">
@@ -55,7 +55,7 @@ export default function SettingsPage() {
           </Row>
           <Toggle label="Senior Mode" sub="Big buttons, 36pt type, verdicts read aloud" on={ks.settings.seniorMode} onClick={() => ks.setSetting("seniorMode", !ks.settings.seniorMode)} />
           <Toggle label="Push notifications" sub="Alerts on flagged events and family activity" on={ks.settings.notifications} onClick={() => ks.setSetting("notifications", !ks.settings.notifications)} />
-          <Toggle label="Screen unknown callers" sub="Route to the KinShield Line" on={ks.settings.screenUnknownCallers} onClick={() => ks.setSetting("screenUnknownCallers", !ks.settings.screenUnknownCallers)} />
+          <Toggle label="Screen unknown callers" sub="Route to the VraiShield Line" on={ks.settings.screenUnknownCallers} onClick={() => ks.setSetting("screenUnknownCallers", !ks.settings.screenUnknownCallers)} />
           <Toggle label="Ping guardian on large transfers" sub="Over $500 (policy-set, not surveillance)" on={ks.settings.largeTransferPing} onClick={() => ks.setSetting("largeTransferPing", !ks.settings.largeTransferPing)} />
         </div>
       </section>
@@ -114,12 +114,12 @@ function Toggle({ label, sub, on, onClick }: { label: string; sub: string; on: b
   );
 }
 
-function exportData(ks: ReturnType<typeof useKinShield>) {
+function exportData(ks: ReturnType<typeof useVraiShield>) {
   const { hydrated, completeOnboarding, addScan, addAlert, markAlertsRead, addMember, removeMember, setSetting, setHardening, setDrillBest, setTier, reset, ...data } = ks;
   void hydrated; void completeOnboarding; void addScan; void addAlert; void markAlertsRead; void addMember; void removeMember; void setSetting; void setHardening; void setDrillBest; void setTier; void reset;
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = "kinshield-my-data.json"; a.click();
+  a.href = url; a.download = "vraishield-my-data.json"; a.click();
   URL.revokeObjectURL(url);
 }

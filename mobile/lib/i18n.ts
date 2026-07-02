@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useKinShield } from "./store";
+import { useVraiShield } from "./store";
 import type { Language } from "./trust-engine";
 
 /**
@@ -29,7 +29,7 @@ const en: Dict = {
   "dash.recentChecks": "Recent checks", "dash.noChecks": "No checks yet.", "dash.noChecksSub": "Open Protect and paste a suspicious message.",
   "dash.quickActions": "Quick actions", "qa.beforeSend": "Before sending", "qa.incident": "Incident Mode", "qa.sms": "SMS Shield", "qa.longcon": "Long-Con Radar",
   // protect
-  "protect.kicker": "The front door", "protect.title": "Ask KinShield",
+  "protect.kicker": "The front door", "protect.title": "Ask VraiShield",
   "protect.sub": "Paste a text, email, ad, or what a caller said. The Trust Engine runs entirely on your device.",
   "protect.placeholder": "Paste anything suspicious…", "protect.check": "Check it", "protect.paste": "Paste & check", "protect.scan": "Scan a QR",
   "protect.tryExample": "Try a real example", "protect.report": "Report to Community Network",
@@ -40,14 +40,14 @@ const en: Dict = {
   "set.preferences": "Protection preferences", "set.seniorMode": "Senior Mode", "set.seniorModeSub": "Larger text, simpler actions, spoken verdicts",
   "set.speak": "Speak verdicts aloud", "set.speakSub": "Reads the result after each check",
   "set.notifications": "Notifications", "set.notificationsSub": "Alerts on flagged events and family activity",
-  "set.screenCallers": "Screen unknown callers", "set.screenCallersSub": "Route to the KinShield Line",
+  "set.screenCallers": "Screen unknown callers", "set.screenCallersSub": "Route to the VraiShield Line",
   "set.privacy": "Privacy", "set.personalPlane": "Personal plane", "set.personalPlaneSub": "What's yours. We cannot read it — messages, evidence, your {n} checks, encrypted on this device.",
   "set.networkPlane": "Network plane", "set.networkPlaneSub": "The scammer's. Attacker numbers/domains, only when you report — pseudonymized, aggregate to the CAFC.",
   "set.plan": "Plan", "set.currentPlan": "Current plan",
-  "set.data": "Your data", "set.exportData": "Export my data", "set.exportDataSub": "Everything KinShield stores, as JSON",
+  "set.data": "Your data", "set.exportData": "Export my data", "set.exportDataSub": "Everything VraiShield stores, as JSON",
   "set.deleteAll": "Delete everything", "set.deleteConfirmTitle": "Delete everything?", "set.deleteConfirmBody": "This erases your household, history and settings from this device.",
-  "set.about": "About", "set.version": "Version", "set.rate": "Rate KinShield", "set.share": "Tell a friend", "set.help": "Help & support",
-  "set.privacyPolicy": "Privacy policy", "set.terms": "Terms of service", "set.footer": "KinShield · built in Canada · data resident in ca-central-1",
+  "set.about": "About", "set.version": "Version", "set.rate": "Rate VraiShield", "set.share": "Tell a friend", "set.help": "Help & support",
+  "set.privacyPolicy": "Privacy policy", "set.terms": "Terms of service", "set.footer": "VraiShield · built in Canada · data resident in ca-central-1",
   "set.haptics": "Haptic feedback", "set.hapticsSub": "A gentle tick on verdicts and actions",
   // check detail
   "check.title": "Check details", "check.notFound": "This check is no longer in your on-device history.",
@@ -94,7 +94,7 @@ const fr: Dict = {
   "dash.reportsTracked": "{n} signalements suivis dans {c} villes canadiennes cette semaine.",
   "dash.recentChecks": "Vérifications récentes", "dash.noChecks": "Aucune vérification.", "dash.noChecksSub": "Ouvrez Protéger et collez un message suspect.",
   "dash.quickActions": "Actions rapides", "qa.beforeSend": "Avant d'envoyer", "qa.incident": "Mode incident", "qa.sms": "Bouclier SMS", "qa.longcon": "Radar longue arnaque",
-  "protect.kicker": "La porte d'entrée", "protect.title": "Demander à KinShield",
+  "protect.kicker": "La porte d'entrée", "protect.title": "Demander à VraiShield",
   "protect.sub": "Collez un texto, un courriel, une annonce ou ce qu'un appelant a dit. Le moteur Trust fonctionne entièrement sur votre appareil.",
   "protect.placeholder": "Collez tout ce qui est suspect…", "protect.check": "Vérifier", "protect.paste": "Coller et vérifier", "protect.scan": "Scanner un QR",
   "protect.tryExample": "Essayez un exemple réel", "protect.report": "Signaler au réseau communautaire",
@@ -104,14 +104,14 @@ const fr: Dict = {
   "set.preferences": "Préférences de protection", "set.seniorMode": "Mode aîné", "set.seniorModeSub": "Texte plus grand, actions simplifiées, verdicts à voix haute",
   "set.speak": "Énoncer les verdicts", "set.speakSub": "Lit le résultat après chaque vérification",
   "set.notifications": "Notifications", "set.notificationsSub": "Alertes sur les événements signalés et l'activité familiale",
-  "set.screenCallers": "Filtrer les appels inconnus", "set.screenCallersSub": "Acheminer vers la Ligne KinShield",
+  "set.screenCallers": "Filtrer les appels inconnus", "set.screenCallersSub": "Acheminer vers la Ligne VraiShield",
   "set.privacy": "Confidentialité", "set.personalPlane": "Plan personnel", "set.personalPlaneSub": "Ce qui vous appartient. Nous ne pouvons pas le lire — messages, preuves, vos {n} vérifications, chiffrés sur cet appareil.",
   "set.networkPlane": "Plan réseau", "set.networkPlaneSub": "Celui de l'arnaqueur. Numéros/domaines, seulement quand vous signalez — pseudonymisés, agrégés au CAFC.",
   "set.plan": "Forfait", "set.currentPlan": "Forfait actuel",
-  "set.data": "Vos données", "set.exportData": "Exporter mes données", "set.exportDataSub": "Tout ce que KinShield stocke, en JSON",
+  "set.data": "Vos données", "set.exportData": "Exporter mes données", "set.exportDataSub": "Tout ce que VraiShield stocke, en JSON",
   "set.deleteAll": "Tout supprimer", "set.deleteConfirmTitle": "Tout supprimer ?", "set.deleteConfirmBody": "Ceci efface votre foyer, l'historique et les réglages de cet appareil.",
-  "set.about": "À propos", "set.version": "Version", "set.rate": "Évaluer KinShield", "set.share": "Parlez-en à un proche", "set.help": "Aide et soutien",
-  "set.privacyPolicy": "Politique de confidentialité", "set.terms": "Conditions d'utilisation", "set.footer": "KinShield · conçu au Canada · données hébergées dans ca-central-1",
+  "set.about": "À propos", "set.version": "Version", "set.rate": "Évaluer VraiShield", "set.share": "Parlez-en à un proche", "set.help": "Aide et soutien",
+  "set.privacyPolicy": "Politique de confidentialité", "set.terms": "Conditions d'utilisation", "set.footer": "VraiShield · conçu au Canada · données hébergées dans ca-central-1",
   "set.haptics": "Retour haptique", "set.hapticsSub": "Une légère vibration sur les verdicts et actions",
   "check.title": "Détails de la vérification", "check.notFound": "Cette vérification n'est plus dans votre historique local.",
   "check.recommended": "Recommandé", "check.whatWasChecked": "Ce qui a été vérifié", "check.scriptIdentified": "Arnaque identifiée",
@@ -139,7 +139,7 @@ const fr: Dict = {
 const DICTS: Partial<Record<Language, Dict>> = { en, fr };
 
 export function useT() {
-  const { settings } = useKinShield();
+  const { settings } = useVraiShield();
   const lang = settings.language;
   return useCallback(
     (key: string, params?: Record<string, string | number>) => {

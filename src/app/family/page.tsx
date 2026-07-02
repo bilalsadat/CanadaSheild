@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 
 interface Member {
   name: string;
@@ -22,7 +22,7 @@ const DEMO_MEMBERS: Member[] = [
 
 const ALERTS = [
   { who: "Dadi", what: "Screened an unknown caller — matched CRA-arrest script. Blocked.", score: 6, when: "2h ago", lang: "ਪੰਜਾਬੀ" },
-  { who: "Nanu", what: "Got a Canada Post fee text. KinShield filtered it before the inbox.", score: 14, when: "Yesterday", lang: "ਪੰਜਾਬੀ" },
+  { who: "Nanu", what: "Got a Canada Post fee text. VraiShield filtered it before the inbox.", score: 14, when: "Yesterday", lang: "ਪੰਜਾਬੀ" },
   { who: "Arjun", what: "Checked an investment DM — flagged as pig-butchering stage 3.", score: 11, when: "2d ago", lang: "EN" },
 ];
 
@@ -34,7 +34,7 @@ export default function FamilyPage() {
     incidentBroadcast: true,
   });
 
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const MEMBERS: Member[] =
     ks.onboarded && ks.household.members.length > 0
       ? ks.household.members.map((m) => ({
@@ -74,7 +74,7 @@ export default function FamilyPage() {
           <span className="pill text-ice-dim">Shared policies</span>
           <div className="mt-3 space-y-3">
             {[
-              { key: "screenUnknown", label: "Screen unknown callers for grandparents", sub: "Routes to the KinShield Line" },
+              { key: "screenUnknown", label: "Screen unknown callers for grandparents", sub: "Routes to the VraiShield Line" },
               { key: "largeTransferPing", label: "Ping guardian on transfers over $500", sub: "Policy-set, not surveillance" },
               { key: "seniorSlowPersona", label: "Use the slow, patient screening persona", sub: "Senior Mode households" },
               { key: "incidentBroadcast", label: "Alert the circle if Incident Mode opens", sub: "Silent, instant" },

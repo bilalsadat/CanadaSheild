@@ -197,7 +197,7 @@ function buildBriefs(points: HeatPoint[]) {
     city: p.city,
     reports: p.reports,
     lang: "Surging this week",
-    text: `“${p.topCategory}” is the top threat in ${p.city.split(",")[0]} this week — ${p.reports} reports across ${p.artifacts} active numbers/links. KinShield is screening it before it reaches your family.`,
+    text: `“${p.topCategory}” is the top threat in ${p.city.split(",")[0]} this week — ${p.reports} reports across ${p.artifacts} active numbers/links. VraiShield is screening it before it reaches your family.`,
   }));
 }
 

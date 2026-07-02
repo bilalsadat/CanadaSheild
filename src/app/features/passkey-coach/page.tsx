@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { FeatureShell } from "@/components/FeatureShell";
 import { TrustDial } from "@/components/TrustDial";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 
 const TASKS = [
   { id: "passkey", label: "Add a passkey to your email", sub: "Face/fingerprint — nothing to phish", pts: 22 },
@@ -18,7 +18,7 @@ export default function PasskeyCoachPage() {
   const [done, setDone] = useState<string[]>([]);
   const score = TASKS.filter((t) => done.includes(t.id)).reduce((a, t) => a + t.pts, 0);
   const toggle = (id: string) => setDone((d) => (d.includes(id) ? d.filter((x) => x !== id) : [...d, id]));
-  const { setHardening } = useKinShield();
+  const { setHardening } = useVraiShield();
   useEffect(() => { setHardening(score); }, [score, setHardening]);
 
   return (

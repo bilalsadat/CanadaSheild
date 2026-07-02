@@ -1,4 +1,4 @@
-# KinShield
+# VraiShield (formerly KinShield)
 
 **The orchestration layer for fraud defence in Canada.** One Trust Score behind
 every channel, built for the household, fluent in the languages where Canadian
@@ -6,7 +6,7 @@ losses concentrate — and honest, by engineering discipline, about exactly what
 it can and can't do.
 
 > Detection is becoming a commodity. Judgment, family context, Canadian context,
-> and recovery are not. KinShield wins the race nobody is running: the
+> and recovery are not. VraiShield wins the race nobody is running: the
 > orchestration layer above Apple, Google, Norton, McAfee and the enterprise
 > labs.
 
@@ -38,7 +38,7 @@ that make up the MVP wedge.
 | Piece | What it is | Status |
 | --- | --- | --- |
 | **Trust Engine** (`src/lib/trust-engine`) | The scoring brain. Five signal families fused into a 1–100 Trust Score + top-3 reasons + the full reasoning ledger. Pure TypeScript, framework-agnostic — it *is* the SDK. | ✅ live, unit-tested |
-| **Ask KinShield** (`/`) | Paste anything → verdict, in your language, in milliseconds. The real engine runs in the browser/server. | ✅ |
+| **Ask VraiShield** (`/`) | Paste anything → verdict, in your language, in milliseconds. The real engine runs in the browser/server. | ✅ |
 | **SMS / Link forensics** | Lookalike domains, homoglyphs, risky TLDs, brand-off-domain phishing, crypto-recipient detection. | ✅ |
 | **Family Circle** (`/family`) | The household graph, shared policies, cross-platform alert feed — the retention moat. | ✅ |
 | **Senior Mode** (`/senior`) | The four-button, 36pt+, voice-first alternate presentation layer. Verdicts spoken aloud (Web Speech API). | ✅ |
@@ -50,7 +50,7 @@ that make up the MVP wedge.
 | **Live Threat Map** (`/map`) | A Google-Maps-style heat map of Canada (Leaflet + CARTO), fed by the consented network plane, with category filters and the weekly Briefing. | ✅ |
 | **Onboarding + Dashboard** (`/welcome`, `/dashboard`) | A real account/household setup wizard and a personalized protection center: posture score, 7-day activity, recent checks, alerts — all persisted on-device. | ✅ |
 | **Settings & Privacy** (`/settings`) | The split-plane privacy dashboard, language/Senior-Mode toggles, plan, and one-tap data export/delete. | ✅ |
-| **Installable PWA** | manifest + service worker + offline page — add KinShield to your phone's home screen and it runs like a native app. | ✅ |
+| **Installable PWA** | manifest + service worker + offline page — add VraiShield to your phone's home screen and it runs like a native app. | ✅ |
 | **12 languages** | Detection + verdict/action labels across English, Quebec French, Punjabi, Mandarin/Cantonese, Spanish, Tagalog, Arabic, Vietnamese, Korean, Portuguese, Hindi (EN/FR/PA/ZH validated; rest seed — see `/transparency`). | ✅ |
 
 > **Just want to run it (incl. installing on your phone)?** See [`HOW-TO-RUN.md`](HOW-TO-RUN.md).
@@ -80,7 +80,7 @@ curl -s localhost:3000/api/check -H 'content-type: application/json' -d '{
 
 ## Architecture — the split data-plane
 
-KinShield's core promise: *"What's yours, we cannot read. What's the scammer's,
+VraiShield's core promise: *"What's yours, we cannot read. What's the scammer's,
 we share to protect everyone."*
 
 - **Personal plane** — everything that is the user's (transcripts, evidence,
@@ -131,7 +131,7 @@ Everything here follows the integrity standard from the master document:
 This reference build is TypeScript end-to-end so it runs anywhere in one
 command. The master spec's production stack adds: native Swift/Kotlin for the
 OS message/call hooks, Go services, Postgres+pgvector / graph DB, a CPaaS
-telephony layer for the KinShield Line, and PyTorch-trained on-device models
+telephony layer for the VraiShield Line, and PyTorch-trained on-device models
 that the rule corpus here seeds and supervises.
 
 ---
@@ -142,7 +142,7 @@ that the rule corpus here seeds and supervises.
 src/
   app/                     Next.js App Router — every surface
     api/check  api/report  the scoring + reporting endpoints (= the SDK shape)
-  components/              TrustDial, VerdictCard, AskKinShield, …
+  components/              TrustDial, VerdictCard, AskVraiShield, …
   lib/
     trust-engine/          THE BRAIN (pure TS, the SDK)
       signals/             content · artifact · authenticity · network · anomaly

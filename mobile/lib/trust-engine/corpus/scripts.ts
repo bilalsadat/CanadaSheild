@@ -1,5 +1,5 @@
 /**
- * The Canadian scam-script corpus — KinShield's first moat made concrete.
+ * The Canadian scam-script corpus — VraiShield's first moat made concrete.
  *
  * Each entry is a "script DNA": the named con, the institutions it impersonates,
  * multilingual trigger phrases (losses concentrate in non-English communities,

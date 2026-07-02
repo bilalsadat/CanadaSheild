@@ -4,7 +4,7 @@ import { normalize, clamp01 } from "../util";
 /**
  * Authenticity signal — synthetic-media likelihood.
  *
- * Claims discipline: KinShield NEVER rests a verdict on a single detector, and
+ * Claims discipline: VraiShield NEVER rests a verdict on a single detector, and
  * always expresses authenticity as a probability with stated uncertainty. When
  * the host supplies an audio/video synthesis likelihood (from the AASIST/RawNet-
  * class ensemble), we fold it in at deliberately bounded confidence. With no

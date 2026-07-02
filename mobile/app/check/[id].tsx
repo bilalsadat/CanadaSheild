@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Card, Small, Body, Kicker, Row, Pill } from "../../components/ui";
 import { ScoreRing } from "../../components/ScoreRing";
 import { Enter } from "../../components/Motion";
-import { useKinShield } from "../../lib/store";
+import { useVraiShield } from "../../lib/store";
 import { useT } from "../../lib/i18n";
 import { colors, font, space, verdictColor } from "../../lib/theme";
 
@@ -19,7 +19,7 @@ const FAMILY_LABEL: Record<string, string> = {
 
 export default function CheckDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const t = useT();
   const rec = ks.history.find((h) => h.id === id);
 

@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import Svg, { Line, Circle, Text as SvgText } from "react-native-svg";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen, Card, Title, H3, Small, Kicker, Row, Pill } from "../../components/ui";
-import { useKinShield } from "../../lib/store";
+import { useVraiShield } from "../../lib/store";
 import { useT } from "../../lib/i18n";
 import { colors, font, space } from "../../lib/theme";
 
@@ -18,14 +18,14 @@ const DEMO: M[] = [
 ];
 
 const POLICIES = [
-  { key: "screen", label: "Screen unknown callers for seniors", sub: "Routes to the KinShield Line" },
+  { key: "screen", label: "Screen unknown callers for seniors", sub: "Routes to the VraiShield Line" },
   { key: "ping", label: "Ping guardian on transfers over $500", sub: "Policy-set, not surveillance" },
   { key: "slow", label: "Use the patient screening persona", sub: "Senior Mode households" },
   { key: "broadcast", label: "Alert the circle if Incident Mode opens", sub: "Silent, instant" },
 ];
 
 export default function Family() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const t = useT();
   const members: M[] = ks.onboarded && ks.household.members.length > 0
     ? ks.household.members.map((m) => ({ name: m.name, role: m.role, device: m.device, senior: m.role === "senior", guardian: m.role === "guardian" }))

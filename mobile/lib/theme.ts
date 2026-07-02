@@ -1,5 +1,5 @@
 /**
- * KinShield design system v2 — a restrained, professional dark theme.
+ * VraiShield design system v2 — a restrained, professional dark theme.
  *
  * Principles (aligned with the dataviz discipline):
  *  - Deep ink background with layered surfaces; one confident emerald accent.

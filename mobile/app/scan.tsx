@@ -8,12 +8,12 @@ import { Button, Card, Small, Body } from "../components/ui";
 import { VerdictView } from "../components/VerdictView";
 import { scoreTrust, explain } from "../lib/trust-engine";
 import { networkLookup } from "../lib/data";
-import { useKinShield } from "../lib/store";
+import { useVraiShield } from "../lib/store";
 import { toScanDetail } from "../lib/verdict";
 import { colors, font, space, radius } from "../lib/theme";
 
 export default function Scan() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState<string | null>(null);
   const [ignored, setIgnored] = useState(false);
@@ -47,7 +47,7 @@ export default function Scan() {
       <View style={{ flex: 1, backgroundColor: colors.bg, alignItems: "center", justifyContent: "center", padding: space.xl }}>
         <Stack.Screen options={{ title: "Scan QR" }} />
         <Ionicons name="qr-code-outline" size={48} color={colors.primary} />
-        <Body style={{ textAlign: "center", marginTop: 16 }}>KinShield needs the camera to scan a QR code and check it for fraud. It only reads the code you point at.</Body>
+        <Body style={{ textAlign: "center", marginTop: 16 }}>VraiShield needs the camera to scan a QR code and check it for fraud. It only reads the code you point at.</Body>
         <Button label="Allow camera" icon="camera" onPress={requestPermission} style={{ marginTop: 20 }} />
       </View>
     );

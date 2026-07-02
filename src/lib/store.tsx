@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * KinShield app state — a persistent client store (localStorage).
+ * VraiShield app state — a persistent client store (localStorage).
  *
  * This is the "personal plane" in the demo: it lives only on the user's device.
  * In production this is the E2EE vault; here it is localStorage, but the shape
@@ -78,7 +78,7 @@ const DEFAULT: KSState = {
   },
 };
 
-const KEY = "kinshield.state.v1";
+const KEY = "vraishield.state.v1";
 
 interface KSContext extends KSState {
   completeOnboarding: (p: { name: string; role: KSState["profile"]["role"]; language: Language; household: string; members: Member[]; seniorMode: boolean; tier: KSState["profile"]["tier"] }) => void;
@@ -98,13 +98,13 @@ const Ctx = createContext<KSContext | null>(null);
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
-export function KinShieldProvider({ children }: { children: React.ReactNode }) {
+export function VraiShieldProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<KSState>(DEFAULT);
 
   // Hydrate from localStorage once on mount.
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(KEY);
+      const raw = localStorage.getItem(KEY) ?? localStorage.getItem("kinshield.state.v1");
       if (raw) {
         const parsed = JSON.parse(raw) as KSState;
         setState({ ...DEFAULT, ...parsed, hydrated: true });
@@ -136,7 +136,7 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
       household: { name: p.household, members: p.members },
       settings: { ...s.settings, language: p.language, seniorMode: p.seniorMode },
       alerts: [
-        { id: uid(), ts: Date.now(), severity: "info", title: "Welcome to KinShield", body: `${p.household} is now protected. Add a suspicious message anytime with Ask KinShield.` },
+        { id: uid(), ts: Date.now(), severity: "info", title: "Welcome to VraiShield", body: `${p.household} is now protected. Add a suspicious message anytime with Ask VraiShield.` },
         ...s.alerts,
       ],
     }));
@@ -189,8 +189,8 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useKinShield(): KSContext {
+export function useVraiShield(): KSContext {
   const c = useContext(Ctx);
-  if (!c) throw new Error("useKinShield must be used within KinShieldProvider");
+  if (!c) throw new Error("useVraiShield must be used within VraiShieldProvider");
   return c;
 }

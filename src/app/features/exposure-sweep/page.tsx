@@ -81,7 +81,7 @@ export default function ExposureSweepPage() {
               ))}
             </div>
             <p className="mt-2 text-xs text-ice-dim">
-              These carry statutory penalties behind them — KinShield files the legal demand, not a polite opt-out.
+              These carry statutory penalties behind them — VraiShield files the legal demand, not a polite opt-out.
             </p>
           </section>
 

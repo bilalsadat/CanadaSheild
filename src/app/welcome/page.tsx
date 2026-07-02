@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useKinShield, type Member, type MemberRole } from "@/lib/store";
+import { useVraiShield, type Member, type MemberRole } from "@/lib/store";
 import type { Language } from "@/lib/trust-engine";
 import { Wordmark } from "@/components/Brand";
 
@@ -17,7 +17,7 @@ type Role = "self" | "parent" | "business";
 
 export default function WelcomePage() {
   const router = useRouter();
-  const { completeOnboarding } = useKinShield();
+  const { completeOnboarding } = useVraiShield();
   const [step, setStep] = useState(0);
 
   const [name, setName] = useState("");
@@ -148,7 +148,7 @@ export default function WelcomePage() {
           </div>
           <div className="mt-5 flex gap-2">
             <Back onClick={() => setStep(2)} />
-            <button onClick={finish} className="btn btn-primary flex-1 py-2.5">Enter KinShield →</button>
+            <button onClick={finish} className="btn btn-primary flex-1 py-2.5">Enter VraiShield →</button>
           </div>
         </Card>
       )}

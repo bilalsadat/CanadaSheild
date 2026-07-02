@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AskKinShield } from "@/components/AskKinShield";
+import { AskVraiShield } from "@/components/AskVraiShield";
 import { HomeBanner } from "@/components/HomeBanner";
 
 const STATS = [
@@ -9,14 +9,14 @@ const STATS = [
 ];
 
 const PILLARS = [
-  { icon: "💬", title: "Ask KinShield", href: "#try", body: "Paste, forward or photograph anything and get a Trust Score, the top reasons, and a recommended action — in your language, in seconds.", phase: "P0" },
+  { icon: "💬", title: "Ask VraiShield", href: "#try", body: "Paste, forward or photograph anything and get a Trust Score, the top reasons, and a recommended action — in your language, in seconds.", phase: "P0" },
   { icon: "📨", title: "SMS / RCS Shield", href: "/features/sms-shield", body: "Scam texts filtered before they reach the inbox, with Canadian patterns the OS filters miss, and one-tap report-to-protect-everyone.", phase: "P0" },
   { icon: "🔗", title: "Link & QR Checker", href: "/features/link-qr-checker", body: "Lookalike domains, homoglyphs, risky TLDs and brand-off-domain phishing caught before you tap — tuned for CRA, Interac, Canada Post.", phase: "P0" },
   { icon: "👪", title: "Family Circle", href: "/family", body: "The household is the unit of protection. Adult children see flagged events, set policies, and get alerts across every platform.", phase: "P0" },
-  { icon: "📞", title: "The KinShield Line", href: "/features/call-line", body: "An AI receptionist screens unknown callers at the network layer — judging the conversation, not just the caller ID — on every handset.", phase: "P1" },
-  { icon: "🕰️", title: "Long-Con Radar", href: "/features/long-con-radar", body: "Romance fraud and pig-butchering unfold over weeks. KinShield reads the script's progression and intervenes while it still works.", phase: "P1" },
+  { icon: "📞", title: "The VraiShield Line", href: "/features/call-line", body: "An AI receptionist screens unknown callers at the network layer — judging the conversation, not just the caller ID — on every handset.", phase: "P1" },
+  { icon: "🕰️", title: "Long-Con Radar", href: "/features/long-con-radar", body: "Romance fraud and pig-butchering unfold over weeks. VraiShield reads the script's progression and intervenes while it still works.", phase: "P1" },
   { icon: "🆘", title: "Incident Mode", href: "/incident", body: "The panic button competitors forgot. Triage, evidence capture, pre-filled CAFC/police reports, scripted bank calls — sequenced.", phase: "P0" },
-  { icon: "🏦", title: "KinShield SDK", href: "/sdk", body: "The same brain, licensed: a Bill C-15 control kit, Trust Engine API, residency, and an FCAC reporting pipeline for banks and credit unions.", phase: "P1→P2" },
+  { icon: "🏦", title: "VraiShield SDK", href: "/sdk", body: "The same brain, licensed: a Bill C-15 control kit, Trust Engine API, residency, and an FCAC reporting pipeline for banks and credit unions.", phase: "P1→P2" },
 ];
 
 const MOATS = [
@@ -30,7 +30,7 @@ const MOATS = [
 
 const TIERS = [
   { name: "Free", price: "$0", role: "Distribution + network data", items: ["SMS Shield", "5 link/QR checks a day", "Basic Trust Score", "Community reporting", "Incident Mode (self-serve)"] },
-  { name: "Family", price: "$9.99/mo", role: "The wedge — bought by adult children", featured: true, items: ["Everything in Free", "Family Circle + Senior Mode", "The KinShield Line", "Unlimited Ask KinShield", "Crisis Vault · Long-Con Radar", "Exposure Sweep · Zero-Knowledge Vault"] },
+  { name: "Family", price: "$9.99/mo", role: "The wedge — bought by adult children", featured: true, items: ["Everything in Free", "Family Circle + Senior Mode", "The VraiShield Line", "Unlimited Ask VraiShield", "Crisis Vault · Long-Con Radar", "Exposure Sweep · Zero-Knowledge Vault"] },
   { name: "Premium", price: "$19.99/mo", role: "SMBs + high-exposure users", items: ["Everything in Family", "Human Recovery Line", "Email Guard · Wire Guard", "Meeting Assist · Voice Lock", "Insurance benefit (Year 2+)"] },
   { name: "Enterprise SDK", price: "$50–250K/yr", role: "The institutional revenue engine", items: ["Trust Engine API", "Bill C-15 control kit", "Threat-intel feed (CA residency)", "FCAC reporting pipeline", "SLAs + SOC 2"] },
 ];
@@ -49,7 +49,7 @@ export default function Home() {
           <span className="text-safe">fraud actually targets families.</span>
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-ice-dim">
-          Apple and Google commoditized detection. KinShield is the orchestration layer above all
+          Apple and Google commoditized detection. VraiShield is the orchestration layer above all
           of them — one Trust Score behind every channel, built for the household, fluent in the
           twelve languages where Canadian losses concentrate, and honest about exactly what it can
           and can&apos;t do.
@@ -80,11 +80,11 @@ export default function Home() {
       <section id="try" className="scroll-mt-20">
         <SectionHead
           kicker="The brain, live"
-          title="Ask KinShield"
+          title="Ask VraiShield"
           sub="This is the real Trust Engine running in your browser — five signal families fused into one score, with the full reasoning ledger shown. Try an example or paste your own."
         />
         <div className="mt-6">
-          <AskKinShield />
+          <AskVraiShield />
         </div>
       </section>
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AskKinShield } from "@/components/AskKinShield";
+import { AskVraiShield } from "@/components/AskVraiShield";
 
 /**
  * Senior Mode — not a feature, a complete alternate presentation layer: four
@@ -49,7 +49,7 @@ export default function SeniorPage() {
             ))}
           </div>
           <p className="mt-6 text-center text-lg text-ice-dim">
-            KinShield reads every answer out loud. You never need a password — your family keeps a
+            VraiShield reads every answer out loud. You never need a password — your family keeps a
             spare key for you.
           </p>
         </>
@@ -66,7 +66,7 @@ export default function SeniorPage() {
                 Read me the message, or type what the caller said. I&apos;ll tell you out loud if
                 it&apos;s safe.
               </p>
-              <AskKinShield senior />
+              <AskVraiShield senior />
             </>
           )}
 

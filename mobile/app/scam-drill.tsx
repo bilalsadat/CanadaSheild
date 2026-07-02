@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen, Card, H3, Small, Body, Button, Row } from "../components/ui";
 import { scoreTrust, explain } from "../lib/trust-engine";
-import { useKinShield } from "../lib/store";
+import { useVraiShield } from "../lib/store";
 import { colors, font, space } from "../lib/theme";
 
 const DRILLS = [
@@ -16,7 +16,7 @@ const DRILLS = [
 ];
 
 export default function ScamDrill() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<boolean | null>(null);
@@ -64,7 +64,7 @@ export default function ScamDrill() {
         ) : (
           <View style={{ marginTop: 16 }}>
             <Text style={{ color: answered ? colors.primary : colors.danger, fontWeight: font.bold, fontSize: font.h3 }}>{answered ? "Correct!" : "Not quite —"} this was {d.scam ? "a scam" : "legitimate"}.</Text>
-            <Small style={{ marginTop: 4 }}>KinShield scored it {eng.trustScore}/100. {explain(eng).reasons[0] ?? "No fraud signals — a normal message."}</Small>
+            <Small style={{ marginTop: 4 }}>VraiShield scored it {eng.trustScore}/100. {explain(eng).reasons[0] ?? "No fraud signals — a normal message."}</Small>
             <Button label={i + 1 >= DRILLS.length ? "See results" : "Next"} onPress={next} style={{ marginTop: 16 }} />
           </View>
         )}

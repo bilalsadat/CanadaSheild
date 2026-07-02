@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { featuresByPillar, featureHref, FEATURES } from "@/lib/features";
 
-export const metadata = { title: "KinShield — the full feature catalogue" };
+export const metadata = { title: "VraiShield — the full feature catalogue" };
 
 export default function FeaturesHub() {
   const groups = featuresByPillar();

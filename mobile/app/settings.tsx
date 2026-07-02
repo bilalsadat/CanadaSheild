@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { Card, H3, Small, Kicker, Row } from "../components/ui";
-import { useKinShield } from "../lib/store";
+import { useVraiShield } from "../lib/store";
 import { useT } from "../lib/i18n";
 import { colors, font, space, radius } from "../lib/theme";
 import type { Language } from "../lib/trust-engine";
@@ -25,7 +25,7 @@ const LANGS: { code: Language; label: string; native: string; full: boolean }[] 
 ];
 
 export default function SettingsScreen() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const t = useT();
   const [langOpen, setLangOpen] = useState(false);
   const currentLang = LANGS.find((l) => l.code === ks.settings.language) ?? LANGS[0];
@@ -121,10 +121,10 @@ export default function SettingsScreen() {
       <SectionLabel>{t("set.about")}</SectionLabel>
       <Card style={{ marginBottom: space.lg, padding: 0, overflow: "hidden" }}>
         <SettingsRow icon="star-outline" label={t("set.rate")} onPress={() => Linking.openURL("https://apps.apple.com").catch(() => {})} />
-        <SettingsRow icon="share-social-outline" label={t("set.share")} onPress={() => Share.share({ message: "KinShield — fraud defence for every Canadian family. https://kinshield.ca" }).catch(() => {})} />
-        <SettingsRow icon="help-buoy-outline" label={t("set.help")} onPress={() => Linking.openURL("mailto:support@kinshield.ca").catch(() => {})} />
-        <SettingsRow icon="document-text-outline" label={t("set.privacyPolicy")} onPress={() => Linking.openURL("https://kinshield.ca/privacy").catch(() => {})} />
-        <SettingsRow icon="reader-outline" label={t("set.terms")} onPress={() => Linking.openURL("https://kinshield.ca/terms").catch(() => {})} />
+        <SettingsRow icon="share-social-outline" label={t("set.share")} onPress={() => Share.share({ message: "VraiShield — fraud defence for every Canadian family. https://vraishield.ca" }).catch(() => {})} />
+        <SettingsRow icon="help-buoy-outline" label={t("set.help")} onPress={() => Linking.openURL("mailto:support@vraishield.ca").catch(() => {})} />
+        <SettingsRow icon="document-text-outline" label={t("set.privacyPolicy")} onPress={() => Linking.openURL("https://vraishield.ca/privacy").catch(() => {})} />
+        <SettingsRow icon="reader-outline" label={t("set.terms")} onPress={() => Linking.openURL("https://vraishield.ca/terms").catch(() => {})} />
         <SettingsRow icon="information-circle-outline" label={t("set.version")} value={`${version} (54)`} last />
       </Card>
 
@@ -152,7 +152,7 @@ function SettingsRow({ icon, label, sub, value, onPress, chevron = "chevron-forw
 }
 
 function Toggle({ icon, label, sub, settingKey, last }: { icon: any; label: string; sub: string; settingKey: keyof Settings; last?: boolean }) {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const on = !!ks.settings[settingKey];
   return (
     <Pressable onPress={() => ks.setSetting(settingKey, !on as never)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: 13, paddingHorizontal: space.lg, gap: 12, borderBottomWidth: last ? 0 : 1, borderBottomColor: colors.border }}>
@@ -168,7 +168,7 @@ function Toggle({ icon, label, sub, settingKey, last }: { icon: any; label: stri
   );
 }
 
-function exportData(ks: ReturnType<typeof useKinShield>) {
+function exportData(ks: ReturnType<typeof useVraiShield>) {
   const summary = { profile: ks.profile, household: ks.household, history: ks.history, settings: ks.settings, hardeningScore: ks.hardeningScore, drillBest: ks.drillBest };
   Share.share({ message: JSON.stringify(summary, null, 2) }).catch(() => {});
 }

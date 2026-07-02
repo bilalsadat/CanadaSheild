@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 import { TrustDial } from "@/components/TrustDial";
 import { VERDICT_STYLE } from "@/components/verdict-style";
 
 export default function DashboardPage() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
 
   if (!ks.hydrated) {
     return <div className="grid min-h-[50vh] place-items-center text-ice-dim">Loading your protection center…</div>;
@@ -18,7 +18,7 @@ export default function DashboardPage() {
         <div className="card max-w-md p-8">
           <p className="text-5xl">🛡️</p>
           <h1 className="mt-3 text-2xl font-bold text-ice">Set up your protection</h1>
-          <p className="mt-2 text-ice-dim">Create your Family Circle and personalize KinShield. About 60 seconds — everything stays on your device.</p>
+          <p className="mt-2 text-ice-dim">Create your Family Circle and personalize VraiShield. About 60 seconds — everything stays on your device.</p>
           <Link href="/welcome" className="btn btn-primary mt-5 px-6 py-3">Get protected →</Link>
         </div>
       </div>

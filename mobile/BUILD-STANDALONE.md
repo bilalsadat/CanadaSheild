@@ -1,4 +1,4 @@
-# Build a standalone KinShield app (EAS)
+# Build a standalone VraiShield app (EAS)
 
 Expo Go is great for testing, but it can only run the SDK it ships with and
 can't include custom native modules. To get a **real, standalone app on your

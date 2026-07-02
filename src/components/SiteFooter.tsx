@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="flex flex-wrap items-center gap-3">
           <ShieldMark size={24} />
           <p className="text-sm text-ice-dim">
-            KinShield — fraud defence for every Canadian family. Built in Canada,
+            VraiShield — fraud defence for every Canadian family. Built in Canada,
             data resident in <span className="text-ice">ca-central-1</span>.
           </p>
         </div>

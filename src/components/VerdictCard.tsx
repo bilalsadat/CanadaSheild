@@ -5,7 +5,7 @@ import { TrustDial } from "./TrustDial";
 import { VERDICT_STYLE, FAMILY_LABEL } from "./verdict-style";
 
 /**
- * The verdict surface, shared by Ask KinShield, SMS Shield, Link Checker and
+ * The verdict surface, shared by Ask VraiShield, SMS Shield, Link Checker and
  * the Line. Shows the score, the localized verdict + recommended action, the
  * detected scam "script DNA", the top three reasons, and — the honesty moat
  * made tangible — the full per-signal ledger that produced the score.

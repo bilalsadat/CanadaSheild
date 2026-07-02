@@ -1,6 +1,6 @@
 {
-  "name": "KinShield — Fraud Defence",
-  "short_name": "KinShield",
+  "name": "VraiShield — Fraud Defence",
+  "short_name": "VraiShield",
   "description": "One Trust Score behind every channel. Fraud defence for every Canadian family.",
   "start_url": "/",
   "scope": "/",
@@ -15,7 +15,7 @@
     { "src": "/icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Ask KinShield", "url": "/", "description": "Check a suspicious message" },
+    { "name": "Ask VraiShield", "url": "/", "description": "Check a suspicious message" },
     { "name": "Live Threat Map", "url": "/map" },
     { "name": "Incident Mode", "url": "/incident" }
   ]

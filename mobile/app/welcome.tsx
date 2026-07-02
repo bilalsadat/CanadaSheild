@@ -4,7 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Title, H3, Small, Body, Button, Row } from "../components/ui";
-import { useKinShield, type Member, type MemberRole } from "../lib/store";
+import { useVraiShield, type Member, type MemberRole } from "../lib/store";
+import { LogoWordmark } from "../components/Logo";
 import type { Language } from "../lib/trust-engine";
 import { colors, font, space, radius } from "../lib/theme";
 
@@ -15,7 +16,7 @@ const LANGS: { code: Language; label: string }[] = [
 ];
 
 export default function Welcome() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
@@ -42,7 +43,7 @@ export default function Welcome() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
       <ScrollView contentContainerStyle={{ padding: space.lg, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
         <Row style={{ justifyContent: "space-between", marginBottom: space.md }}>
-          <Row style={{ gap: 8 }}><Ionicons name="shield-checkmark" size={22} color={colors.primary} /><Text style={{ color: colors.text, fontSize: font.h3, fontWeight: font.bold }}>KinShield</Text></Row>
+          <LogoWordmark size={18} mark={24} />
           <Pressable onPress={finish}><Small>Skip</Small></Pressable>
         </Row>
         <View style={{ height: 6, borderRadius: 3, backgroundColor: "rgba(148,163,184,0.16)", marginBottom: space.lg, overflow: "hidden" }}>
@@ -124,7 +125,7 @@ export default function Welcome() {
                 <Small style={{ marginTop: 2 }}>{d}</Small>
               </Pressable>
             ))}
-            <Button label="Enter KinShield" icon="arrow-forward" onPress={finish} style={{ marginTop: space.lg }} />
+            <Button label="Enter VraiShield" icon="arrow-forward" onPress={finish} style={{ marginTop: space.lg }} />
           </View>
         )}
       </ScrollView>

@@ -1,4 +1,4 @@
-# Running KinShield (computer + phone)
+# Running VraiShield (computer + phone)
 
 ## On your computer
 
@@ -25,7 +25,7 @@ When `npm run dev` starts, it prints two URLs, e.g.:
 1. Make sure your **phone and computer are on the same Wi-Fi**.
 2. On your phone's browser, type the **Network** URL exactly (e.g. `http://10.0.0.125:3000`).
    (Your number will differ — use the one your terminal shows.)
-3. KinShield loads. **Install it as an app** — it's a real PWA:
+3. VraiShield loads. **Install it as an app** — it's a real PWA:
    - **iPhone (Safari):** Share → *Add to Home Screen*.
    - **Android (Chrome):** menu (⋮) → *Install app* / *Add to Home Screen*.
    It then opens full-screen with its own icon, like a native app, and the
@@ -47,13 +47,13 @@ free to Vercel:
 2. Go to https://vercel.com → **Add New → Project** → import the repo →
    pick the branch `claude/product-idea-dev-0mgf8q` → **Deploy**.
 3. Vercel auto-detects Next.js. In ~1 minute you get a public URL like
-   `https://kinshield.vercel.app` you can open on any device.
+   `https://vraishield.vercel.app` you can open on any device.
 
 No environment variables are required — everything runs out of the box.
 
 ## What to try first
 
-- **Home (`/`)** → tap the "CRA arrest call" example in *Ask KinShield*.
+- **Home (`/`)** → tap the "CRA arrest call" example in *Ask VraiShield*.
 - **All 30 features (`/features`)** → every feature is here; green = live engine,
   amber = interactive demo. Tap any card.
 - **Live Map (`/map`)** → the Google-Maps-style threat heat map of Canada.

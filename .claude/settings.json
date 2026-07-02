@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && npm install --no-audit --no-fund >/tmp/kinshield-setup.log 2>&1 || true"
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && npm install --no-audit --no-fund >/tmp/vraishield-setup.log 2>&1 || true"
           }
         ]
       }

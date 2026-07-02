@@ -1,29 +1,31 @@
 {
   "expo": {
-    "name": "KinShield",
-    "slug": "kinshield",
-    "scheme": "kinshield",
+    "name": "VraiShield",
+    "slug": "vraishield",
+    "scheme": "vraishield",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "backgroundColor": "#0B0F1A",
+    "backgroundColor": "#0A0E17",
     "newArchEnabled": true,
+    "icon": "./assets/icon.png",
     "splash": {
-      "backgroundColor": "#0B0F1A",
+      "image": "./assets/splash-icon.png",
+      "backgroundColor": "#0A0E17",
       "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kinshield.app",
+      "bundleIdentifier": "com.vraishield.app",
       "config": { "usesNonExemptEncryption": false }
     },
     "android": {
-      "package": "com.kinshield.app",
+      "package": "com.vraishield.app",
       "edgeToEdgeEnabled": true
     },
     "plugins": [
       "expo-router",
-      ["expo-camera", { "cameraPermission": "KinShield uses the camera only to scan QR codes you point at, so it can check them for fraud before you open them." }]
+      ["expo-camera", { "cameraPermission": "VraiShield uses the camera only to scan QR codes you point at, so it can check them for fraud before you open them." }]
     ],
     "experiments": { "typedRoutes": false }
   }

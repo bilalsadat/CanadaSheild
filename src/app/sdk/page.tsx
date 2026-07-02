@@ -43,7 +43,7 @@ export default function SdkPage() {
     <div className="space-y-12 py-4">
       <header className="max-w-2xl">
         <span className="pill text-gold">The institutional revenue engine</span>
-        <h1 className="mt-2 text-3xl font-bold text-ice sm:text-4xl">KinShield SDK — the Bill C-15 product</h1>
+        <h1 className="mt-2 text-3xl font-bold text-ice sm:text-4xl">VraiShield SDK — the Bill C-15 product</h1>
         <p className="mt-2 text-ice-dim">
           The same brain, licensed. Pindrop&apos;s enterprise position, attacked from below with
           consumer-proven detection, Canadian compliance fluency, and price points credit unions can

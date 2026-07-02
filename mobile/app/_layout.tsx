@@ -6,7 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Stack } from "expo-router";
 import * as SystemUI from "expo-system-ui";
-import { KinShieldProvider } from "../lib/store";
+import { VraiShieldProvider } from "../lib/store";
 import { useT } from "../lib/i18n";
 import { colors } from "../lib/theme";
 
@@ -42,10 +42,10 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.bg }}>
       <SafeAreaProvider>
-        <KinShieldProvider>
+        <VraiShieldProvider>
           <StatusBar style="light" />
           <AppStack />
-        </KinShieldProvider>
+        </VraiShieldProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

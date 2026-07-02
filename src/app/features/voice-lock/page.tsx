@@ -30,7 +30,7 @@ export default function VoiceLockPage() {
   return (
     <FeatureShell slug="voice-lock">
       <p className="max-w-2xl text-ice-dim">
-        Family voiceprints, used where the OS allows. KinShield stores an encrypted voice
+        Family voiceprints, used where the OS allows. VraiShield stores an encrypted voice
         embedding — <b>never raw audio</b> — and verifies a request against it. Honestly scoped: it
         can&apos;t verify a native phone call you answer yourself (that&apos;s Assist Mode).
       </p>

@@ -6,7 +6,7 @@ import { useState } from "react";
  * Incident Mode — the feature every competitor forgot. It compresses the
  * catastrophic first hours into a sequenced, pre-filled, nagging checklist.
  * Honest framing: no public API freezes a bank account or files a police report
- * for you — KinShield makes every step findable, pre-filled and in the right
+ * for you — VraiShield makes every step findable, pre-filled and in the right
  * order, and automation deepens as bank SDK relationships land.
  */
 
@@ -28,7 +28,7 @@ const STEPS: Step[] = [
   {
     id: "bank",
     title: "Call your bank's fraud line — use these exact words",
-    detail: "The right phrases get a recall started fast. KinShield can join the call so you never have to repeat the story.",
+    detail: "The right phrases get a recall started fast. VraiShield can join the call so you never have to repeat the story.",
     script: "“I am a fraud victim. I need to open a fraud investigation and request a recall on a transaction I authorized under deception. Please flag my account for suspicious activity and stop any pending transfers.”",
     urgent: true,
   },

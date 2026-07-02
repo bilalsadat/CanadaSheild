@@ -11,7 +11,7 @@ import { VerdictView } from "../../components/VerdictView";
 import { Enter, PressableScale } from "../../components/Motion";
 import { scoreTrust, explain } from "../../lib/trust-engine";
 import { networkLookup } from "../../lib/data";
-import { useKinShield } from "../../lib/store";
+import { useVraiShield } from "../../lib/store";
 import { toScanDetail } from "../../lib/verdict";
 import { useT } from "../../lib/i18n";
 import { colors, space, font, radius } from "../../lib/theme";
@@ -36,7 +36,7 @@ const captureStyle = {
 };
 
 export default function Protect() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const router = useRouter();
   const t = useT();
   const seniorScale = ks.settings.seniorMode ? 1.25 : 1;

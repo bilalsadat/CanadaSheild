@@ -1,7 +1,7 @@
 /**
- * KinShield Trust Engine — public type contract.
+ * VraiShield Trust Engine — public type contract.
  *
- * This is the API contract for the whole product: every surface (Ask KinShield,
+ * This is the API contract for the whole product: every surface (Ask VraiShield,
  * SMS Shield, Link Checker, the Line, Check Before You Send) and the licensed
  * SDK all speak in {@link CheckInput} / {@link TrustResult}.
  *

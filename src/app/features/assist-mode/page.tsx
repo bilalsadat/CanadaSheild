@@ -35,7 +35,7 @@ export default function AssistModePage() {
   return (
     <FeatureShell slug="assist-mode">
       <p className="max-w-2xl text-ice-dim">
-        Put a suspicious call on speaker and tap Assist. KinShield transcribes and analyses the audio
+        Put a suspicious call on speaker and tap Assist. VraiShield transcribes and analyses the audio
         entirely <b>on-device</b> (lawful under Canada&apos;s one-party-consent rule — nothing leaves
         your phone) and coaches you in real time.
       </p>

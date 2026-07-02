@@ -134,8 +134,8 @@ const SEED: Omit<CommunityReport, "confidence">[] = [
 // Module-level singleton — persists for the life of the server process.
 declare global {
   // eslint-disable-next-line no-var
-  var __kinshield_network__: NetworkPlane | undefined;
+  var __vraishield_network__: NetworkPlane | undefined;
 }
 
 export const networkPlane: NetworkPlane =
-  globalThis.__kinshield_network__ ?? (globalThis.__kinshield_network__ = new NetworkPlane(SEED));
+  globalThis.__vraishield_network__ ?? (globalThis.__vraishield_network__ = new NetworkPlane(SEED));

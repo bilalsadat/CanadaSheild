@@ -137,7 +137,7 @@ export default function TransparencyPage() {
       </section>
 
       <section className="card p-6">
-        <h2 className="text-xl font-bold text-ice">What KinShield will never say</h2>
+        <h2 className="text-xl font-bold text-ice">What VraiShield will never say</h2>
         <ul className="mt-3 space-y-2">
           {NEVER_SAY.map((n, i) => (
             <li key={i} className="flex gap-2 text-sm text-ice-dim">

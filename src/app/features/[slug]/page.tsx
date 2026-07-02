@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURES, FEATURES_BY_SLUG } from "@/lib/features";
-import { AskKinShield } from "@/components/AskKinShield";
+import { AskVraiShield } from "@/components/AskVraiShield";
 import { PhoneMock } from "@/components/PhoneMock";
 
 export function generateStaticParams() {
@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const f = FEATURES_BY_SLUG[slug];
-  return { title: f ? `KinShield — ${f.name}` : "KinShield" };
+  return { title: f ? `VraiShield — ${f.name}` : "VraiShield" };
 }
 
 export default async function FeaturePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -75,7 +75,7 @@ export default async function FeaturePage({ params }: { params: Promise<{ slug: 
             {f.engineDemo ? "Live engine" : "Sample screen"}
           </span>
           {f.engineDemo ? (
-            <AskKinShield />
+            <AskVraiShield />
           ) : (
             <PhoneMock
               title={f.name}

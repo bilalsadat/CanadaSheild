@@ -6,7 +6,8 @@ import { Screen, Card, Title, H3, Body, Small, Kicker, Row } from "../../compone
 import { ScoreRing } from "../../components/ScoreRing";
 import { BarChart } from "../../components/BarChart";
 import { Enter, PressableScale } from "../../components/Motion";
-import { useKinShield } from "../../lib/store";
+import { LogoMark } from "../../components/Logo";
+import { useVraiShield } from "../../lib/store";
 import { useT } from "../../lib/i18n";
 import { THREAT_CITIES, NATIONAL_STATS } from "../../lib/data";
 import { colors, font, space, radius, verdictColor } from "../../lib/theme";
@@ -14,7 +15,7 @@ import { colors, font, space, radius, verdictColor } from "../../lib/theme";
 const COL = (Dimensions.get("window").width - space.lg * 2 - space.md) / 2;
 
 export default function Dashboard() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const router = useRouter();
   const t = useT();
 
@@ -32,8 +33,11 @@ export default function Dashboard() {
       <Enter>
         <Row style={{ justifyContent: "space-between", alignItems: "center", marginBottom: space.xl }}>
           <View style={{ flex: 1 }}>
-            <Kicker color={colors.textMute}>{greet}</Kicker>
-            <Title style={{ marginTop: 3 }}>{ks.profile.name || t("dash.welcome")}</Title>
+            <Row style={{ gap: 6, marginBottom: 6 }}>
+              <LogoMark size={18} />
+              <Kicker color={colors.textMute}>{greet}</Kicker>
+            </Row>
+            <Title>{ks.profile.name || t("dash.welcome")}</Title>
           </View>
           <PressableScale haptic onPress={() => router.push("/alerts")}>
             <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, alignItems: "center", justifyContent: "center" }}>

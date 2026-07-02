@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen, Card, Body, Small, Button, Row } from "../components/ui";
 import { Enter } from "../components/Motion";
-import { useKinShield } from "../lib/store";
+import { useVraiShield } from "../lib/store";
 import { useT } from "../lib/i18n";
 import { colors, font } from "../lib/theme";
 
@@ -15,7 +15,7 @@ const SEV: Record<string, { color: string; bg: string; icon: any }> = {
 };
 
 export default function Alerts() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const router = useRouter();
   const t = useT();
 

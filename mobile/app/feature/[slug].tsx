@@ -8,7 +8,7 @@ import { ScoreRing } from "../../components/ScoreRing";
 import { FEATURES_BY_SLUG } from "../../lib/features";
 import { scoreTrust, explain } from "../../lib/trust-engine";
 import { networkLookup } from "../../lib/data";
-import { useKinShield } from "../../lib/store";
+import { useVraiShield } from "../../lib/store";
 import { toScanDetail } from "../../lib/verdict";
 import { colors, font, space, scoreColor } from "../../lib/theme";
 
@@ -45,11 +45,11 @@ export default function FeatureDetail() {
 
       {/* Interactive demo area */}
       <View style={{ marginBottom: space.lg }}>
-        {(f.slug === "ask-kinshield" || f.slug === "link-qr-checker" || f.slug === "check-before-you-send") && <InlineAsk slug={f.slug} />}
+        {(f.slug === "ask-vraishield" || f.slug === "link-qr-checker" || f.slug === "check-before-you-send") && <InlineAsk slug={f.slug} />}
         {f.slug === "sms-shield" && <SmsDemo />}
         {f.slug === "long-con-radar" && <LongConDemo />}
         {f.slug === "caller-intelligence" && <CallerCheck />}
-        {!["ask-kinshield", "link-qr-checker", "check-before-you-send", "sms-shield", "long-con-radar", "caller-intelligence"].includes(f.slug) && f.demoLines && <Preview lines={f.demoLines} live={f.status === "live"} />}
+        {!["ask-vraishield", "link-qr-checker", "check-before-you-send", "sms-shield", "long-con-radar", "caller-intelligence"].includes(f.slug) && f.demoLines && <Preview lines={f.demoLines} live={f.status === "live"} />}
       </View>
 
       <Card style={{ marginBottom: space.md }}>
@@ -91,7 +91,7 @@ function Preview({ lines, live }: { lines: string[]; live: boolean }) {
 }
 
 function InlineAsk({ slug }: { slug: string }) {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const router = useRouter();
   const placeholder = slug === "link-qr-checker" ? "Paste a link, e.g. http://interac-secure-deposit.xyz/login" : slug === "check-before-you-send" ? "Who/what are you about to pay? Add the story…" : "Paste anything suspicious…";
   const channel = slug === "link-qr-checker" ? "link" : slug === "check-before-you-send" ? "recipient" : "unknown";
@@ -122,7 +122,7 @@ function InlineAsk({ slug }: { slug: string }) {
 }
 
 function CallerCheck() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   const [num, setNum] = useState("");
   const [res, setRes] = useState<ReturnType<typeof scoreTrust> | null>(null);
   const [rend, setRend] = useState<ReturnType<typeof explain> | null>(null);
@@ -219,7 +219,7 @@ function LongConDemo() {
               <Text style={{ color: colors.threat, fontWeight: font.bold }}>Long con detected</Text>
               <Small>{r.detectedScript.label}{stage ? ` · stage ${stage}/5` : ""}</Small>
             </>
-          ) : <Small>No con detected yet — KinShield keeps watching.</Small>}
+          ) : <Small>No con detected yet — VraiShield keeps watching.</Small>}
         </View>
       </Row>
       <Button label={step < THREAD.length ? "Next message ▶" : "Restart ↺"} variant="ghost" onPress={() => setStep(step < THREAD.length ? step + 1 : 1)} style={{ marginTop: 12 }} />

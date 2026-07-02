@@ -13,7 +13,7 @@ export function PhoneMock({
       <div className="rounded-[34px] border-[6px] border-[#1c2c52] bg-[#070f24] p-3 shadow-2xl">
         <div className="mb-2 flex items-center justify-between px-2 text-[10px] text-ice-dim">
           <span>9:41</span>
-          <span>KinShield</span>
+          <span>VraiShield</span>
           <span>▮▮▮</span>
         </div>
         <div className="rounded-2xl bg-[rgba(33,53,96,0.35)] p-3">

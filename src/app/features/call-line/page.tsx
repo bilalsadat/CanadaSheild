@@ -27,7 +27,7 @@ export default function CallLinePage() {
   return (
     <FeatureShell slug="call-line">
       <p className="max-w-2xl text-ice-dim">
-        Unknown callers are forwarded to KinShield&apos;s cloud voice layer, where an AI persona asks
+        Unknown callers are forwarded to VraiShield&apos;s cloud voice layer, where an AI persona asks
         who&apos;s calling and why, runs script + synthesis analysis on its own leg of the call, then
         patches through with a green badge, warns, or blocks — per your family policy. Works on every
         handset because it lives at the network layer.
@@ -47,8 +47,8 @@ export default function CallLinePage() {
             <>
               <p className="text-5xl">📞</p>
               <p className="mt-2 text-lg font-bold text-ice">Incoming: {caller.from}</p>
-              <p className="text-sm text-ice-dim">Unknown caller — KinShield Line is set to screen.</p>
-              <button onClick={screen} className="btn btn-primary mt-4 px-6 py-2.5">Let KinShield answer</button>
+              <p className="text-sm text-ice-dim">Unknown caller — VraiShield Line is set to screen.</p>
+              <button onClick={screen} className="btn btn-primary mt-4 px-6 py-2.5">Let VraiShield answer</button>
             </>
           )}
           {stage === "screening" && (

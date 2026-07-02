@@ -120,10 +120,10 @@ const T: Record<string, Pack> = {
     zh: () => `通话/视频中要求更改付款信息——汇款前请通过其他渠道核实。`,
   },
   "network.community_flag": {
-    en: (p) => `Reported by the KinShield community: "${p.artifact}" flagged ${p.reports}× as ${p.category}.`,
-    fr: (p) => `Signalé par la communauté KinShield : « ${p.artifact} » signalé ${p.reports}× comme ${p.category}.`,
-    pa: (p) => `KinShield ਭਾਈਚਾਰੇ ਵੱਲੋਂ ਰਿਪੋਰਟ ਕੀਤਾ ਗਿਆ: "${p.artifact}" ${p.reports} ਵਾਰ।`,
-    zh: (p) => `KinShield 社区已举报："${p.artifact}"被标记 ${p.reports} 次为${p.category}。`,
+    en: (p) => `Reported by the VraiShield community: "${p.artifact}" flagged ${p.reports}× as ${p.category}.`,
+    fr: (p) => `Signalé par la communauté VraiShield : « ${p.artifact} » signalé ${p.reports}× comme ${p.category}.`,
+    pa: (p) => `VraiShield ਭਾਈਚਾਰੇ ਵੱਲੋਂ ਰਿਪੋਰਟ ਕੀਤਾ ਗਿਆ: "${p.artifact}" ${p.reports} ਵਾਰ।`,
+    zh: (p) => `VraiShield 社区已举报："${p.artifact}"被标记 ${p.reports} 次为${p.category}。`,
   },
   "anomaly.unsolicited": {
     en: () => `You didn't start this contact. Unsolicited messages about money or accounts deserve extra caution.`,

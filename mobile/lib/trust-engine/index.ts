@@ -1,5 +1,5 @@
 /**
- * KinShield Trust Engine — single scoring service behind every surface.
+ * VraiShield Trust Engine — single scoring service behind every surface.
  *
  *   import { scoreTrust } from "@/lib/trust-engine";
  *   const result = scoreTrust({ text, channel: "sms", language: "en", network });

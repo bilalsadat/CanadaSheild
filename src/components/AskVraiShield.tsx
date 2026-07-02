@@ -5,7 +5,7 @@ import { checkTrust, reportArtifact, type CheckResponse } from "@/lib/client";
 import { extractUrls } from "@/lib/trust-engine/util";
 import type { Channel, Language } from "@/lib/trust-engine";
 import { VerdictCard } from "./VerdictCard";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 
 const EXAMPLES: { label: string; text: string; channel: Channel }[] = [
   {
@@ -49,7 +49,7 @@ const LANGS: { code: Language; label: string }[] = [
   { code: "hi", label: "हिन्दी" },
 ];
 
-export function AskKinShield({ senior = false }: { senior?: boolean }) {
+export function AskVraiShield({ senior = false }: { senior?: boolean }) {
   const [text, setText] = useState("");
   const [channel, setChannel] = useState<Channel>("unknown");
   const [language, setLanguage] = useState<Language | "">("");
@@ -57,7 +57,7 @@ export function AskKinShield({ senior = false }: { senior?: boolean }) {
   const [data, setData] = useState<CheckResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [reported, setReported] = useState(false);
-  const { addScan } = useKinShield();
+  const { addScan } = useVraiShield();
 
   async function run(t = text, ch = channel) {
     if (!t.trim()) return;

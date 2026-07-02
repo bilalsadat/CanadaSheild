@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 
 /** Adapts the top of the landing page to the user's state. */
 export function HomeBanner() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   if (!ks.hydrated) return null;
 
   if (ks.onboarded) {

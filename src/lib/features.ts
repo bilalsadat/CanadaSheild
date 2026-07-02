@@ -55,7 +55,7 @@ export const FEATURES: Feature[] = [
     href: "/transparency",
   },
   {
-    id: "A1", slug: "ask-kinshield", name: "Ask KinShield", icon: "💬", phase: "P0", pillar: "Detect & Decide", star: true, status: "live",
+    id: "A1", slug: "ask-vraishield", name: "Ask VraiShield", icon: "💬", phase: "P0", pillar: "Detect & Decide", star: true, status: "live",
     tagline: "Paste anything → verdict in seconds.",
     what: "The universal verdict box: paste, share, forward, photograph or dictate anything and get a Trust Score, the top three reasons, and a recommended action in your language.",
     how: ["Multimodal: OCR → language ID → Trust Engine → localized action buttons", "Proactive — offers a check when any shield sees something odd", "Conversation memory per thread"],
@@ -102,16 +102,16 @@ export const FEATURES: Feature[] = [
 
   // ---------------- Calls & Voice ----------------
   {
-    id: "C1", slug: "call-line", name: "The KinShield Line", icon: "📞", phase: "P1", pillar: "Calls & Voice", star: true, status: "demo",
+    id: "C1", slug: "call-line", name: "The VraiShield Line", icon: "📞", phase: "P1", pillar: "Calls & Voice", star: true, status: "demo",
     tagline: "An AI receptionist that judges, not just answers.",
-    what: "Unknown callers are conditionally forwarded to KinShield's cloud voice layer, where a selectable AI persona answers, runs synthesis + script analysis, then patches through with a green badge, warns, or blocks — per family policy. Works on every handset.",
+    what: "Unknown callers are conditionally forwarded to VraiShield's cloud voice layer, where a selectable AI persona answers, runs synthesis + script analysis, then patches through with a green badge, warns, or blocks — per family policy. Works on every handset.",
     how: ["CPaaS media streams → streaming ASR → Trust Engine → policy engine", "Warm-transfer with whisper announcement", "Dual-CPaaS failover; per-account minute budgets"],
     beats: "Apple/Google native screening (judgment vs reception), Hiya (consumer-owned vs carrier-locked), Robokiller/YouMail.",
   },
   {
     id: "C2", slug: "caller-intelligence", name: "Caller Intelligence", icon: "🆔", phase: "P0", pillar: "Calls & Voice", status: "demo",
     tagline: "Before the phone even rings.",
-    what: "KinShield's iOS Live Caller-ID extension and Android call-screening role label, silence or block flagged numbers using the network plane — with private lookups.",
+    what: "VraiShield's iOS Live Caller-ID extension and Android call-screening role label, silence or block flagged numbers using the network plane — with private lookups.",
     how: ["Sanctioned OS extension APIs on both platforms", "Bloom-filter local cache + private lookup service", "STIR/SHAKEN attestation surfaced as a visible badge"],
     beats: "Truecaller's core caller-ID value, through privacy-preserving OS channels with consent-clean data.",
     mock: { kind: "list", lines: ["📵 +1 604-555-0147  →  ⛔ Likely scam (22 community reports)", "Attestation: ❌ failed — likely spoofed", "Action taken: silenced before ring", "✅ +1 416-555-0199  →  Verified by carrier"] },
@@ -126,7 +126,7 @@ export const FEATURES: Feature[] = [
   {
     id: "V2", slug: "voice-lock", name: "Voice Lock", icon: "🔐", phase: "P1", pillar: "Calls & Voice", status: "demo",
     tagline: "Family voiceprints, used where the OS allows.",
-    what: "When a “family member” makes a request through the app, KinShield verifies the voice against an enrolled, encrypted embedding — never raw audio; quarterly re-enrollment; Quebec CAI biometric declaration before Quebec launch.",
+    what: "When a “family member” makes a request through the app, VraiShield verifies the voice against an enrolled, encrypted embedding — never raw audio; quarterly re-enrollment; Quebec CAI biometric declaration before Quebec launch.",
     how: ["ECAPA-TDNN-class speaker embeddings on-device", "Liveness challenge (prompted phrase) + anti-replay", "Enrollment UX designed for seniors"],
     beats: "Pindrop's voice authentication — brought to families at consumer price, with biometric compliance built in.",
   },
@@ -175,7 +175,7 @@ export const FEATURES: Feature[] = [
   {
     id: "C3", slug: "check-before-you-send", name: "Check Before You Send", icon: "💸", phase: "P1", pillar: "Money & Business", star: true, status: "live",
     tagline: "The 10-second habit before money moves.",
-    what: "Run the recipient (email, phone, Interac handle, wallet) and the story through KinShield: recipient risk + the three pressure questions + a cooling-off nudge.",
+    what: "Run the recipient (email, phone, Interac handle, wallet) and the story through VraiShield: recipient risk + the three pressure questions + a cooling-off nudge.",
     how: ["Recipient lookup across community reports, CAFC alerts, crypto-intel", "Structured questionnaire → verdict", "Optional family ping for large amounts"],
     beats: "Nobody — no consumer product checks an Interac recipient today. Category-creating.",
   },
@@ -195,7 +195,7 @@ export const FEATURES: Feature[] = [
     mock: { kind: "list", lines: ["🎥 Live meeting · screen-capture consent ON", "⚠ Lip-sync inconsistency: 0.62 (advisory)", "⚠ Visual artifact near jawline (advisory)", "🛑 New payee + urgency detected on call", "→ Out-of-band Wire Guard verification required"] },
   },
   {
-    id: "K1", slug: "sdk", name: "KinShield SDK", icon: "🧩", phase: "P1", pillar: "Money & Business", star: true, status: "live",
+    id: "K1", slug: "sdk", name: "VraiShield SDK", icon: "🧩", phase: "P1", pillar: "Money & Business", star: true, status: "live",
     tagline: "The same brain, licensed — the Bill C-15 product.",
     what: "Trust Engine API, a customer-facing control kit mapping to Bill C-15's express-consent and limit requirements, the threat-intel feed with Canadian residency, and an FCAC reporting pipeline.",
     how: ["GraphQL/REST gateway + tenant isolation", "Embeddable white-label UI kit; per-check metering + SLAs", "Compliance artifact pack (B-13, SOC 2, residency)"],
@@ -215,7 +215,7 @@ export const FEATURES: Feature[] = [
   {
     id: "Z2", slug: "zk-vault", name: "Zero-Knowledge Vault", icon: "🗝️", phase: "P0", pillar: "Privacy & Exposure", star: true, status: "demo",
     tagline: "We hold ciphertext we cannot read.",
-    what: "Voiceprints, transcripts, evidence and the family graph are encrypted on the device before storage — KinShield's servers hold ciphertext, verified by a published external audit. Even a subpoena yields nothing readable.",
+    what: "Voiceprints, transcripts, evidence and the family graph are encrypted on the device before storage — VraiShield's servers hold ciphertext, verified by a published external audit. Even a subpoena yields nothing readable.",
     how: ["libsodium client-side crypto → Argon2id key derivation", "Shamir-style family recovery shares (Grandma is never locked out)", "Nitro Enclave compute for rare server-side ops"],
     beats: "Truecaller, Norton, McAfee, Aura — every data-hungry incumbent, beaten by an architecture their business models forbid.",
     mock: { kind: "list", lines: ["🔒 Voiceprints · transcripts · evidence · family graph", "Encrypted on-device (XChaCha20) before upload", "Server holds: ▒▒▒▒ ciphertext — unreadable", "Recovery: 3-of-5 family key shares · Grandma never locked out", "External crypto audit: published ✓"] },
@@ -262,7 +262,7 @@ export const FEATURES: Feature[] = [
   {
     id: "L2", slug: "long-con-radar", name: "Long-Con Radar", icon: "🕰️", phase: "P1", pillar: "When It Goes Wrong", star: true, status: "live",
     tagline: "For the scams that take weeks.",
-    what: "Romance fraud and pig-butchering. Share a conversation as it evolves; KinShield tracks it over time and recognizes the script's progression — and intervenes at the stage where intervention still works.",
+    what: "Romance fraud and pig-butchering. Share a conversation as it evolves; VraiShield tracks it over time and recognizes the script's progression — and intervenes at the stage where intervention still works.",
     how: ["Per-thread encrypted conversation state", "Stage-classification model over message sequences", "Staged-intervention UX co-designed with victim-support orgs"],
     beats: "Everyone — no product models scam progression over time. The single most differentiated feature.",
   },

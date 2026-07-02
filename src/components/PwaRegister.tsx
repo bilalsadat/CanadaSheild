@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-/** Registers the service worker so KinShield is installable + works offline. */
+/** Registers the service worker so VraiShield is installable + works offline. */
 export function PwaRegister() {
   useEffect(() => {
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;

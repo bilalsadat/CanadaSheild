@@ -1,6 +1,6 @@
 # Trust Engine
 
-The single scoring service behind every KinShield surface — and the licensable
+The single scoring service behind every VraiShield surface — and the licensable
 SDK (the Bill C-15 product). Pure TypeScript, **zero framework or network
 imports**: the host injects the community-intel lookup.
 

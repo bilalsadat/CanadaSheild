@@ -26,7 +26,7 @@ export default function LongConPage() {
     <FeatureShell slug="long-con-radar">
       <p className="max-w-2xl text-ice-dim">
         One-shot checkers can&apos;t see a long con; memory can. Step through the conversation as it
-        evolves — KinShield tracks the script&apos;s progression and intervenes at the stage where
+        evolves — VraiShield tracks the script&apos;s progression and intervenes at the stage where
         intervention still works.
       </p>
 
@@ -69,7 +69,7 @@ export default function LongConPage() {
             </div>
           ) : (
             <p className="mt-3 text-center text-sm text-ice-dim">
-              No con detected yet. KinShield keeps watching the thread over time.
+              No con detected yet. VraiShield keeps watching the thread over time.
             </p>
           )}
         </div>

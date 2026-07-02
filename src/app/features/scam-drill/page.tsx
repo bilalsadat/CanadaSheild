@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { scoreTrust, explain } from "@/lib/trust-engine";
 import { FeatureShell } from "@/components/FeatureShell";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 
 const DRILLS: { text: string; from: string; isScam: boolean }[] = [
   { from: "INTERAC", text: "Your transfer is pending. Accept within 24h: http://interac-secure-deposit.xyz/login", isScam: true },
@@ -19,7 +19,7 @@ export default function ScamDrillPage() {
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState<boolean | null>(null);
   const [done, setDone] = useState(false);
-  const { setDrillBest } = useKinShield();
+  const { setDrillBest } = useVraiShield();
 
   useEffect(() => { if (done) setDrillBest(score); }, [done, score, setDrillBest]);
 
@@ -73,7 +73,7 @@ export default function ScamDrillPage() {
                 {answered ? "✓ Correct!" : "✗ Not quite —"} this was {d.isScam ? "a scam" : "legitimate"}.
               </p>
               <p className="mt-1 text-sm text-ice-dim">
-                KinShield scored it <b style={{ color: engine.trustScore < 45 ? "#ff4d6a" : "#2bd9a6" }}>{engine.trustScore}/100</b>.{" "}
+                VraiShield scored it <b style={{ color: engine.trustScore < 45 ? "#ff4d6a" : "#2bd9a6" }}>{engine.trustScore}/100</b>.{" "}
                 {explain(engine).reasons[0] ?? "No fraud signals — a normal message."}
               </p>
               <button onClick={next} className="btn btn-primary mt-4 w-full py-2.5">

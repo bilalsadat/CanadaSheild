@@ -82,8 +82,9 @@ const DEFAULT: KSState = {
   },
 };
 
-const KEY = "kinshield.state.v2";
-const LEGACY_KEY = "kinshield.state.v1";
+const KEY = "vraishield.state.v1";
+/** Pre-rebrand keys — read once so existing users keep their data. */
+const LEGACY_KEYS = ["kinshield.state.v2", "kinshield.state.v1"];
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 interface Ctx extends KSState {
@@ -103,14 +104,18 @@ interface Ctx extends KSState {
 
 const C = createContext<Ctx | null>(null);
 
-export function KinShieldProvider({ children }: { children: React.ReactNode }) {
+export function VraiShieldProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<KSState>(DEFAULT);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        const raw = (await AsyncStorage.getItem(KEY)) ?? (await AsyncStorage.getItem(LEGACY_KEY));
+        let raw = await AsyncStorage.getItem(KEY);
+        for (const legacy of LEGACY_KEYS) {
+          if (raw) break;
+          raw = await AsyncStorage.getItem(legacy);
+        }
         if (raw) {
           const parsed = JSON.parse(raw) as Partial<KSState>;
           setState({ ...DEFAULT, ...parsed, settings: { ...DEFAULT.settings, ...(parsed.settings ?? {}) } });
@@ -136,7 +141,7 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
       household: { name: p.household, members: p.members },
       settings: { ...s.settings, language: p.language, seniorMode: p.seniorMode },
       alerts: [
-        { id: uid(), ts: Date.now(), severity: "info", title: "Welcome to KinShield", body: `${p.household} is now protected.` },
+        { id: uid(), ts: Date.now(), severity: "info", title: "Welcome to VraiShield", body: `${p.household} is now protected.` },
         ...s.alerts,
       ],
     }));
@@ -180,8 +185,8 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useKinShield(): Ctx {
+export function useVraiShield(): Ctx {
   const c = useContext(C);
-  if (!c) throw new Error("useKinShield must be used within KinShieldProvider");
+  if (!c) throw new Error("useVraiShield must be used within VraiShieldProvider");
   return c;
 }

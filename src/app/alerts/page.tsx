@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { useKinShield } from "@/lib/store";
+import { useVraiShield } from "@/lib/store";
 
 const SEV: Record<string, { color: string; bg: string; icon: string }> = {
   info: { color: "#7aa2ff", bg: "rgba(122,162,255,0.12)", icon: "ℹ️" },
@@ -11,7 +11,7 @@ const SEV: Record<string, { color: string; bg: string; icon: string }> = {
 };
 
 export default function AlertsPage() {
-  const ks = useKinShield();
+  const ks = useVraiShield();
   useEffect(() => { ks.markAlertsRead(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
