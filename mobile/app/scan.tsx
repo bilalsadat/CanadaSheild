@@ -9,6 +9,7 @@ import { VerdictView } from "../components/VerdictView";
 import { scoreTrust, explain } from "../lib/trust-engine";
 import { networkLookup } from "../lib/data";
 import { useKinShield } from "../lib/store";
+import { toScanDetail } from "../lib/verdict";
 import { colors, font, space, radius } from "../lib/theme";
 
 export default function Scan() {
@@ -29,9 +30,10 @@ export default function Scan() {
     setScanned(data);
     const isUrl = /^(https?:\/\/|www\.)|\.[a-z]{2,}(\/|$)/i.test(data);
     const r = scoreTrust({ text: data, url: isUrl ? data : undefined, channel: "qr", network: networkLookup });
+    const e = explain(r);
     setRes(r);
-    setRend(explain(r));
-    ks.addScan({ channel: "qr", score: r.trustScore, verdict: r.verdict, snippet: data.slice(0, 80), scriptLabel: r.detectedScript?.label });
+    setRend(e);
+    ks.addScan({ channel: "qr", score: r.trustScore, verdict: r.verdict, snippet: data.slice(0, 80), scriptLabel: r.detectedScript?.label, detail: toScanDetail(r, e, data) });
     Haptics.notificationAsync(r.trustScore < 45 ? Haptics.NotificationFeedbackType.Warning : Haptics.NotificationFeedbackType.Success).catch(() => {});
   }
 

@@ -7,9 +7,36 @@ import { StatusBar } from "expo-status-bar";
 import { Stack } from "expo-router";
 import * as SystemUI from "expo-system-ui";
 import { KinShieldProvider } from "../lib/store";
+import { useT } from "../lib/i18n";
 import { colors } from "../lib/theme";
 
 SystemUI.setBackgroundColorAsync(colors.bg).catch(() => {});
+
+function AppStack() {
+  const t = useT();
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: colors.bg },
+        headerTintColor: colors.text,
+        headerTitleStyle: { fontWeight: "700" },
+        headerShadowVisible: false,
+        contentStyle: { backgroundColor: colors.bg },
+        headerBackButtonDisplayMode: "minimal",
+      }}
+    >
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="welcome" options={{ headerShown: false, presentation: "modal" }} />
+      <Stack.Screen name="feature/[slug]" options={{ title: "" }} />
+      <Stack.Screen name="check/[id]" options={{ title: t("check.title") }} />
+      <Stack.Screen name="scan" options={{ title: t("protect.scan") }} />
+      <Stack.Screen name="incident" options={{ title: t("incident.title") }} />
+      <Stack.Screen name="scam-drill" options={{ title: t("drill.title") }} />
+      <Stack.Screen name="settings" options={{ title: t("set.title") }} />
+      <Stack.Screen name="alerts" options={{ title: t("alerts.title") }} />
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   return (
@@ -17,25 +44,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <KinShieldProvider>
           <StatusBar style="light" />
-          <Stack
-            screenOptions={{
-              headerStyle: { backgroundColor: colors.bg },
-              headerTintColor: colors.text,
-              headerTitleStyle: { fontWeight: "700" },
-              headerShadowVisible: false,
-              contentStyle: { backgroundColor: colors.bg },
-              headerBackButtonDisplayMode: "minimal",
-            }}
-          >
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="welcome" options={{ headerShown: false, presentation: "modal" }} />
-            <Stack.Screen name="feature/[slug]" options={{ title: "" }} />
-            <Stack.Screen name="scan" options={{ title: "Scan QR" }} />
-            <Stack.Screen name="incident" options={{ title: "Incident Mode" }} />
-            <Stack.Screen name="scam-drill" options={{ title: "Scam Drill" }} />
-            <Stack.Screen name="settings" options={{ title: "Settings & Privacy" }} />
-            <Stack.Screen name="alerts" options={{ title: "Alerts" }} />
-          </Stack>
+          <AppStack />
         </KinShieldProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

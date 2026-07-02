@@ -79,6 +79,7 @@ export default function SettingsScreen() {
         <Toggle icon="accessibility" label={t("set.seniorMode")} sub={t("set.seniorModeSub")} settingKey="seniorMode" />
         <Toggle icon="volume-high" label={t("set.speak")} sub={t("set.speakSub")} settingKey="speakVerdicts" />
         <Toggle icon="notifications" label={t("set.notifications")} sub={t("set.notificationsSub")} settingKey="notifications" />
+        <Toggle icon="radio-button-on" label={t("set.haptics")} sub={t("set.hapticsSub")} settingKey="haptics" />
         <Toggle icon="call" label={t("set.screenCallers")} sub={t("set.screenCallersSub")} settingKey="screenUnknownCallers" last />
       </Card>
 

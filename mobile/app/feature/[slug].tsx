@@ -9,6 +9,7 @@ import { FEATURES_BY_SLUG } from "../../lib/features";
 import { scoreTrust, explain } from "../../lib/trust-engine";
 import { networkLookup } from "../../lib/data";
 import { useKinShield } from "../../lib/store";
+import { toScanDetail } from "../../lib/verdict";
 import { colors, font, space, scoreColor } from "../../lib/theme";
 
 export default function FeatureDetail() {
@@ -101,8 +102,9 @@ function InlineAsk({ slug }: { slug: string }) {
   function run() {
     if (!text.trim()) return;
     const r = scoreTrust({ text, url: channel === "link" ? text : undefined, channel: channel as any, language: ks.settings.language, network: networkLookup });
-    setRes(r); setRend(explain(r));
-    ks.addScan({ channel: channel as any, score: r.trustScore, verdict: r.verdict, snippet: text.slice(0, 80), scriptLabel: r.detectedScript?.label });
+    const e = explain(r);
+    setRes(r); setRend(e);
+    ks.addScan({ channel: channel as any, score: r.trustScore, verdict: r.verdict, snippet: text.slice(0, 80), scriptLabel: r.detectedScript?.label, detail: toScanDetail(r, e, text) });
   }
 
   return (
@@ -129,8 +131,9 @@ function CallerCheck() {
     const digits = num.replace(/\D/g, "");
     if (!digits) return;
     const r = scoreTrust({ text: num, recipient: digits, channel: "call_transcript", network: networkLookup });
-    setRes(r); setRend(explain(r));
-    ks.addScan({ channel: "call_transcript", score: r.trustScore, verdict: r.verdict, snippet: `Caller ${num}`, scriptLabel: r.detectedScript?.label });
+    const e = explain(r);
+    setRes(r); setRend(e);
+    ks.addScan({ channel: "call_transcript", score: r.trustScore, verdict: r.verdict, snippet: `Caller ${num}`, scriptLabel: r.detectedScript?.label, detail: toScanDetail(r, e, num) });
   }
 
   return (

@@ -11,6 +11,19 @@ export interface Member {
   language: Language;
   device: string;
 }
+
+/** Full stored verdict so any past check can be reopened in detail. Personal plane: on-device only. */
+export interface ScanDetail {
+  verdictLabel: string;
+  actionLabel: string;
+  uncertainty: number;
+  reasons: string[];
+  ledger: { family: string; risk: number }[];
+  scriptLabel?: string;
+  scriptStage?: number;
+  fullText?: string;
+}
+
 export interface ScanRecord {
   id: string;
   ts: number;
@@ -19,21 +32,27 @@ export interface ScanRecord {
   verdict: Verdict;
   snippet: string;
   scriptLabel?: string;
+  detail?: ScanDetail;
 }
+
 export interface AlertItem {
   id: string;
   ts: number;
   severity: "info" | "warn" | "danger";
   title: string;
   body: string;
+  read?: boolean;
 }
+
 export interface Settings {
   language: Language;
   seniorMode: boolean;
   notifications: boolean;
   screenUnknownCallers: boolean;
   speakVerdicts: boolean;
+  haptics: boolean;
 }
+
 export interface KSState {
   onboarded: boolean;
   profile: { name: string; role: "self" | "parent" | "business" | ""; tier: "Free" | "Family" | "Premium" };
@@ -53,16 +72,26 @@ const DEFAULT: KSState = {
   alerts: [],
   hardeningScore: 0,
   drillBest: 0,
-  settings: { language: "en", seniorMode: false, notifications: true, screenUnknownCallers: true, speakVerdicts: true },
+  settings: {
+    language: "en",
+    seniorMode: false,
+    notifications: true,
+    screenUnknownCallers: true,
+    speakVerdicts: true,
+    haptics: true,
+  },
 };
 
-const KEY = "kinshield.state.v1";
+const KEY = "kinshield.state.v2";
+const LEGACY_KEY = "kinshield.state.v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 interface Ctx extends KSState {
   hydrated: boolean;
+  unreadAlerts: number;
   completeOnboarding: (p: { name: string; role: KSState["profile"]["role"]; language: Language; household: string; members: Member[]; tier: KSState["profile"]["tier"]; seniorMode: boolean }) => void;
   addScan: (r: Omit<ScanRecord, "id" | "ts">) => void;
+  markAlertsRead: () => void;
   addMember: (m: Omit<Member, "id">) => void;
   removeMember: (id: string) => void;
   setSetting: <K extends keyof Settings>(k: K, v: Settings[K]) => void;
@@ -79,10 +108,19 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(KEY)
-      .then((raw) => { if (raw) setState({ ...DEFAULT, ...JSON.parse(raw) }); })
-      .catch(() => {})
-      .finally(() => setHydrated(true));
+    (async () => {
+      try {
+        const raw = (await AsyncStorage.getItem(KEY)) ?? (await AsyncStorage.getItem(LEGACY_KEY));
+        if (raw) {
+          const parsed = JSON.parse(raw) as Partial<KSState>;
+          setState({ ...DEFAULT, ...parsed, settings: { ...DEFAULT.settings, ...(parsed.settings ?? {}) } });
+        }
+      } catch {
+        /* fresh start */
+      } finally {
+        setHydrated(true);
+      }
+    })();
   }, []);
 
   useEffect(() => {
@@ -97,7 +135,10 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
       profile: { name: p.name, role: p.role, tier: p.tier },
       household: { name: p.household, members: p.members },
       settings: { ...s.settings, language: p.language, seniorMode: p.seniorMode },
-      alerts: [{ id: uid(), ts: Date.now(), severity: "info", title: "Welcome to KinShield", body: `${p.household} is now protected.` }, ...s.alerts],
+      alerts: [
+        { id: uid(), ts: Date.now(), severity: "info", title: "Welcome to KinShield", body: `${p.household} is now protected.` },
+        ...s.alerts,
+      ],
     }));
   }, []);
 
@@ -107,13 +148,19 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
       const alerts = [...s.alerts];
       if (r.verdict === "dangerous" || r.verdict === "likely_scam") {
         alerts.unshift({
-          id: uid(), ts: Date.now(), severity: r.verdict === "dangerous" ? "danger" : "warn",
+          id: uid(),
+          ts: Date.now(),
+          severity: r.verdict === "dangerous" ? "danger" : "warn",
           title: r.verdict === "dangerous" ? "Threat blocked" : "Suspicious message flagged",
           body: `${r.scriptLabel ?? "A risky message"} — Trust Score ${r.score}/100.`,
         });
       }
       return { ...s, history: [rec, ...s.history].slice(0, 200), alerts: alerts.slice(0, 100) };
     });
+  }, []);
+
+  const markAlertsRead = useCallback(() => {
+    setState((s) => (s.alerts.some((a) => !a.read) ? { ...s, alerts: s.alerts.map((a) => ({ ...a, read: true })) } : s));
   }, []);
 
   const addMember = useCallback<Ctx["addMember"]>((m) => setState((s) => ({ ...s, household: { ...s.household, members: [...s.household.members, { ...m, id: uid() }] } })), []);
@@ -124,8 +171,10 @@ export function KinShieldProvider({ children }: { children: React.ReactNode }) {
   const setTier = useCallback((t: KSState["profile"]["tier"]) => setState((s) => ({ ...s, profile: { ...s.profile, tier: t } })), []);
   const reset = useCallback(() => setState(DEFAULT), []);
 
+  const unreadAlerts = state.alerts.filter((a) => !a.read).length;
+
   return (
-    <C.Provider value={{ ...state, hydrated, completeOnboarding, addScan, addMember, removeMember, setSetting, setHardening, setDrillBest, setTier, reset }}>
+    <C.Provider value={{ ...state, hydrated, unreadAlerts, completeOnboarding, addScan, markAlertsRead, addMember, removeMember, setSetting, setHardening, setDrillBest, setTier, reset }}>
       {children}
     </C.Provider>
   );

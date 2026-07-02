@@ -4,12 +4,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker, Circle, Callout, PROVIDER_DEFAULT } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
 import { Card, H3, Small, Kicker, Row, Pill } from "../../components/ui";
+import { useT } from "../../lib/i18n";
 import { THREAT_CITIES, NATIONAL_STATS } from "../../lib/data";
 import { colors, font, space, radius } from "../../lib/theme";
 
 const { height } = Dimensions.get("window");
 
 export default function MapTab() {
+  const t = useT();
   const [cat, setCat] = useState("All");
   const categories = useMemo(() => ["All", ...Array.from(new Set(THREAT_CITIES.map((c) => c.topCategory)))], []);
   const shown = cat === "All" ? THREAT_CITIES : THREAT_CITIES.filter((c) => c.topCategory === cat);
@@ -18,10 +20,10 @@ export default function MapTab() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
       <View style={{ paddingHorizontal: space.lg, paddingBottom: 10 }}>
-        <Kicker>Live · consented network</Kicker>
+        <Kicker>{t("map.kicker")}</Kicker>
         <Row style={{ justifyContent: "space-between", alignItems: "flex-end" }}>
-          <Text style={{ color: colors.text, fontSize: font.h2, fontWeight: font.bold }}>Threat map of Canada</Text>
-          <Small>{NATIONAL_STATS.totalReports} reports</Small>
+          <Text style={{ color: colors.text, fontSize: font.h2, fontWeight: font.bold }}>{t("map.title")}</Text>
+          <Small>{NATIONAL_STATS.totalReports} {t("map.reports")}</Small>
         </Row>
       </View>
 
@@ -66,7 +68,7 @@ export default function MapTab() {
 
       {/* Briefing list */}
       <ScrollView contentContainerStyle={{ paddingHorizontal: space.lg, paddingBottom: 120, gap: 10 }} showsVerticalScrollIndicator={false}>
-        <H3 style={{ marginBottom: 2 }}>This week&apos;s briefing</H3>
+        <H3 style={{ marginBottom: 2 }}>{t("map.briefing")}</H3>
         {shown.map((c) => (
           <Card key={c.city} style={{ paddingVertical: 12 }}>
             <Row>
@@ -78,7 +80,7 @@ export default function MapTab() {
                   <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.body }}>{c.city}, {c.region}</Text>
                   <Pill label={c.language} />
                 </Row>
-                <Small style={{ marginTop: 2 }}>“{c.topCategory}” surging — screened before it reaches your family.</Small>
+                <Small style={{ marginTop: 2 }}>{t("map.surging", { cat: c.topCategory })}</Small>
               </View>
             </Row>
           </Card>

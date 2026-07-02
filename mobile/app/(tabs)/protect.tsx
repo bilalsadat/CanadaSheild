@@ -6,11 +6,13 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Speech from "expo-speech";
 import * as Haptics from "expo-haptics";
 import * as Clipboard from "expo-clipboard";
-import { Card, Title, Small, Kicker, Button, Chip, Row, H3 } from "../../components/ui";
+import { Card, Title, Small, Kicker, Button, Chip, Row } from "../../components/ui";
 import { VerdictView } from "../../components/VerdictView";
+import { Enter, PressableScale } from "../../components/Motion";
 import { scoreTrust, explain } from "../../lib/trust-engine";
 import { networkLookup } from "../../lib/data";
 import { useKinShield } from "../../lib/store";
+import { toScanDetail } from "../../lib/verdict";
 import { useT } from "../../lib/i18n";
 import { colors, space, font, radius } from "../../lib/theme";
 
@@ -22,7 +24,6 @@ const EXAMPLES: { label: string; text: string; channel: any }[] = [
 ];
 
 const captureStyle = {
-  flex: 1,
   flexDirection: "row" as const,
   alignItems: "center" as const,
   justifyContent: "center" as const,
@@ -38,6 +39,7 @@ export default function Protect() {
   const ks = useKinShield();
   const router = useRouter();
   const t = useT();
+  const seniorScale = ks.settings.seniorMode ? 1.25 : 1;
   const [text, setText] = useState("");
   const [result, setResult] = useState<ReturnType<typeof scoreTrust> | null>(null);
   const [rendered, setRendered] = useState<ReturnType<typeof explain> | null>(null);
@@ -63,8 +65,17 @@ export default function Protect() {
     const e = explain(r);
     setResult(r);
     setRendered(e);
-    ks.addScan({ channel, score: r.trustScore, verdict: r.verdict, snippet: t.slice(0, 80), scriptLabel: r.detectedScript?.label });
-    Haptics.notificationAsync(r.trustScore < 45 ? Haptics.NotificationFeedbackType.Warning : Haptics.NotificationFeedbackType.Success).catch(() => {});
+    ks.addScan({
+      channel,
+      score: r.trustScore,
+      verdict: r.verdict,
+      snippet: t.slice(0, 80),
+      scriptLabel: r.detectedScript?.label,
+      detail: toScanDetail(r, e, t),
+    });
+    if (ks.settings.haptics) {
+      Haptics.notificationAsync(r.trustScore < 45 ? Haptics.NotificationFeedbackType.Warning : Haptics.NotificationFeedbackType.Success).catch(() => {});
+    }
     if (ks.settings.speakVerdicts) {
       Speech.stop();
       const locale: Record<string, string> = { en: "en-CA", fr: "fr-CA", es: "es-ES", zh: "zh-CN", pt: "pt-BR", ko: "ko-KR", ar: "ar-SA", hi: "hi-IN", vi: "vi-VN" };
@@ -76,8 +87,8 @@ export default function Protect() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top"]}>
       <ScrollView contentContainerStyle={{ padding: space.lg, paddingBottom: 130 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <Kicker>{t("protect.kicker")}</Kicker>
-        <Title style={{ marginTop: 4 }}>{t("protect.title")}</Title>
-        <Small style={{ marginTop: 4, marginBottom: space.lg }}>{t("protect.sub")}</Small>
+        <Title style={{ marginTop: 4, fontSize: font.h1 * seniorScale }}>{t("protect.title")}</Title>
+        <Small style={{ marginTop: 4, marginBottom: space.lg, fontSize: font.small * seniorScale, lineHeight: 19 * seniorScale }}>{t("protect.sub")}</Small>
 
         <Card>
           <TextInput
@@ -86,7 +97,7 @@ export default function Protect() {
             placeholder={t("protect.placeholder")}
             placeholderTextColor={colors.textMute}
             multiline
-            style={{ color: colors.text, fontSize: font.body, minHeight: 96, textAlignVertical: "top", lineHeight: 22 }}
+            style={{ color: colors.text, fontSize: font.body * seniorScale, minHeight: 96 * seniorScale, textAlignVertical: "top", lineHeight: 22 * seniorScale }}
           />
           <Row style={{ marginTop: 12, gap: 10 }}>
             <Button label={t("protect.check")} icon="shield-checkmark" onPress={() => run()} style={{ flex: 1 }} />
@@ -100,14 +111,18 @@ export default function Protect() {
 
         {/* Real on-device capture actions */}
         <Row style={{ gap: space.md, marginBottom: space.lg }}>
-          <Pressable onPress={pasteAndCheck} style={captureStyle}>
-            <Ionicons name="clipboard-outline" size={20} color={colors.primary} />
-            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>{t("protect.paste")}</Text>
-          </Pressable>
-          <Pressable onPress={() => router.push("/scan")} style={captureStyle}>
-            <Ionicons name="qr-code-outline" size={20} color={colors.primary} />
-            <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small }}>{t("protect.scan")}</Text>
-          </Pressable>
+          <PressableScale haptic onPress={pasteAndCheck} style={{ flex: 1 }}>
+            <View style={captureStyle}>
+              <Ionicons name="clipboard-outline" size={20} color={colors.primary} />
+              <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small * seniorScale }}>{t("protect.paste")}</Text>
+            </View>
+          </PressableScale>
+          <PressableScale haptic onPress={() => router.push("/scan")} style={{ flex: 1 }}>
+            <View style={captureStyle}>
+              <Ionicons name="qr-code-outline" size={20} color={colors.primary} />
+              <Text style={{ color: colors.text, fontWeight: font.semibold, fontSize: font.small * seniorScale }}>{t("protect.scan")}</Text>
+            </View>
+          </PressableScale>
         </Row>
 
         <Kicker color={colors.textDim} >{t("protect.tryExample")}</Kicker>
@@ -118,12 +133,14 @@ export default function Protect() {
         </Row>
 
         {result && rendered && (
-          <View style={{ gap: space.md }}>
-            <VerdictView result={result} rendered={rendered} />
-            {result.trustScore < 45 && (
-              <Button label={t("protect.report")} icon="flag" variant="ghost" onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)} />
-            )}
-          </View>
+          <Enter>
+            <View style={{ gap: space.md }}>
+              <VerdictView result={result} rendered={rendered} />
+              {result.trustScore < 45 && (
+                <Button label={t("protect.report")} icon="flag" variant="ghost" onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)} />
+              )}
+            </View>
+          </Enter>
         )}
       </ScrollView>
     </SafeAreaView>

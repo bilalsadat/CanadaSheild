@@ -4,6 +4,7 @@ import Svg, { Line, Circle, Text as SvgText } from "react-native-svg";
 import { Ionicons } from "@expo/vector-icons";
 import { Screen, Card, Title, H3, Small, Kicker, Row, Pill } from "../../components/ui";
 import { useKinShield } from "../../lib/store";
+import { useT } from "../../lib/i18n";
 import { colors, font, space } from "../../lib/theme";
 
 interface M { name: string; role: string; device: string; senior?: boolean; guardian?: boolean }
@@ -25,6 +26,7 @@ const POLICIES = [
 
 export default function Family() {
   const ks = useKinShield();
+  const t = useT();
   const members: M[] = ks.onboarded && ks.household.members.length > 0
     ? ks.household.members.map((m) => ({ name: m.name, role: m.role, device: m.device, senior: m.role === "senior", guardian: m.role === "guardian" }))
     : DEMO;
@@ -33,20 +35,20 @@ export default function Family() {
 
   return (
     <Screen>
-      <Kicker>The retention machine</Kicker>
-      <Title style={{ marginTop: 4 }}>Family Circle</Title>
-      <Small style={{ marginTop: 4, marginBottom: space.lg }}>The household is the unit of protection. Once four members enrol, switching costs become enormous — and every protected senior recruits more families.</Small>
+      <Kicker>{t("family.kicker")}</Kicker>
+      <Title style={{ marginTop: 4 }}>{t("family.title")}</Title>
+      <Small style={{ marginTop: 4, marginBottom: space.lg }}>{t("family.sub")}</Small>
 
       <Card>
         <Row style={{ justifyContent: "space-between" }}>
           <Kicker color={colors.textDim}>{name}</Kicker>
-          <Small>{members.length} members</Small>
+          <Small>{t("family.count", { n: members.length })}</Small>
         </Row>
         <Constellation members={members} />
-        <Small style={{ textAlign: "center", marginTop: 4 }}>The only layer covering the iPhone parent, the Android senior and the desktop owner — together.</Small>
+        <Small style={{ textAlign: "center", marginTop: 4 }}>{t("family.coverage")}</Small>
       </Card>
 
-      <H3 style={{ marginTop: space.lg, marginBottom: 10 }}>Members</H3>
+      <H3 style={{ marginTop: space.lg, marginBottom: 10 }}>{t("family.members")}</H3>
       <View style={{ gap: 8 }}>
         {members.map((m, i) => (
           <Card key={i} style={{ paddingVertical: 12 }}>
@@ -63,7 +65,7 @@ export default function Family() {
         ))}
       </View>
 
-      <H3 style={{ marginTop: space.lg, marginBottom: 10 }}>Shared policies</H3>
+      <H3 style={{ marginTop: space.lg, marginBottom: 10 }}>{t("family.policies")}</H3>
       <View style={{ gap: 8 }}>
         {POLICIES.map((p) => (
           <Card key={p.key} onPress={() => setPolicies((s) => ({ ...s, [p.key]: !s[p.key] }))} style={{ paddingVertical: 14 }}>
