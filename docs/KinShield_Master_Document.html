@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KinShield — Master Build &amp; Business Document</title>
+<style>
+  @page { size: Letter; margin: 16mm 14mm 18mm 14mm; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #E7ECF6; font-size: 10.4pt; line-height: 1.5; letter-spacing: 0.1px;
+  }
+  .bg { position: fixed; inset: -30mm; background:
+        radial-gradient(900px 520px at 80% -5%, rgba(47,211,155,0.07), transparent 60%),
+        #0A0E17; z-index: -1; }
+  h1,h2,h3,h4 { color: #fff; line-height: 1.2; }
+  h2 { font-size: 19pt; margin: 0 0 4px; letter-spacing: -0.3px; }
+  h3 { font-size: 13pt; margin: 18px 0 6px; color:#EAF6F0; }
+  h4 { font-size: 11pt; margin: 12px 0 4px; color:#CFE8DD; }
+  p { margin: 6px 0; color:#CBD5E6; }
+  a { color:#2FD39B; text-decoration:none; }
+  .muted { color:#94A3B8; }
+  .accent { color:#2FD39B; }
+  .gold { color:#E8B84A; }
+  .danger { color:#FB5571; }
+  .kicker { font-size:8pt; letter-spacing:2.2px; text-transform:uppercase; color:#5C6880; font-weight:700; }
+  .pill { display:inline-block; font-size:7.6pt; font-weight:700; letter-spacing:0.5px; padding:2px 7px; border-radius:20px; background:rgba(47,211,155,0.14); color:#2FD39B; }
+  .pill.amber { background:rgba(245,181,68,0.14); color:#F5B544; }
+  .pill.blue { background:rgba(92,141,240,0.14); color:#5C8DF0; }
+  .part { page-break-before: always; }
+  .parthead { border-bottom:2px solid rgba(47,211,155,0.4); padding-bottom:10px; margin-bottom:6px; }
+  .parthead .num { font-size:9pt; color:#2FD39B; font-weight:800; letter-spacing:2px; }
+  table { width:100%; border-collapse:collapse; margin:10px 0; font-size:9pt; }
+  th,td { text-align:left; padding:7px 9px; vertical-align:top; border-bottom:1px solid rgba(148,163,184,0.16); }
+  th { color:#9AB; font-size:8pt; text-transform:uppercase; letter-spacing:0.6px; background:rgba(148,163,184,0.05); }
+  tr { page-break-inside: avoid; }
+  td.accent, td .accent { color:#2FD39B; }
+  .card { background:rgba(20,27,43,0.7); border:1px solid rgba(148,163,184,0.16); border-radius:12px; padding:12px 14px; margin:10px 0; page-break-inside:avoid; }
+  .grid2 { display:flex; gap:12px; }
+  .grid2 > .card { flex:1; }
+  .callout { border-left:3px solid #2FD39B; background:rgba(47,211,155,0.06); padding:9px 13px; border-radius:0 10px 10px 0; margin:10px 0; page-break-inside:avoid; }
+  .callout.gold { border-color:#E8B84A; background:rgba(232,184,74,0.06); }
+  .callout.danger { border-color:#FB5571; background:rgba(251,85,113,0.06); }
+  ul { margin:6px 0; padding-left:18px; } li { margin:3px 0; color:#CBD5E6; }
+  .small { font-size:8.6pt; }
+  .diagram { background:#0E1320; border:1px solid rgba(148,163,184,0.18); border-radius:12px; padding:14px; margin:12px 0; page-break-inside:avoid; }
+  .box { display:inline-block; border:1px solid rgba(47,211,155,0.4); background:rgba(47,211,155,0.06); border-radius:8px; padding:5px 9px; margin:3px; font-size:8.4pt; color:#EAF6F0; }
+  .box.n { border-color:rgba(92,141,240,0.4); background:rgba(92,141,240,0.06); }
+  .arrow { color:#5C6880; padding:0 4px; }
+  .cover { height: 246mm; display:flex; flex-direction:column; justify-content:space-between; page-break-after:always; }
+  .cover .mark { width:64px;height:64px;border-radius:16px;border:2px solid #2FD39B;display:flex;align-items:center;justify-content:center;color:#2FD39B;font-weight:800;font-size:26px;}
+  .cover h1 { font-size:40pt; line-height:1.05; margin:18px 0 0; letter-spacing:-1px; }
+  .ribbon { font-size:8pt; letter-spacing:3px; text-transform:uppercase; color:#5C6880; }
+  .toc td { border:none; padding:4px 0; }
+  .toc .n { color:#2FD39B; font-weight:700; width:34px; }
+  .feat { page-break-inside:avoid; border-top:1px solid rgba(148,163,184,0.14); padding:9px 0; }
+  .feat .t { color:#fff; font-weight:700; font-size:10.6pt; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div>
+    <div class="ribbon">Confidential · Founder &amp; Investor Edition · June 2026 · Canada</div>
+  </div>
+  <div>
+    <div class="mark">K</div>
+    <h1>KinShield</h1>
+    <div style="font-size:15pt;color:#2FD39B;font-weight:600;margin-top:10px;">The Master Build &amp; Business Document</div>
+    <p style="max-width:150mm;margin-top:14px;font-size:11pt;color:#AEBBD0;">
+      How the product is designed, how it becomes a real app in the market, how every feature works,
+      how it competes against the giants, the full engineering structure, the obstacles in each feature and
+      how to resolve them, the cost and time of building it, and the step-by-step plan to launch it as a startup.
+    </p>
+  </div>
+  <div class="small muted">
+    KinShield — the orchestration layer for fraud defence in Canada.<br>
+    One Trust Score behind every channel · built for the household · twelve languages · honest by engineering discipline.
+  </div>
+</div>
+
+<!-- ============ TOC ============ -->
+<div>
+  <div class="kicker">Contents</div>
+  <h2>What's inside</h2>
+  <table class="toc">
+    <tr><td class="n">01</td><td>Executive summary — the thesis in one page</td></tr>
+    <tr><td class="n">02</td><td>The product &amp; design — and what is already built</td></tr>
+    <tr><td class="n">03</td><td>The market case &amp; sizing — why now</td></tr>
+    <tr><td class="n">04</td><td>Competing with the giants — the six moats &amp; what we're best at</td></tr>
+    <tr><td class="n">05</td><td>The features — how each one works in the real app</td></tr>
+    <tr><td class="n">06</td><td>The engineering structure — the real production stack</td></tr>
+    <tr><td class="n">07</td><td>Obstacles in every feature — and how each is resolved</td></tr>
+    <tr><td class="n">08</td><td>Cross-cutting risks — the company-level obstacles</td></tr>
+    <tr><td class="n">09</td><td>Cost &amp; time — per feature, per phase, at scale, and funding</td></tr>
+    <tr><td class="n">10</td><td>The phased roadmap — step by step, with each phase's challenges</td></tr>
+    <tr><td class="n">11</td><td>What founders forget — the things added here</td></tr>
+    <tr><td class="n">12</td><td>The numbers that matter — KPIs by stage</td></tr>
+    <tr><td class="n">13</td><td>Claims discipline &amp; ethics — the moat that costs nothing</td></tr>
+    <tr><td class="n">A</td><td>Appendix — what exists today, repo structure, how to run</td></tr>
+  </table>
+  <div class="callout small">
+    <b>How to read this.</b> Every figure is a planning estimate in CAD at realistic 2026 Canadian rates, deliberately
+    conservative. Nothing here claims a capability the operating systems or the law do not permit — that honesty is itself
+    the strategy (see Part 13).
+  </div>
+</div>
+
+<!-- ============ 01 EXEC ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 01</span><h2>Executive summary</h2></div>
+  <p><b>The opportunity.</b> Canadians reported roughly <b>$638–643M</b> in fraud losses to the Canadian Anti-Fraud Centre
+  in 2024 — a near-300% rise since 2020 — and the CAFC estimates only 5–10% of fraud is ever reported, implying true losses
+  in the multiple billions. <b>Bill C-15</b> received Royal Assent on 26 March 2026: every Canadian bank must now detect and
+  prevent consumer-targeted fraud, obtain express consent for risky capabilities, let customers set limits, and report fraud
+  data to the FCAC. The regulatory clock has started and it is measured in quarters.</p>
+
+  <p><b>The insight.</b> Every major competitor is an English-first product designed for a tech-comfortable American.
+  The people actually losing the money are <b>seniors</b>, <b>newcomers and linguistic communities</b> (CRA, IRCC, job and
+  investment scams in Punjabi, Mandarin, Cantonese, Tagalog, Arabic…), and <b>small businesses</b> (deepfake-executive wire
+  fraud). The mismatch between who is targeted and who is served is the founding wedge.</p>
+
+  <p><b>The product.</b> KinShield is not another single-channel detector. It is the <b>orchestration layer</b> above the
+  platforms: one <b>Trust Score</b> (1–100) behind every channel — texts, links, calls, money, meetings — that knows the
+  <b>household</b>, speaks its <b>twelve languages</b>, fuses every signal into one judged verdict, decides what to do, and
+  stays with the family through the <b>aftermath</b>. Detection is becoming a commodity; <b>judgment, family context,
+  Canadian context, and recovery are not.</b></p>
+
+  <div class="grid2">
+    <div class="card"><div class="kicker">Already built &amp; working</div>
+      <ul class="small">
+        <li>A real <b>Trust Engine</b> (5 signal families, transparent combiner, 12-language output) running on-device</li>
+        <li>A native <b>iPhone app</b> (Expo / React Native) — Dashboard, Protect, Map, Family, 30-feature catalogue</li>
+        <li>A <b>web app / PWA</b> sharing the same engine</li>
+        <li>Real camera <b>QR scanning</b>, clipboard checking, live community number lookup, calibration reporting</li>
+      </ul>
+    </div>
+    <div class="card"><div class="kicker">The ask</div>
+      <ul class="small">
+        <li><b>Stage 0</b> validate: $8–18K, 0–3 months</li>
+        <li><b>Stage 1</b> MVP: $90–160K bootstrap / $250–350K pre-seed, 3–9 months</li>
+        <li><b>Stage 2</b> seed &amp; scale: $1.5–2.5M, 9–24 months</li>
+        <li><b>Stage 3</b> Series A &amp; category: $8–15M, years 2–4</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout gold small"><b>The one-sentence thesis.</b> Build the P0 wedge for the undefended Canadian household,
+  earn the evidence with published accuracy, and let a 30-feature catalogue compound behind six moats incumbents cannot
+  cheaply copy — while a Bill-C-15 SDK turns the same brain into institutional revenue.</div>
+</div>
+
+<!-- ============ 02 PRODUCT & DESIGN ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 02</span><h2>The product &amp; design — and what is already built</h2></div>
+
+  <h3>2.1 Design language</h3>
+  <p>A restrained, professional dark system — deep ink background, layered surfaces, a single confident emerald accent,
+  and red reserved <i>strictly</i> for threats. Vector iconography (no emoji-as-UI), a real typographic scale, the
+  <b>Trust Score dial</b> as the product's signature object, and a <b>Senior Mode</b> presentation layer (larger type,
+  simplified actions, spoken verdicts) that every feature must render into. Brand promise, printed on the product:
+  <i>"What's yours, we cannot read. What's the scammer's, we share to protect everyone."</i></p>
+
+  <h3>2.2 Information architecture (the real app)</h3>
+  <table>
+    <tr><th>Tab</th><th>Purpose</th><th>Key surfaces</th></tr>
+    <tr><td class="accent">Dashboard</td><td>One screen summarising everything</td><td>Protection posture ring, 7-day activity, threats-near-you, recent checks, quick actions, alerts</td></tr>
+    <tr><td class="accent">Protect</td><td>The front door — Ask KinShield</td><td>Paste / Paste-from-clipboard / Scan-QR → on-device verdict + reasoning ledger, spoken aloud</td></tr>
+    <tr><td class="accent">Map</td><td>Live threat heat map of Canada</td><td>City clusters, category filters, weekly briefing (k-anonymity, city-level only)</td></tr>
+    <tr><td class="accent">Family</td><td>The household graph</td><td>Members, roles, shared policies, cross-platform alert feed</td></tr>
+    <tr><td class="accent">Features</td><td>The A-to-Z catalogue</td><td>All 30 features grouped by pillar; Incident Mode, Scam Drill, Settings</td></tr>
+  </table>
+
+  <h3>2.3 What exists today (this is not a deck — it runs)</h3>
+  <ul>
+    <li><b>Trust Engine</b> — pure-TypeScript, on-device: content / artifact / authenticity / network / anomaly signals,
+      a transparent noisy-OR combiner, a Canadian scam-script corpus (18 named scripts + generic-phishing grammar),
+      lookalike/homoglyph/IP/credential URL forensics, and localized explanations in 12 languages. Unit-tested (25 cases).</li>
+    <li><b>Native iOS app</b> (Expo SDK 54) loadable in Expo Go; the same engine powers a <b>Next.js web app / PWA</b>.</li>
+    <li><b>Real on-device capability</b>: camera QR scanning, clipboard checking, community number lookup, app-wide
+      EN/FR localization, persisted household &amp; history, and a live calibration report.</li>
+  </ul>
+  <div class="callout small"><b>The honest boundary.</b> Features that need carrier telephony, OS call/SMS entitlements,
+  or partner APIs are present as faithful interactive demos. Part 05 and Part 07 explain exactly how each becomes real.</div>
+</div>
+
+<!-- ============ 03 MARKET ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 03</span><h2>The market case &amp; sizing</h2></div>
+  <h3>3.1 Verified facts only</h3>
+  <ul>
+    <li><b>$638–643M</b> reported fraud losses to the CAFC (2024); ~<b>5–10%</b> reported → true losses in the billions.</li>
+    <li>Fraud is the single largest complaint category at Canada's banking ombudsman.</li>
+    <li><b>INTERPOL (Mar 2026)</b>: &gt;US$400B global losses substantially tied to impersonation fraud — the exact AI-voice,
+      spoofed-number attack class KinShield is built against.</li>
+    <li><b>Bill C-15</b> (Royal Assent 26 Mar 2026) + the <b>National Anti-Fraud Strategy</b> + a new Financial Crimes Agency
+      + Quebec's legislated bank reimbursement = a dated regulatory tailwind.</li>
+  </ul>
+  <h3>3.2 Who is losing the money (the segments)</h3>
+  <table>
+    <tr><th>Segment</th><th>How they're hit</th><th>Why KinShield fits</th></tr>
+    <tr><td>Seniors</td><td>Largest per-incident losses; CRA-arrest, grandparent, tech-support</td><td>Senior Mode + Family Circle + the Line + human Recovery</td></tr>
+    <tr><td>Newcomers / linguistic communities</td><td>CRA, IRCC, consulate, job &amp; investment scams in their language</td><td>Twelve-language detection &amp; explanations — nobody else does this</td></tr>
+    <tr><td>Small business</td><td>Deepfake-executive wire fraud (the Arup ~US$25M case)</td><td>Wire Guard + Meeting Assist (procedure beats detection)</td></tr>
+  </table>
+  <h3>3.3 Sizing (planning estimate)</h3>
+  <table>
+    <tr><th></th><th>Definition</th><th>Estimate</th></tr>
+    <tr><td>TAM</td><td>North-American consumer + SMB fraud-defence &amp; identity protection</td><td>US$10B+ and growing double-digits</td></tr>
+    <tr><td>SAM</td><td>Canadian households + SMBs + the bank/credit-union SDK market under Bill C-15</td><td>~$1.5–2.5B CAD annual</td></tr>
+    <tr><td>SOM (Yr 3)</td><td>~300–500K paid Canadian households + 5–15 institutional SDK customers</td><td>$30–60M CAD ARR path</td></tr>
+  </table>
+  <p class="small muted">Bottom-up: 1% of ~15M Canadian households at a $9.99–19.99 blended ~$140/yr ≈ $21M consumer ARR, plus
+  10 SDK deals at $50–250K ≈ $1–2.5M, before insurance and telecom revenue.</p>
+</div>
+
+<!-- ============ 04 COMPETITION ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 04</span><h2>Competing with the giants</h2></div>
+  <p>The rule: name what each competitor is genuinely <i>best</i> at — no strawmanning — then state the specific, buildable
+  play that beats them at that exact strength.</p>
+  <table>
+    <tr><th>Competitor</th><th>Best at</th><th>How KinShield wins</th></tr>
+    <tr><td>Apple (iOS Call Screening)</td><td>Default distribution, free, built-in</td><td>Apple commoditizes the receptionist; we sell the bodyguard — judgment, family policy, languages, recovery</td></tr>
+    <tr><td>Google (Pixel Scam Detection)</td><td>Deepest on-device AI</td><td>Own the cross-platform household; out-localize; own the after (alert, Incident, human line, insurance)</td></tr>
+    <tr><td>Norton Genie / Gen Digital</td><td>Brand + free AI scam checker</td><td>Ask KinShield: proactive, 12-language, Canada-tuned, wired to actions</td></tr>
+    <tr><td>McAfee Scam Detector</td><td>Mass-market suite, 96% claim</td><td>Match surface coverage; beat on calibrated honesty &amp; Canadian depth</td></tr>
+    <tr><td>Truecaller</td><td>World's largest caller-ID DB</td><td>Judge behaviour not caller-ID; consent-clean network (PIPEDA/Law 25 safe)</td></tr>
+    <tr><td>Hiya</td><td>Carrier/OEM network reach</td><td>Take the Canadian carrier road first; own the direct family relationship they never have</td></tr>
+    <tr><td>Robokiller / YouMail</td><td>Answer-bot honeypots</td><td>Beat a feature with a system — Line+Honeypot inside a full platform</td></tr>
+    <tr><td>Aura</td><td>Best all-in-one identity (US)</td><td>Be Canada's Aura first; add live interception, Senior Mode, pre-evidenced insurance</td></tr>
+    <tr><td>Incogni / DeleteMe</td><td>Data-broker removal</td><td>Statutory PIPEDA/Law 25 deletion demands + closed loop into detection</td></tr>
+    <tr><td>Pindrop / Reality Defender</td><td>Enterprise deepfake research</td><td>Out-position, don't out-research: multi-signal + procedural guardrails stop a perfect deepfake</td></tr>
+  </table>
+  <h3>4.1 The six moats</h3>
+  <table>
+    <tr><th>#</th><th>Moat</th><th>Why incumbents can't cheaply copy it</th></tr>
+    <tr><td>1</td><td>The Canadian corpus</td><td>Labeled scam scripts in 12 languages, built with settlement agencies — data nobody can buy</td></tr>
+    <tr><td>2</td><td>The family graph</td><td>Switching costs compound; every protected senior recruits more families</td></tr>
+    <tr><td>3</td><td>Regulatory fluency as product</td><td>Bill C-15 kit, FCAC pipeline, Law 25 filings, CRTC/STIR-SHAKEN — years of Canadian legal work</td></tr>
+    <tr><td>4</td><td>Split-plane privacy</td><td>E2EE personal data; data-monetizing incumbents can't retrofit it</td></tr>
+    <tr><td>5</td><td>The recovery operation</td><td>Human, trauma-informed, multilingual — an ops moat, impossible to fake</td></tr>
+    <tr><td>6</td><td>Calibrated honesty</td><td>Published accuracy with failures — competitors' marketing will never allow it</td></tr>
+  </table>
+  <div class="callout"><b>What we are best at:</b> orchestration (one judged score across every channel), Canadian + multilingual
+  depth where losses concentrate, the household as the unit of protection, owning the aftermath, and a trust posture
+  (published calibration, E2EE) that data-hungry incumbents structurally cannot match.</div>
+</div>
+
+<!-- ============ 05 FEATURES ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 05</span><h2>The features — how each works in the real app</h2></div>
+  <p class="small muted">★ = no consumer competitor offers it today. Phase: P0 = MVP (months 0–9) · P1 = scale (9–24) · P2 = years 2–3.</p>
+
+  <h3>Detect &amp; Decide</h3>
+  <div class="feat"><span class="t">Trust Engine &amp; Score ★</span> <span class="pill">P0</span>
+    <p class="small">Five signal families (content, artifact, authenticity, network, anomaly) fused by a transparent combiner into one 1–100 score + top-3 reasons, localized. The product's vocabulary and the SDK's API contract. <b>Real mechanism:</b> distilled on-device models for privacy/latency; GPU server ensembles for heavy authenticity checks; per-language calibration; every decision logged for the quarterly public report.</p></div>
+  <div class="feat"><span class="t">Ask KinShield ★</span> <span class="pill">P0</span>
+    <p class="small">Paste, forward, photograph or dictate anything → verdict + action in your language in seconds. <b>Real mechanism:</b> share-sheet + keyboard extension + widget entry points; on-device OCR → language ID → engine → action buttons (block/report/alert family/Incident).</p></div>
+  <div class="feat"><span class="t">SMS / RCS Shield</span> <span class="pill">P0</span>
+    <p class="small">Scam texts filtered before the inbox. <b>Real mechanism (the key OS detail):</b> iOS <b>ILMessageFilterExtension</b> classifies messages <i>from unknown senders only</i> in a sandbox; Android takes the default-SMS or spam role. On-device multilingual classifier + private-relay lookup when confidence is low.</p></div>
+  <div class="feat"><span class="t">Link &amp; QR Checker</span> <span class="pill">P0</span>
+    <p class="small">Paste or scan; verdict in 2s. <b>Real mechanism:</b> domain age / WHOIS / certificate-transparency / homoglyph detection vs a Canadian brand whitelist; in-app camera scanner (built); MV3 browser extension.</p></div>
+  <div class="feat"><span class="t">VerifyCA ★</span> <span class="pill amber">P1</span>
+    <p class="small">Check investment &amp; job offers against the CSA registration search, provincial regulators, and corporate registries. <b>Real mechanism:</b> registry scraper/API layer with freshness monitoring + entity resolution (the hard part) + newcomer-language explanations.</p></div>
+  <div class="feat"><span class="t">Multilingual Defense ★</span> <span class="pill">P0–P1</span>
+    <p class="small">Twelve languages where losses concentrate. <b>Real mechanism:</b> Whisper-class ASR + per-language scam corpora built with settlement-agency partners; a language ships only when paid native speakers validate it.</p></div>
+  <div class="feat"><span class="t">Zero-Day Anomaly Signals</span> <span class="pill amber">P1</span>
+    <p class="small">Per-user baselines flag what's abnormal <i>for you</i>, catching unlabeled scams. <b>Real mechanism:</b> on-device isolation-forest baselines → anomaly score into the Trust Engine; weekly recalibration.</p></div>
+
+  <h3>Calls &amp; Voice</h3>
+  <div class="feat"><span class="t">The KinShield Line ★</span> <span class="pill amber">P1</span>
+    <p class="small">An AI receptionist screens unknown callers and patches through / warns / blocks per family policy. <b>Real mechanism (off-handset):</b> conditional call-forwarding of unknown callers to a CPaaS cloud number (Twilio/Telnyx) → streaming ASR → Trust Engine → policy engine → warm transfer with whisper announcement. Handset-independent — works on every iPhone and Android.</p></div>
+  <div class="feat"><span class="t">Caller Intelligence</span> <span class="pill">P0</span>
+    <p class="small">Label / silence / block flagged numbers before the ring. <b>Real mechanism:</b> iOS <b>Call Directory Extension</b> + <b>Live Caller ID Lookup</b> (privacy-preserving); Android caller-ID role; STIR/SHAKEN attestation shown as a badge.</p></div>
+  <div class="feat"><span class="t">Assist Mode ★</span> <span class="pill">P0–P1</span>
+    <p class="small">Live coaching on a call you answered. <b>Real mechanism:</b> user puts the call on speaker; the app analyses ambient audio via the <b>microphone</b> (permitted) entirely on-device — lawful under one-party consent; nothing leaves the phone.</p></div>
+  <div class="feat"><span class="t">Voice Lock</span> <span class="pill amber">P1</span>
+    <p class="small">Family voiceprints verify in-app requests. <b>Real mechanism:</b> ECAPA-TDNN-class embeddings on-device (never raw audio); liveness challenge + anti-replay; Quebec CAI biometric declaration before launch there.</p></div>
+  <div class="feat"><span class="t">Honeypot Decoy Line ★</span> <span class="pill amber">P2</span>
+    <p class="small">Decoy AI personas waste scammer time &amp; harvest scripts. <b>Real mechanism:</b> CPaaS decoy numbers + persona library on our own consent/recording footing; harvested intel feeds the corpus. Launches only behind counsel review (interception/CRTC); never uses a user's voice.</p></div>
+
+  <h3>Family &amp; Seniors</h3>
+  <div class="feat"><span class="t">Family Circle ★</span> <span class="pill">P0</span>
+    <p class="small">The household is the unit of protection — up to 12 members, cross-platform alerts, policy engine, the senior never manages a password (family-share key recovery). <b>Real mechanism:</b> household graph + role/permission model consumed by every shield; audited approval log on the personal plane.</p></div>
+  <div class="feat"><span class="t">Senior Mode ★ · Scam Drill ★ · Briefing &amp; Heat Map</span> <span class="pill">P0–P1</span>
+    <p class="small">An alternate presentation layer every feature renders into; opt-in scam inoculation drills with a household scoreboard; a localized weekly threat briefing + live map (city-level, k-anonymity).</p></div>
+
+  <h3>Money &amp; Business</h3>
+  <div class="feat"><span class="t">Check Before You Send ★ · Wire Guard ★ · Meeting Assist ★</span> <span class="pill">P1–P2</span>
+    <p class="small">The 10-second habit before money moves (recipient + three pressure questions + cooling-off); the SMB Arup-killer (out-of-band release ceremony: live selfie + spoken codeword + voice match — the deepfake can't pass the channel it doesn't control); a second opinion on high-stakes video calls (advisory flags + the procedural guardrail).</p></div>
+  <div class="feat"><span class="t">KinShield SDK ★ (the Bill C-15 product) · Insurance Benefit</span> <span class="pill">P1–P2</span>
+    <p class="small">The same brain licensed to banks &amp; credit unions: Trust Engine API + a C-15 control kit + threat-intel feed + FCAC reporting pipeline. A fraud-reimbursement benefit with a Canadian insurer, claims pre-evidenced by Incident Mode.</p></div>
+
+  <h3>Privacy, Exposure &amp; Recovery</h3>
+  <div class="feat"><span class="t">Zero-Knowledge Vault ★ · Exposure Sweep · Passkey Coach</span> <span class="pill">P0–P1</span>
+    <p class="small">E2EE personal data verified by a published audit; breach + data-broker sweeps with statutory Law-25 deletion demands and Shadow Contacts; a gamified household hardening program.</p></div>
+  <div class="feat"><span class="t">Incident Mode ★ · Crisis Vault ★ · Recovery Line ★ · Long-Con Radar ★</span> <span class="pill">P0–P1</span>
+    <p class="small">The panic button (guided first-hours flow, pre-filled CAFC/police, scripted bank calls, recovery-scam pre-arm); the sextortion first-four-hours flow (de-escalation + StopNCII); a trained multilingual human who joins bank calls for 3 months; staged detection of romance/pig-butchering over weeks.</p></div>
+  <div class="feat"><span class="t">Community Threat Network · Email Guard</span> <span class="pill">P0–P1</span>
+    <p class="small">One consented report protects everyone in minutes (graph propagation, reputation decay, contributor karma); read-only OAuth inbox scanning with SPF/DKIM/DMARC forensics.</p></div>
+</div>
+
+<!-- ============ 06 ENGINEERING ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 06</span><h2>The engineering structure</h2></div>
+  <h3>6.1 The split data-plane (the architectural promise)</h3>
+  <div class="diagram">
+    <span class="box">Personal plane — yours</span><span class="arrow">·</span>
+    <span class="box">E2EE (libsodium / XChaCha20)</span><span class="arrow">·</span>
+    <span class="box">Argon2id keys + device keystore</span><span class="arrow">·</span>
+    <span class="box">Shamir family recovery</span><span class="arrow">·</span>
+    <span class="box">Nitro Enclave compute (zero operator access)</span>
+    <div style="height:6px"></div>
+    <span class="box n">Network plane — the scammer's</span><span class="arrow">·</span>
+    <span class="box n">numbers / domains / scripts / wallets</span><span class="arrow">·</span>
+    <span class="box n">explicit per-report consent</span><span class="arrow">·</span>
+    <span class="box n">pseudonymized + human-reviewed</span><span class="arrow">·</span>
+    <span class="box n">trains the models &amp; powers the SDK</span>
+  </div>
+
+  <h3>6.2 The Trust Engine</h3>
+  <div class="diagram">
+    <span class="box n">content</span><span class="box n">artifact</span><span class="box n">authenticity</span><span class="box n">network</span><span class="box n">anomaly</span>
+    <span class="arrow">→</span><span class="box">noisy-OR combiner (calibrated)</span><span class="arrow">→</span>
+    <span class="box">Trust Score 1–100 + top-3 reasons + ledger + uncertainty band</span>
+    <p class="small" style="margin-top:8px">Latency budgets: &lt;2s text/links · &lt;5s audio clips · &lt;8s video frames. No single detector decides — fusion is why a perfect deepfake still can't win alone. Every decision feeds the quarterly public calibration report.</p>
+  </div>
+
+  <h3>6.3 The stack</h3>
+  <table>
+    <tr><th>Layer</th><th>Choice</th><th>Rationale</th></tr>
+    <tr><td>Mobile</td><td>Native Swift (iOS) + Kotlin (Android); RN for shared surfaces</td><td>OS extensions (SMS Filter, Call Directory, Live Caller ID, Android roles) are unreliable from cross-platform frameworks</td></tr>
+    <tr><td>Backend</td><td>Go + TypeScript services; Postgres (+pgvector, graph); Redis; NATS/Kafka; AWS ca-central-1</td><td>Boring, hireable, auditable; Canadian residency is a sales feature</td></tr>
+    <tr><td>Telephony</td><td>CPaaS (Telnyx/Twilio), Canadian DIDs, media-stream forking, dual-provider failover</td><td>The Line &amp; Honeypot live or die on telephony reliability</td></tr>
+    <tr><td>ML</td><td>PyTorch training; Core ML / TF Lite on-device; L4-class GPU inference; labeled-corpus pipeline as first-class infra</td><td>On-device where privacy demands, server where accuracy demands — the corpus pipeline IS the company</td></tr>
+    <tr><td>Security &amp; compliance</td><td>SOC 2 Type I→II; annual pen test; crypto audit; PIPEDA PIAs; Law 25 / CAI declarations; OSFI B-13 mapping</td><td>Compliance artifacts double as B2B sales collateral</td></tr>
+  </table>
+
+  <h3>6.4 Infrastructure economics (monthly opex, CAD, planning ranges)</h3>
+  <table>
+    <tr><th>Cost line</th><th>10K users</th><th>100K users</th><th>500K users</th></tr>
+    <tr><td>Cloud compute &amp; storage</td><td>$1.5–3K</td><td>$8–16K</td><td>$30–60K</td></tr>
+    <tr><td>GPU inference</td><td>$0.8–2K</td><td>$6–14K</td><td>$25–55K</td></tr>
+    <tr><td>Telephony (Line + Honeypot, ~15% active)</td><td>$0.5–1.5K</td><td>$8–20K</td><td>$45–110K</td></tr>
+    <tr><td>Third-party APIs (breach, crypto-intel, WHOIS/CT, registries)</td><td>$1–2K</td><td>$5–10K</td><td>$15–30K</td></tr>
+    <tr><td>Observability &amp; security tooling</td><td>$0.5–1K</td><td>$2–4K</td><td>$6–12K</td></tr>
+    <tr><th>TOTAL infra</th><th class="accent">≈$4–10K</th><th class="accent">≈$29–64K</th><th class="accent">≈$121–267K</th></tr>
+  </table>
+  <p class="small muted">Read against $9.99–19.99 pricing: 75–85% gross margins at scale are realistic if the human Recovery Line is
+  gated to paid tiers and telephony abuse is controlled. The single biggest cost lever is <b>Line minutes</b> — which is why
+  screening defaults to "unknown callers only."</p>
+</div>
+
+<!-- ============ 07 OBSTACLES PER FEATURE ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 07</span><h2>Obstacles in every feature — and how each is resolved</h2></div>
+  <table>
+    <tr><th>Feature</th><th>The real obstacle</th><th>The resolution</th></tr>
+    <tr><td>SMS / RCS Shield</td><td>iOS exposes only unknown-sender messages in a sandbox with no free network; Android needs a Play "Permissions Declaration" (rejection risk)</td><td>On-device distilled classifier (no network needed); private-relay deferred lookup; ship a clear demo video + justification for the declaration — Truecaller/Hiya pass this routinely</td></tr>
+    <tr><td>Ask KinShield</td><td>Multimodal OCR + 12-language inference cost and latency</td><td>On-device OCR first; staged languages (EN/FR/PA/ZH at P0, +2/quarter); cache verdicts per thread</td></tr>
+    <tr><td>Link &amp; QR Checker</td><td>Real-time domain intelligence is rate-limited and costly; sandboxed render is heavy</td><td>Cache + CT-log streaming; lexical forensics (homoglyph/IP/lookalike) need no network and catch most spoofs (already built)</td></tr>
+    <tr><td>The KinShield Line</td><td><b>Per-minute telephony is the top opex lever</b>; conditional-forwarding setup differs per carrier; latency on warm-transfer</td><td>Default to unknown-callers-only; per-account minute budgets; dual-CPaaS failover; a per-carrier setup wizard; streaming ASR to keep transfer &lt;2s</td></tr>
+    <tr><td>Caller Intelligence</td><td>Apple gates the <b>Live Caller ID</b> entitlement (weeks of review); blocklists go stale (scammers burn numbers daily)</td><td>File the entitlement in week one; bloom-filter local cache + private lookup; lean on behaviour (the Line) not just number identity</td></tr>
+    <tr><td>Assist Mode</td><td>On-device ASR battery/thermal budget; accuracy on noisy speakerphone audio</td><td>Distilled streaming ASR; thermal/battery caps; speaker-focus; degrade gracefully to keyword spotting</td></tr>
+    <tr><td>Voice Lock</td><td>Biometric law (Quebec CAI, BIPA-style liability); spoofing/replay; senior enrollment friction</td><td>File CAI declaration before Quebec; store embeddings not audio; liveness + anti-replay; quarterly re-enrollment; senior-designed UX</td></tr>
+    <tr><td>Honeypot</td><td>Interception/recording &amp; CRTC law; reputational risk; never a user's cloned voice</td><td>Counsel gate; our own DIDs &amp; consent footing; strict multi-report targeting thresholds (precedent: O2 "Daisy", Apate.ai)</td></tr>
+    <tr><td>Family Circle</td><td>Monitoring a parent raises consent &amp; coercive-control risk</td><td>Explicit consent ceremonies; transparency to the protected member; no covert monitoring; auditable approval log</td></tr>
+    <tr><td>Incident Mode</td><td>No public APIs freeze accounts or file police/CAFC reports automatically</td><td>Pre-filled deep links + sequenced playbooks maintained by content ops; automation deepens as bank SDK relationships land</td></tr>
+    <tr><td>Crisis Vault</td><td>Safeguarding, minors, mental-health liability</td><td>Scripts vetted with mental-health partners; age-appropriate gating; NCMEC TakeItDown / StopNCII; mandatory safeguarding review</td></tr>
+    <tr><td>Recovery Line</td><td>Hiring/training trauma-informed multilingual staff; ops cost; advice liability</td><td>QA'd scripts; strict scope (navigation, not legal advice); gated to paid tiers; staffing scales with revenue</td></tr>
+    <tr><td>Insurance Benefit</td><td>12+ month underwriter negotiation; actuarial risk; OSFI</td><td>Partner an established insurer/MGA; realistic caps ($10–25K); pre-evidenced claims; "designed fast", never "instant"</td></tr>
+    <tr><td>Exposure Sweep</td><td>Broker compliance at scale; breach-data licensing</td><td>Legal-demand templating engine; HIBP-class licensing; statutory PIPEDA/Law 25 teeth competitors don't use</td></tr>
+    <tr><td>VerifyCA</td><td>13 provincial registries, no official APIs, entity resolution ("MapleWealth Capital Inc." across registries)</td><td>Scraper layer with freshness monitoring + fuzzy entity resolution + OCR for image ads</td></tr>
+    <tr><td>Wire Guard / Meeting Assist</td><td>SMB integration; screen-capture consent; deepfake detectors generalize poorly</td><td>Procedural out-of-band release (beats detection); webhook integrations (QuickBooks/Stripe); advisory flags, never verdicts</td></tr>
+    <tr><td>KinShield SDK</td><td>6–12 month bank sales cycles; SOC 2 prerequisite; integration lift</td><td>Credit unions &amp; digital banks first; compliance artifact pack; Big-5 in Year 3 on live references</td></tr>
+    <tr><td>Trust Engine / ML</td><td>Scarce Canadian multilingual scam data; model drift; adversarial evasion; honest calibration</td><td>The corpus pipeline + community + honeypot data flywheel; drift monitoring; published quarterly calibration (the moat)</td></tr>
+    <tr><td>Zero-Knowledge Vault</td><td>E2EE vs recovery tension (senior lockout); audit cost</td><td>Shamir family key-shares; external crypto audit (~$20–30K) published before the claim is marketed</td></tr>
+  </table>
+</div>
+
+<!-- ============ 08 CROSS-CUTTING RISKS ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 08</span><h2>Cross-cutting risks — the company-level obstacles</h2></div>
+  <table>
+    <tr><th>Risk</th><th>Resolution</th></tr>
+    <tr><td><b>App Store / Play policy</b> — extensions &amp; SMS/call roles can be rejected or rules can change</td><td>Use only sanctioned APIs; file entitlements early; maintain a demo build &amp; justification; keep the network plane consent-clean; precedent exists (Truecaller, Hiya, Robokiller, Norton all ship these)</td></tr>
+    <tr><td><b>Unit economics</b> — Line minutes can erode the $9.99 tier</td><td>Unknown-callers-only default; minute budgets; gate the Line/Recovery to paid tiers; model at $0.015/min blended</td></tr>
+    <tr><td><b>CAC / retention</b> — consumer security churns</td><td>Partnership-sourced CAC &lt;$20 (settlement agencies, seniors' orgs); the family graph drives retention &amp; virality</td></tr>
+    <tr><td><b>Fraudsters adapt</b></td><td>Anomaly net for zero-days; the honeypot/community flywheel; ship calibration so adaptation is visible, not hidden</td></tr>
+    <tr><td><b>Privacy regulators</b> (PIPEDA, Law 25, CAI)</td><td>Compliance is the product (Moat 3); PIAs, declarations, residency — turned into the SDK</td></tr>
+    <tr><td><b>Trust is fragile</b> — one overclaim detonates the brand</td><td>Claims discipline (Part 13): never publish a number without its benchmark, date &amp; failures</td></tr>
+    <tr><td><b>Talent &amp; key-person</b> — telephony + ML + native are rare skills</td><td>Hybrid build (founder + 2 specialist contractors at MVP); boring/hireable backend; IP-assignment from commit one</td></tr>
+    <tr><td><b>Capital intensity</b></td><td>Phase gates stop Stage-2 spend on a Stage-0 idea; SR&ED returns ~35% of eligible R&D; IRAP co-funds technical work</td></tr>
+  </table>
+</div>
+
+<!-- ============ 09 COST & TIME ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 09</span><h2>Cost &amp; time</h2></div>
+  <h3>9.1 Per-feature build cost (one-time engineering, CAD, realistic ranges)</h3>
+  <table>
+    <tr><th>Feature</th><th>Cost</th><th>Build</th><th>Phase</th></tr>
+    <tr><td>Trust Engine &amp; Score</td><td>$70–100K</td><td>8–10 wk</td><td>P0</td></tr>
+    <tr><td>Ask KinShield</td><td>$45–65K</td><td>6–8 wk</td><td>P0</td></tr>
+    <tr><td>SMS / RCS Shield</td><td>$40–60K</td><td>6–8 wk</td><td>P0</td></tr>
+    <tr><td>Link &amp; QR Checker</td><td>$30–45K</td><td>4–6 wk</td><td>P0</td></tr>
+    <tr><td>Caller Intelligence</td><td>$35–55K</td><td>6–8 wk</td><td>P0</td></tr>
+    <tr><td>Family Circle (+ Senior Mode)</td><td>$60–85K</td><td>10–12 wk</td><td>P0</td></tr>
+    <tr><td>Community Threat Network</td><td>$45–70K</td><td>8–10 wk</td><td>P0</td></tr>
+    <tr><td>Incident Mode</td><td>$50–75K</td><td>8–10 wk</td><td>P0</td></tr>
+    <tr><td>Zero-Knowledge Vault (+ audit)</td><td>$70–100K</td><td>12–14 wk</td><td>P0</td></tr>
+    <tr><td>Multilingual (to 12)</td><td>$90–150K</td><td>staged</td><td>P0–P1</td></tr>
+    <tr><td>The KinShield Line</td><td>$130–190K</td><td>14–18 wk</td><td>P1</td></tr>
+    <tr><td>Assist Mode</td><td>$55–80K</td><td>8–10 wk</td><td>P0–P1</td></tr>
+    <tr><td>Check Before You Send</td><td>$30–45K</td><td>5–7 wk</td><td>P1</td></tr>
+    <tr><td>Crisis Vault</td><td>$50–75K</td><td>9–12 wk</td><td>P1</td></tr>
+    <tr><td>Email Guard</td><td>$55–80K</td><td>8–10 wk</td><td>P1</td></tr>
+    <tr><td>Exposure Sweep</td><td>$60–90K</td><td>10–12 wk</td><td>P1</td></tr>
+    <tr><td>Long-Con Radar</td><td>$60–85K</td><td>10–12 wk</td><td>P1</td></tr>
+    <tr><td>VerifyCA</td><td>$45–65K</td><td>6–8 wk</td><td>P1</td></tr>
+    <tr><td>Voice Lock</td><td>$40–60K</td><td>7–9 wk</td><td>P1</td></tr>
+    <tr><td>Zero-Day Signals · Passkey · Scam Drill · Briefing</td><td>$125–195K</td><td>—</td><td>P1</td></tr>
+    <tr><td>Recovery Line (setup)</td><td>$30K + $15–30K/mo</td><td>by mo 12–15</td><td>P1</td></tr>
+    <tr><td>KinShield SDK (to pilot)</td><td>$140–200K</td><td>16–20 wk</td><td>P1→P2</td></tr>
+    <tr><td>Honeypot · Insurance · Meeting Assist · Wire Guard</td><td>$320–490K</td><td>—</td><td>P2</td></tr>
+  </table>
+  <h3>9.2 Phase roll-up &amp; funding</h3>
+  <table>
+    <tr><th>Phase</th><th>Build cost</th><th>Funding</th><th>Time</th></tr>
+    <tr><td>Stage 0 · Validate</td><td>—</td><td>$8–18K</td><td>0–3 mo</td></tr>
+    <tr><td>Stage 1 · MVP (P0)</td><td>$445–650K full / $250–350K bootstrap cut</td><td>$90–160K bootstrap / $250–350K pre-seed (SAFEs)</td><td>3–9 mo</td></tr>
+    <tr><td>Stage 2 · Seed &amp; scale (P1)</td><td>$840K–1.23M + Recovery opex</td><td>$1.5–2.5M seed (cap $8–14M)</td><td>9–24 mo</td></tr>
+    <tr><td>Stage 3 · Series A (P2)</td><td>$420–620K + partnerships</td><td>$8–15M Series A</td><td>yr 2–4</td></tr>
+    <tr><th>Total to full catalogue</th><th class="accent">≈$1.7–2.5M over ~3 yrs</th><td colspan="2" class="small muted">SR&ED returns ~⅓ of eligible R&D; inside the seed+A envelope</td></tr>
+  </table>
+  <h3>9.3 Pricing &amp; revenue logic</h3>
+  <table>
+    <tr><th>Tier</th><th>Price (CAD)</th><th>Role</th></tr>
+    <tr><td>Free</td><td>$0</td><td>Distribution + network data (SMS Shield, basic checks, Incident self-serve)</td></tr>
+    <tr><td>Family</td><td>$9.99/mo</td><td>The wedge — bought by adult children (Circle, Line, Crisis Vault, Long-Con, Vault)</td></tr>
+    <tr><td>Premium</td><td>$19.99/mo</td><td>Margin tier (Recovery Line, Wire Guard, Voice Lock, Insurance)</td></tr>
+    <tr><td>Enterprise SDK</td><td>$50–250K/yr + usage</td><td>The institutional revenue engine (Trust API, C-15 kit, intel feed, FCAC pipeline)</td></tr>
+  </table>
+</div>
+
+<!-- ============ 10 ROADMAP ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 10</span><h2>The phased roadmap — step by step</h2></div>
+  <p class="small muted">Each stage has an entry condition, a budget, a task list, and an <b>exit gate</b>. Do not start a stage until the previous gate is passed — the gates stop you spending Stage-2 money on a Stage-0 idea.</p>
+
+  <div class="card">
+    <h4>Stage 0 — Validate <span class="muted small">(0–3 mo · $8–18K)</span></h4>
+    <p class="small"><b>Steps:</b> clear the name (CIPO + domains + collisions); incorporate federally + founder IP assignment; <b>100 discovery interviews</b> (25 seniors, 25 adult children, 25 newcomers, 15 victims, 10 bank/CU risk staff); landing page + waitlist per language with $1–2K ads; a <b>concierge "no-code" MVP</b> (you manually check suspicious texts for 50 families for 4 weeks — builds the first labeled corpus by hand); one settlement-agency/seniors-org LOI; 2–3h with a privacy/fintech lawyer; apply for IRAP/SR&ED/Mitacs.</p>
+    <p class="small"><b>Challenge → resolution:</b> a deck feels like progress while proving nothing → force the concierge test &amp; interviews; if &lt;15% call the problem serious or the concierge test doesn't get repeat sends, <b>pivot the wedge for $5K</b>, don't build.</p>
+    <p class="small"><b>Exit gate:</b> ≥1,500 waitlist · 1 LOI · concierge users send suspicious content more than once · name cleared.</p>
+  </div>
+
+  <div class="card">
+    <h4>Stage 1 — MVP <span class="muted small">(3–9 mo · $90–350K)</span></h4>
+    <p class="small"><b>Scope (zero app-store risk):</b> SMS/RCS Shield, Link &amp; QR, Ask KinShield, Trust Score v1 (4 languages), Family Circle + Senior Mode, Incident Mode, Community reporting. <b>No</b> Line, insurance, or SDK yet — those need the seed.</p>
+    <p class="small"><b>Team (hybrid):</b> founder + 1 senior mobile contractor + 1 ML contractor + paid community validators.</p>
+    <p class="small"><b>Challenge → resolution:</b> native message/call hooks &amp; the first ML model are the two hard, narrow pieces → hire specialist contractors only for those; App Store/Play review for the SMS extension → prepare the sensitive-permission declaration + demo video early (month 3); Apple Live Caller ID entitlement queue → file in week one.</p>
+    <p class="small"><b>Exit gate:</b> 10K installs · 500+ paying households (~$60K ARR) · D30 retention ≥25% · one documented, consented "money saved" story · partnership-sourced CAC &lt;$20.</p>
+  </div>
+
+  <div class="card">
+    <h4>Stage 2 — Seed &amp; scale <span class="muted small">(9–24 mo · $1.5–2.5M)</span></h4>
+    <p class="small"><b>Ships, in order:</b> call layers (Caller Intel, Assist, voicemail) + Exposure Sweep → the KinShield Line (limited→GA) + VerifyCA + Check Before You Send → Voice Lock (Quebec after CAI) + Crisis Vault + <b>SDK pilot #1 with a credit union</b> → Wire Guard + languages 9–12 + SDK pilot #2 + honeypot legal review + insurance-partner negotiations begin. Hire (in order): senior backend/telephony, ML, mobile, head of community partnerships, part-time compliance, 2 recovery staff.</p>
+    <p class="small"><b>Challenge → resolution:</b> telephony cost &amp; reliability → dual-CPaaS, minute budgets, paid-tier gating; SOC 2 is a sales prerequisite → start Type I in month 9; insurance underwriting is a 12-month pole → begin negotiations in P1.</p>
+    <p class="small"><b>Exit gate:</b> $1M+ ARR · 2 SDK pilots signed · churn &lt;3.5%/mo · SOC 2 Type I.</p>
+  </div>
+
+  <div class="card">
+    <h4>Stage 3 — Series A &amp; category <span class="muted small">(yr 2–4 · $8–15M)</span></h4>
+    <p class="small"><b>Goal:</b> bank SDK revenue, the insurance benefit live, market leadership. Honeypot &amp; Meeting Assist ship; SDK goes multi-tenant production; Big-5 / credit-union-central conversations on the back of SOC 2 Type II + live references.</p>
+    <p class="small"><b>Challenge → resolution:</b> enterprise procurement &amp; security review → the compliance artifact pack built as P1/P2 collateral; scaling the human Recovery Line → train-the-trainer + multilingual partner network.</p>
+    <p class="small"><b>Exit gate:</b> $5–10M ARR · a Big-5 or credit-union-central deal · path to profitability.</p>
+  </div>
+</div>
+
+<!-- ============ 11 FORGOTTEN ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 11</span><h2>What founders forget — added here</h2></div>
+  <table>
+    <tr><th>Often forgotten</th><th>Why it matters / what to do</th></tr>
+    <tr><td>Native extension review lead time</td><td>SMS Filter, Call Directory &amp; Live Caller ID are separate iOS targets with their own review + entitlements — file in week one, not at launch</td></tr>
+    <tr><td>Content operations</td><td>Incident playbooks, bank phone scripts &amp; registry lists rot — budget a content-ops function, not just engineering</td></tr>
+    <tr><td>Abuse &amp; cost controls on the Line</td><td>A single abused account can blow the telephony budget — minute caps, rate limits, fraud-on-the-fraud-tool monitoring from day one</td></tr>
+    <tr><td>Accessibility as acceptance criterion</td><td>"If it doesn't work for a 78-year-old in Punjabi, it isn't done" — Senior Mode is a gate on every feature, validated in paid usability studies</td></tr>
+    <tr><td>Data poisoning &amp; model drift</td><td>Contributor karma + human review at ingestion; drift monitoring + per-language calibration curves</td></tr>
+    <tr><td>Coercive-control / consent edge cases</td><td>Family monitoring can be abused — explicit consent ceremonies, transparency to the protected member, no covert mode</td></tr>
+    <tr><td>Support &amp; recovery as a real org</td><td>Trauma-informed, multilingual, QA'd — a hiring &amp; training pipeline, not a ticket queue; it's also the source of the brand's stories</td></tr>
+    <tr><td>Unit economics per cohort</td><td>Track infra-per-paying-household ($1–4 at scale) and Line-minute cost per cohort, not just blended margin</td></tr>
+    <tr><td>Trademark, entity, cap table hygiene</td><td>CIPO/NUANS clearance, federal incorporation, founder IP assignment &amp; SAFEs done cleanly before any marketing</td></tr>
+    <tr><td>Non-dilutive capital</td><td>SR&ED (~35% of eligible R&D back) and IRAP can mean the difference between 6 and 10 months of runway — file from the first line of R&D code</td></tr>
+    <tr><td>Deepfake-detector limits (don't oversell)</td><td>Detectors generalize poorly to unseen synthesis — rely on multi-signal fusion + procedural guardrails (Wire Guard), and say so</td></tr>
+    <tr><td>Crisis safeguarding &amp; minors</td><td>Sextortion flows touch minors and mental health — partner review and safeguarding sign-off are mandatory gates, not nice-to-haves</td></tr>
+  </table>
+</div>
+
+<!-- ============ 12 KPIs ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 12</span><h2>The numbers that matter — KPIs by stage</h2></div>
+  <table>
+    <tr><th>Stage</th><th>Primary KPIs</th><th>Target</th></tr>
+    <tr><td>0 · Validate</td><td>Waitlist; LOIs; concierge repeat-send rate; problem-severity %</td><td>1,500 / 1 / repeat &gt;1 / ≥15%</td></tr>
+    <tr><td>1 · MVP</td><td>Installs; paying households; D30 retention; documented saves; CAC</td><td>10K / 500+ / ≥25% / ≥1 / &lt;$20</td></tr>
+    <tr><td>2 · Scale</td><td>ARR; SDK pilots; monthly churn; SOC 2; languages live; Line minutes/user</td><td>$1M+ / 2 / &lt;3.5% / Type I / 8–12 / controlled</td></tr>
+    <tr><td>3 · Category</td><td>ARR; institutional deal; gross margin; calibration precision/recall (published)</td><td>$5–10M / 1 Big-5 or CU-central / 75–85% / published quarterly</td></tr>
+  </table>
+  <div class="callout small">Calibrated honesty means one of the headline KPIs is <b>published accuracy with its failures</b> — precision,
+  recall, F1 and the misses, dated, per language. It is computed live in the product today (the Calibration page).</div>
+</div>
+
+<!-- ============ 13 CLAIMS DISCIPLINE ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">PART 13</span><h2>Claims discipline &amp; ethics — the moat that costs nothing</h2></div>
+  <p>The permanent rules — the integrity standard that is itself a competitive weapon:</p>
+  <ul>
+    <li>Never publish an accuracy number without the benchmark, the date and the failure cases beside it.</li>
+    <li>Never imply protection on a channel the OS doesn't permit (the Line screens what's routed to it; Assist helps when invoked — and the marketing says exactly that).</li>
+    <li>Never attribute a breach or failure to a competitor without primary-source verification.</li>
+    <li>Never promise insurance outcomes — "designed to be fast", never "instant" or "no proof of loss".</li>
+    <li>Never use invented pilot data; never collect what the personal plane cannot protect; never ship a language whose detection quality isn't validated by paid native speakers.</li>
+  </ul>
+  <div class="callout gold">In a market built on "96%" and "99.2%", the company that publishes its calibration curves —
+  misses included — becomes the one journalists cite, regulators trust, banks shortlist, and families recommend. That is the
+  genius this product runs on: not more claims than the giants, but claims that are <b>true</b>.</div>
+</div>
+
+<!-- ============ APPENDIX ============ -->
+<div class="part">
+  <div class="parthead"><span class="num">APPENDIX</span><h2>What exists today &amp; how to run it</h2></div>
+  <h3>A.1 Repository</h3>
+  <table>
+    <tr><th>Path</th><th>What</th></tr>
+    <tr><td><b>mobile/</b></td><td>Native iPhone app (Expo SDK 54, React Native) — runs in Expo Go; the flagship surface</td></tr>
+    <tr><td>mobile/lib/trust-engine</td><td>The on-device Trust Engine (shared, pure TypeScript)</td></tr>
+    <tr><td>src/ (repo root)</td><td>Next.js web app / PWA sharing the same engine</td></tr>
+    <tr><td>src/lib/trust-engine</td><td>Engine source of truth + 25 unit tests + live calibration harness</td></tr>
+  </table>
+  <h3>A.2 Run it</h3>
+  <p class="small"><b>iPhone (Expo Go):</b> <code>cd mobile &amp;&amp; npm install &amp;&amp; npx expo start</code> → scan the QR with the iPhone Camera (same Wi-Fi). See <code>mobile/HOW-TO-RUN-IPHONE.md</code>.<br>
+  <b>Standalone build (EAS):</b> <code>eas build --profile preview --platform ios</code>. See <code>mobile/BUILD-STANDALONE.md</code>.<br>
+  <b>Web:</b> <code>npm install &amp;&amp; npm run dev</code> → localhost:3000. See <code>HOW-TO-RUN.md</code>.</p>
+  <h3>A.3 The path to a real, shipping app — the native extensions to add on the EAS build</h3>
+  <table>
+    <tr><th>Capability</th><th>iOS</th><th>Android</th></tr>
+    <tr><td>Smishing defence</td><td>ILMessageFilterExtension (unknown senders)</td><td>Default-SMS / spam role + Permissions Declaration</td></tr>
+    <tr><td>Caller defence (pre-ring)</td><td>Call Directory + Live Caller ID Lookup</td><td>Caller-ID &amp; spam role; CallScreeningService</td></tr>
+    <tr><td>Call screening (the Line)</td><td colspan="2">Network layer — CPaaS conditional call-forwarding (handset-independent)</td></tr>
+    <tr><td>Live call coaching</td><td colspan="2">Assist Mode via microphone, on-device (one-party consent)</td></tr>
+  </table>
+  <div class="callout small"><b>The summary.</b> Apple/Android don't forbid the outcomes — they channel them through sanctioned
+  APIs (unknown-sender SMS filtering, Call Directory/Live Caller ID) and, for the hardest part, you move screening to the
+  network layer where you're allowed. Every KinShield capability has a legitimate, approvable path; the value was never
+  privileged device access — it's judgment, family, Canadian + multilingual context, and recovery.</div>
+  <div style="margin-top:18px;text-align:center" class="small muted">KinShield · Master Build &amp; Business Document · June 2026 · Confidential<br>Built in Canada · data resident in ca-central-1</div>
+</div>
+
+</body>
+</html>

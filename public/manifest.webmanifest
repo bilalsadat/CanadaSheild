@@ -1,0 +1,22 @@
+{
+  "name": "VraiShield — Fraud Defence",
+  "short_name": "VraiShield",
+  "description": "One Trust Score behind every channel. Fraud defence for every Canadian family.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1430",
+  "theme_color": "#0a1430",
+  "categories": ["security", "utilities", "lifestyle"],
+  "icons": [
+    { "src": "/icon.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Ask VraiShield", "url": "/", "description": "Check a suspicious message" },
+    { "name": "Live Threat Map", "url": "/map" },
+    { "name": "Incident Mode", "url": "/incident" }
+  ]
+}
